@@ -1,0 +1,12 @@
+#N canvas 339 332 450 300 10;
+#X obj 86 194 dac~;
+#X msg 12 26 open ../samples/the_lord_has_spoken.wav;
+#X obj 86 128 readsf~ 2;
+#X msg 87 58 start;
+#X msg 282 25 stop;
+#X connect 1 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 0 0;
+#X connect 2 1 0 1;
+#X connect 3 0 2 0;
+#X connect 4 0 2 0;

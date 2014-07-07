@@ -1,0 +1,5 @@
+#N canvas 407 308 450 300 10;
+#X obj 171 132 orz_test;
+#X obj 169 47 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X connect 1 0 0 0;
