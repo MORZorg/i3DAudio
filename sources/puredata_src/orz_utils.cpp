@@ -1,5 +1,4 @@
-#include "orz_utils.h"
-#include <stdio.h>
+#include "orz_utils.hpp"
 
 /* Private functions */
 
