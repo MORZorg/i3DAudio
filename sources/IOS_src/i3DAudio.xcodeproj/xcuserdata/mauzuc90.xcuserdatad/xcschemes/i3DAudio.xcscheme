@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0600"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C20F2A78191EB7610035E24E"
+               BlueprintIdentifier = "C2B6A24019729ABD00643E96"
                BuildableName = "i3DAudio.app"
                BlueprintName = "i3DAudio"
                ReferencedContainer = "container:i3DAudio.xcodeproj">
@@ -32,7 +32,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C20F2A99191EB7610035E24E"
+               BlueprintIdentifier = "C2B6A25619729ABE00643E96"
                BuildableName = "i3DAudioTests.xctest"
                BlueprintName = "i3DAudioTests"
                ReferencedContainer = "container:i3DAudio.xcodeproj">
@@ -42,7 +42,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C20F2A78191EB7610035E24E"
+            BlueprintIdentifier = "C2B6A24019729ABD00643E96"
             BuildableName = "i3DAudio.app"
             BlueprintName = "i3DAudio"
             ReferencedContainer = "container:i3DAudio.xcodeproj">
@@ -61,7 +61,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C20F2A78191EB7610035E24E"
+            BlueprintIdentifier = "C2B6A24019729ABD00643E96"
             BuildableName = "i3DAudio.app"
             BlueprintName = "i3DAudio"
             ReferencedContainer = "container:i3DAudio.xcodeproj">
@@ -79,7 +79,7 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C20F2A78191EB7610035E24E"
+            BlueprintIdentifier = "C2B6A24019729ABD00643E96"
             BuildableName = "i3DAudio.app"
             BlueprintName = "i3DAudio"
             ReferencedContainer = "container:i3DAudio.xcodeproj">

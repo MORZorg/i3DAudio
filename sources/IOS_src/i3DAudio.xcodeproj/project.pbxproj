@@ -7,147 +7,110 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C20F2A7D191EB7610035E24E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20F2A7C191EB7610035E24E /* Foundation.framework */; };
-		C20F2A7F191EB7610035E24E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20F2A7E191EB7610035E24E /* CoreGraphics.framework */; };
-		C20F2A81191EB7610035E24E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20F2A80191EB7610035E24E /* UIKit.framework */; };
-		C20F2A87191EB7610035E24E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C20F2A85191EB7610035E24E /* InfoPlist.strings */; };
-		C20F2A89191EB7610035E24E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F2A88191EB7610035E24E /* main.m */; };
-		C20F2A8D191EB7610035E24E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F2A8C191EB7610035E24E /* AppDelegate.m */; };
-		C20F2A90191EB7610035E24E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C20F2A8E191EB7610035E24E /* Main.storyboard */; };
-		C20F2A93191EB7610035E24E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F2A92191EB7610035E24E /* ViewController.m */; };
-		C20F2A95191EB7610035E24E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C20F2A94191EB7610035E24E /* Images.xcassets */; };
-		C20F2A9C191EB7610035E24E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20F2A9B191EB7610035E24E /* XCTest.framework */; };
-		C20F2A9D191EB7610035E24E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20F2A7C191EB7610035E24E /* Foundation.framework */; };
-		C20F2A9E191EB7610035E24E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C20F2A80191EB7610035E24E /* UIKit.framework */; };
-		C20F2AA6191EB7610035E24E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C20F2AA4191EB7610035E24E /* InfoPlist.strings */; };
-		C20F2AA8191EB7610035E24E /* i3DAudioTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C20F2AA7191EB7610035E24E /* i3DAudioTests.m */; };
+		C2B6A24719729ABD00643E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24619729ABD00643E96 /* AppDelegate.swift */; };
+		C2B6A24919729ABD00643E96 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C2B6A24819729ABD00643E96 /* GameScene.sks */; };
+		C2B6A24B19729ABD00643E96 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24A19729ABD00643E96 /* GameScene.swift */; };
+		C2B6A24D19729ABD00643E96 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24C19729ABD00643E96 /* GameViewController.swift */; };
+		C2B6A25019729ABD00643E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2B6A24E19729ABD00643E96 /* Main.storyboard */; };
+		C2B6A25219729ABD00643E96 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C2B6A25119729ABD00643E96 /* Images.xcassets */; };
+		C2B6A25E19729ABE00643E96 /* i3DAudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A25D19729ABE00643E96 /* i3DAudioTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C20F2A9F191EB7610035E24E /* PBXContainerItemProxy */ = {
+		C2B6A25819729ABE00643E96 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = C20F2A71191EB7610035E24E /* Project object */;
+			containerPortal = C2B6A23919729ABD00643E96 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = C20F2A78191EB7610035E24E;
+			remoteGlobalIDString = C2B6A24019729ABD00643E96;
 			remoteInfo = i3DAudio;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C20F2A79191EB7610035E24E /* i3DAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i3DAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C20F2A7C191EB7610035E24E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		C20F2A7E191EB7610035E24E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		C20F2A80191EB7610035E24E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		C20F2A84191EB7610035E24E /* i3DAudio-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "i3DAudio-Info.plist"; sourceTree = "<group>"; };
-		C20F2A86191EB7610035E24E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C20F2A88191EB7610035E24E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C20F2A8A191EB7610035E24E /* i3DAudio-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "i3DAudio-Prefix.pch"; sourceTree = "<group>"; };
-		C20F2A8B191EB7610035E24E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C20F2A8C191EB7610035E24E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C20F2A8F191EB7610035E24E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C20F2A91191EB7610035E24E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C20F2A92191EB7610035E24E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C20F2A94191EB7610035E24E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C20F2A9A191EB7610035E24E /* i3DAudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = i3DAudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C20F2A9B191EB7610035E24E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C20F2AA3191EB7610035E24E /* i3DAudioTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "i3DAudioTests-Info.plist"; sourceTree = "<group>"; };
-		C20F2AA5191EB7610035E24E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C20F2AA7191EB7610035E24E /* i3DAudioTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = i3DAudioTests.m; sourceTree = "<group>"; };
+		C2B6A24119729ABD00643E96 /* i3DAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i3DAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B6A24519729ABD00643E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2B6A24619729ABD00643E96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C2B6A24819729ABD00643E96 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		C2B6A24A19729ABD00643E96 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		C2B6A24C19729ABD00643E96 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		C2B6A24F19729ABD00643E96 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C2B6A25119729ABD00643E96 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C2B6A25719729ABE00643E96 /* i3DAudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = i3DAudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2B6A25C19729ABE00643E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C2B6A25D19729ABE00643E96 /* i3DAudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = i3DAudioTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		C20F2A76191EB7610035E24E /* Frameworks */ = {
+		C2B6A23E19729ABD00643E96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20F2A7F191EB7610035E24E /* CoreGraphics.framework in Frameworks */,
-				C20F2A81191EB7610035E24E /* UIKit.framework in Frameworks */,
-				C20F2A7D191EB7610035E24E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C20F2A97191EB7610035E24E /* Frameworks */ = {
+		C2B6A25419729ABE00643E96 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20F2A9C191EB7610035E24E /* XCTest.framework in Frameworks */,
-				C20F2A9E191EB7610035E24E /* UIKit.framework in Frameworks */,
-				C20F2A9D191EB7610035E24E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C20F2A70191EB7610035E24E = {
+		C2B6A23819729ABD00643E96 = {
 			isa = PBXGroup;
 			children = (
-				C20F2A82191EB7610035E24E /* i3DAudio */,
-				C20F2AA1191EB7610035E24E /* i3DAudioTests */,
-				C20F2A7B191EB7610035E24E /* Frameworks */,
-				C20F2A7A191EB7610035E24E /* Products */,
+				C2B6A24319729ABD00643E96 /* i3DAudio */,
+				C2B6A25A19729ABE00643E96 /* i3DAudioTests */,
+				C2B6A24219729ABD00643E96 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		C20F2A7A191EB7610035E24E /* Products */ = {
+		C2B6A24219729ABD00643E96 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C20F2A79191EB7610035E24E /* i3DAudio.app */,
-				C20F2A9A191EB7610035E24E /* i3DAudioTests.xctest */,
+				C2B6A24119729ABD00643E96 /* i3DAudio.app */,
+				C2B6A25719729ABE00643E96 /* i3DAudioTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C20F2A7B191EB7610035E24E /* Frameworks */ = {
+		C2B6A24319729ABD00643E96 /* i3DAudio */ = {
 			isa = PBXGroup;
 			children = (
-				C20F2A7C191EB7610035E24E /* Foundation.framework */,
-				C20F2A7E191EB7610035E24E /* CoreGraphics.framework */,
-				C20F2A80191EB7610035E24E /* UIKit.framework */,
-				C20F2A9B191EB7610035E24E /* XCTest.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C20F2A82191EB7610035E24E /* i3DAudio */ = {
-			isa = PBXGroup;
-			children = (
-				C20F2A8B191EB7610035E24E /* AppDelegate.h */,
-				C20F2A8C191EB7610035E24E /* AppDelegate.m */,
-				C20F2A8E191EB7610035E24E /* Main.storyboard */,
-				C20F2A91191EB7610035E24E /* ViewController.h */,
-				C20F2A92191EB7610035E24E /* ViewController.m */,
-				C20F2A94191EB7610035E24E /* Images.xcassets */,
-				C20F2A83191EB7610035E24E /* Supporting Files */,
+				C2B6A24619729ABD00643E96 /* AppDelegate.swift */,
+				C2B6A24819729ABD00643E96 /* GameScene.sks */,
+				C2B6A24A19729ABD00643E96 /* GameScene.swift */,
+				C2B6A24C19729ABD00643E96 /* GameViewController.swift */,
+				C2B6A24E19729ABD00643E96 /* Main.storyboard */,
+				C2B6A25119729ABD00643E96 /* Images.xcassets */,
+				C2B6A24419729ABD00643E96 /* Supporting Files */,
 			);
 			path = i3DAudio;
 			sourceTree = "<group>";
 		};
-		C20F2A83191EB7610035E24E /* Supporting Files */ = {
+		C2B6A24419729ABD00643E96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C20F2A84191EB7610035E24E /* i3DAudio-Info.plist */,
-				C20F2A85191EB7610035E24E /* InfoPlist.strings */,
-				C20F2A88191EB7610035E24E /* main.m */,
-				C20F2A8A191EB7610035E24E /* i3DAudio-Prefix.pch */,
+				C2B6A24519729ABD00643E96 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		C20F2AA1191EB7610035E24E /* i3DAudioTests */ = {
+		C2B6A25A19729ABE00643E96 /* i3DAudioTests */ = {
 			isa = PBXGroup;
 			children = (
-				C20F2AA7191EB7610035E24E /* i3DAudioTests.m */,
-				C20F2AA2191EB7610035E24E /* Supporting Files */,
+				C2B6A25D19729ABE00643E96 /* i3DAudioTests.swift */,
+				C2B6A25B19729ABE00643E96 /* Supporting Files */,
 			);
 			path = i3DAudioTests;
 			sourceTree = "<group>";
 		};
-		C20F2AA2191EB7610035E24E /* Supporting Files */ = {
+		C2B6A25B19729ABE00643E96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C20F2AA3191EB7610035E24E /* i3DAudioTests-Info.plist */,
-				C20F2AA4191EB7610035E24E /* InfoPlist.strings */,
+				C2B6A25C19729ABE00643E96 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -155,13 +118,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C20F2A78191EB7610035E24E /* i3DAudio */ = {
+		C2B6A24019729ABD00643E96 /* i3DAudio */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C20F2AAB191EB7610035E24E /* Build configuration list for PBXNativeTarget "i3DAudio" */;
+			buildConfigurationList = C2B6A26119729ABE00643E96 /* Build configuration list for PBXNativeTarget "i3DAudio" */;
 			buildPhases = (
-				C20F2A75191EB7610035E24E /* Sources */,
-				C20F2A76191EB7610035E24E /* Frameworks */,
-				C20F2A77191EB7610035E24E /* Resources */,
+				C2B6A23D19729ABD00643E96 /* Sources */,
+				C2B6A23E19729ABD00643E96 /* Frameworks */,
+				C2B6A23F19729ABD00643E96 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -169,42 +132,46 @@
 			);
 			name = i3DAudio;
 			productName = i3DAudio;
-			productReference = C20F2A79191EB7610035E24E /* i3DAudio.app */;
+			productReference = C2B6A24119729ABD00643E96 /* i3DAudio.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C20F2A99191EB7610035E24E /* i3DAudioTests */ = {
+		C2B6A25619729ABE00643E96 /* i3DAudioTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C20F2AAE191EB7610035E24E /* Build configuration list for PBXNativeTarget "i3DAudioTests" */;
+			buildConfigurationList = C2B6A26419729ABE00643E96 /* Build configuration list for PBXNativeTarget "i3DAudioTests" */;
 			buildPhases = (
-				C20F2A96191EB7610035E24E /* Sources */,
-				C20F2A97191EB7610035E24E /* Frameworks */,
-				C20F2A98191EB7610035E24E /* Resources */,
+				C2B6A25319729ABE00643E96 /* Sources */,
+				C2B6A25419729ABE00643E96 /* Frameworks */,
+				C2B6A25519729ABE00643E96 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				C20F2AA0191EB7610035E24E /* PBXTargetDependency */,
+				C2B6A25919729ABE00643E96 /* PBXTargetDependency */,
 			);
 			name = i3DAudioTests;
 			productName = i3DAudioTests;
-			productReference = C20F2A9A191EB7610035E24E /* i3DAudioTests.xctest */;
+			productReference = C2B6A25719729ABE00643E96 /* i3DAudioTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		C20F2A71191EB7610035E24E /* Project object */ = {
+		C2B6A23919729ABD00643E96 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = MORZorg;
 				TargetAttributes = {
-					C20F2A99191EB7610035E24E = {
-						TestTargetID = C20F2A78191EB7610035E24E;
+					C2B6A24019729ABD00643E96 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					C2B6A25619729ABE00643E96 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = C2B6A24019729ABD00643E96;
 					};
 				};
 			};
-			buildConfigurationList = C20F2A74191EB7610035E24E /* Build configuration list for PBXProject "i3DAudio" */;
+			buildConfigurationList = C2B6A23C19729ABD00643E96 /* Build configuration list for PBXProject "i3DAudio" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -212,96 +179,79 @@
 				en,
 				Base,
 			);
-			mainGroup = C20F2A70191EB7610035E24E;
-			productRefGroup = C20F2A7A191EB7610035E24E /* Products */;
+			mainGroup = C2B6A23819729ABD00643E96;
+			productRefGroup = C2B6A24219729ABD00643E96 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C20F2A78191EB7610035E24E /* i3DAudio */,
-				C20F2A99191EB7610035E24E /* i3DAudioTests */,
+				C2B6A24019729ABD00643E96 /* i3DAudio */,
+				C2B6A25619729ABE00643E96 /* i3DAudioTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		C20F2A77191EB7610035E24E /* Resources */ = {
+		C2B6A23F19729ABD00643E96 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20F2A95191EB7610035E24E /* Images.xcassets in Resources */,
-				C20F2A87191EB7610035E24E /* InfoPlist.strings in Resources */,
-				C20F2A90191EB7610035E24E /* Main.storyboard in Resources */,
+				C2B6A25219729ABD00643E96 /* Images.xcassets in Resources */,
+				C2B6A24919729ABD00643E96 /* GameScene.sks in Resources */,
+				C2B6A25019729ABD00643E96 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C20F2A98191EB7610035E24E /* Resources */ = {
+		C2B6A25519729ABE00643E96 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20F2AA6191EB7610035E24E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		C20F2A75191EB7610035E24E /* Sources */ = {
+		C2B6A23D19729ABD00643E96 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20F2A93191EB7610035E24E /* ViewController.m in Sources */,
-				C20F2A8D191EB7610035E24E /* AppDelegate.m in Sources */,
-				C20F2A89191EB7610035E24E /* main.m in Sources */,
+				C2B6A24B19729ABD00643E96 /* GameScene.swift in Sources */,
+				C2B6A24D19729ABD00643E96 /* GameViewController.swift in Sources */,
+				C2B6A24719729ABD00643E96 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C20F2A96191EB7610035E24E /* Sources */ = {
+		C2B6A25319729ABE00643E96 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C20F2AA8191EB7610035E24E /* i3DAudioTests.m in Sources */,
+				C2B6A25E19729ABE00643E96 /* i3DAudioTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		C20F2AA0191EB7610035E24E /* PBXTargetDependency */ = {
+		C2B6A25919729ABE00643E96 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C20F2A78191EB7610035E24E /* i3DAudio */;
-			targetProxy = C20F2A9F191EB7610035E24E /* PBXContainerItemProxy */;
+			target = C2B6A24019729ABD00643E96 /* i3DAudio */;
+			targetProxy = C2B6A25819729ABE00643E96 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C20F2A85191EB7610035E24E /* InfoPlist.strings */ = {
+		C2B6A24E19729ABD00643E96 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C20F2A86191EB7610035E24E /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		C20F2A8E191EB7610035E24E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C20F2A8F191EB7610035E24E /* Base */,
+				C2B6A24F19729ABD00643E96 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C20F2AA4191EB7610035E24E /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C20F2AA5191EB7610035E24E /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		C20F2AA9191EB7610035E24E /* Debug */ = {
+		C2B6A25F19729ABE00643E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -316,9 +266,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -333,14 +285,16 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
-		C20F2AAA191EB7610035E24E /* Release */ = {
+		C2B6A26019729ABE00643E96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -355,10 +309,12 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -366,108 +322,99 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		C20F2AAC191EB7610035E24E /* Debug */ = {
+		C2B6A26219729ABE00643E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "i3DAudio/i3DAudio-Prefix.pch";
-				INFOPLIST_FILE = "i3DAudio/i3DAudio-Info.plist";
+				INFOPLIST_FILE = i3DAudio/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		C20F2AAD191EB7610035E24E /* Release */ = {
+		C2B6A26319729ABE00643E96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "i3DAudio/i3DAudio-Prefix.pch";
-				INFOPLIST_FILE = "i3DAudio/i3DAudio-Info.plist";
+				INFOPLIST_FILE = i3DAudio/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
-		C20F2AAF191EB7610035E24E /* Debug */ = {
+		C2B6A26519729ABE00643E96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/i3DAudio.app/i3DAudio";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "i3DAudio/i3DAudio-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "i3DAudioTests/i3DAudioTests-Info.plist";
+				INFOPLIST_FILE = i3DAudioTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
-		C20F2AB0191EB7610035E24E /* Release */ = {
+		C2B6A26619729ABE00643E96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/i3DAudio.app/i3DAudio";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "i3DAudio/i3DAudio-Prefix.pch";
-				INFOPLIST_FILE = "i3DAudioTests/i3DAudioTests-Info.plist";
+				INFOPLIST_FILE = i3DAudioTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C20F2A74191EB7610035E24E /* Build configuration list for PBXProject "i3DAudio" */ = {
+		C2B6A23C19729ABD00643E96 /* Build configuration list for PBXProject "i3DAudio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C20F2AA9191EB7610035E24E /* Debug */,
-				C20F2AAA191EB7610035E24E /* Release */,
+				C2B6A25F19729ABE00643E96 /* Debug */,
+				C2B6A26019729ABE00643E96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C20F2AAB191EB7610035E24E /* Build configuration list for PBXNativeTarget "i3DAudio" */ = {
+		C2B6A26119729ABE00643E96 /* Build configuration list for PBXNativeTarget "i3DAudio" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C20F2AAC191EB7610035E24E /* Debug */,
-				C20F2AAD191EB7610035E24E /* Release */,
+				C2B6A26219729ABE00643E96 /* Debug */,
+				C2B6A26319729ABE00643E96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
-		C20F2AAE191EB7610035E24E /* Build configuration list for PBXNativeTarget "i3DAudioTests" */ = {
+		C2B6A26419729ABE00643E96 /* Build configuration list for PBXNativeTarget "i3DAudioTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				C20F2AAF191EB7610035E24E /* Debug */,
-				C20F2AB0191EB7610035E24E /* Release */,
+				C2B6A26519729ABE00643E96 /* Debug */,
+				C2B6A26619729ABE00643E96 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = C20F2A71191EB7610035E24E /* Project object */;
+	rootObject = C2B6A23919729ABD00643E96 /* Project object */;
 }
