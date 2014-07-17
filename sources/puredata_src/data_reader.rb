@@ -55,12 +55,12 @@ class DataReader
             file.write(" ")
           end
 
-          file.write("%+f" % value)
+          file.write("%+f," % value)
 
           if j%8 == 7
             file.write("\n")
-          else
-            file.write(",")
+          # else
+          #   file.write(",")
           end
         end
 
@@ -73,12 +73,12 @@ class DataReader
             file.write(" ")
           end
 
-          file.write("%+f" % value)
+          file.write("%+f," % value)
 
           if j%8 == 7
             file.write("\n")
-          else
-            file.write(",")
+          # else
+          #   file.write(",")
           end
         end
 
