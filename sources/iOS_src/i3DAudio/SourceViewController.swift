@@ -18,18 +18,20 @@ extension SKNode {
         var archiver = NSKeyedUnarchiver(forReadingWithData: sceneData)
         
         archiver.setClass(self.classForKeyedUnarchiver(), forClassName: "SKScene")
-        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as GameScene
+        let scene = archiver.decodeObjectForKey(NSKeyedArchiveRootObjectKey) as SourceScene
         archiver.finishDecoding()
         return scene
     }
 }
 
-class GameViewController: UIViewController {
+class SourceViewController: UIViewController {
+    var shownPerspective: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let scene = GameScene.unarchiveFromFile("GameScene") as? GameScene {
+        if let scene = SourceScene.unarchiveFromFile("SourceScene") as? SourceScene {
+            scene.shownPerspective = shownPerspective
             // Configure the view.
             let skView = self.view as SKView
             skView.showsFPS = true

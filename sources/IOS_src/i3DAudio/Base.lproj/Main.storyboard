@@ -1,25 +1,92 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6162" systemVersion="14A238h" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6185.7" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bq5-cX-NpD">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6160"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <scenes>
-        <!--Game View Controller-->
-        <scene sceneID="tXr-a1-R10">
+        <!--View Controller-->
+        <scene sceneID="vsE-CG-coX">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="GameViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Bq5-cX-NpD" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="maK-i9-Uhn"/>
-                        <viewControllerLayoutGuide type="bottom" id="khH-OB-KpY"/>
+                        <viewControllerLayoutGuide type="top" id="t0T-gq-jkT"/>
+                        <viewControllerLayoutGuide type="bottom" id="s09-6I-7LU"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                    <view key="view" contentMode="scaleToFill" id="oeP-pz-X6y">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E33-Ya-ERe">
+                                <rect key="frame" x="0.0" y="244" width="480" height="236"/>
+                                <connections>
+                                    <segue destination="aU5-Vd-4mH" kind="embed" id="B5q-P2-a1z"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sUc-Eb-8T5">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="236"/>
+                                <connections>
+                                    <segue destination="BV1-FR-VrT" kind="embed" id="wpP-Xk-iTi"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="sUc-Eb-8T5" secondAttribute="trailing" id="0qO-Hl-bvB"/>
+                            <constraint firstItem="E33-Ya-ERe" firstAttribute="height" secondItem="sUc-Eb-8T5" secondAttribute="height" id="1gF-yp-uE5"/>
+                            <constraint firstItem="E33-Ya-ERe" firstAttribute="leading" secondItem="oeP-pz-X6y" secondAttribute="leading" id="8TN-bv-bNy"/>
+                            <constraint firstItem="sUc-Eb-8T5" firstAttribute="leading" secondItem="oeP-pz-X6y" secondAttribute="leading" id="EJw-Tf-VKG"/>
+                            <constraint firstAttribute="trailing" secondItem="E33-Ya-ERe" secondAttribute="trailing" id="WMF-UY-cjN"/>
+                            <constraint firstItem="sUc-Eb-8T5" firstAttribute="top" secondItem="oeP-pz-X6y" secondAttribute="top" id="YA1-Hx-RDy"/>
+                            <constraint firstItem="s09-6I-7LU" firstAttribute="top" secondItem="E33-Ya-ERe" secondAttribute="bottom" id="dcc-xO-ymy"/>
+                            <constraint firstItem="E33-Ya-ERe" firstAttribute="top" secondItem="sUc-Eb-8T5" secondAttribute="bottom" constant="8" id="q6r-LU-Muo"/>
+                        </constraints>
                     </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a8e-kO-Kdl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1713.9999999999998" y="-220.99999999999997"/>
+        </scene>
+        <!--Source View Controller-->
+        <scene sceneID="tXr-a1-R10">
+            <objects>
+                <viewController id="BV1-FR-VrT" customClass="SourceViewController" customModule="i3DAudio" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Mf-nq-mrQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="iBv-gh-DYP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="236"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="shownPerspective" value="side"/>
+                    </userDefinedRuntimeAttributes>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-1046.5" y="-343"/>
+        </scene>
+        <!--Source View Controller-->
+        <scene sceneID="FuU-X3-qkj">
+            <objects>
+                <viewController id="aU5-Vd-4mH" customClass="SourceViewController" customModule="i3DAudio" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TSG-hI-1Eu"/>
+                        <viewControllerLayoutGuide type="bottom" id="sG2-22-Byr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZdE-4R-ide" customClass="SKView">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="236"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="shownPerspective" value="front"/>
+                    </userDefinedRuntimeAttributes>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wa3-dd-8X1" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1042" y="-74"/>
         </scene>
     </scenes>
 </document>
