@@ -1,5 +1,7 @@
 #include "m_pd.h"
 #include "hrtf_triplet.hpp"
+#include <cmath>
+#include <algorithm>
 
 typedef struct _orz_hrtf_tilde
 {

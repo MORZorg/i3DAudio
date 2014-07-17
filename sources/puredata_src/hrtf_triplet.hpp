@@ -32,10 +32,13 @@ class Triplet
 		// as suggested in the paper.
 		// As result, the values must be ordered in descending order instead
 		// of ascending one
-		t_float calculate_distance( t_int* );
+		t_float calculate_distance( t_float* );
 		// Calculates the g coefficents, either positive or negative (the check must
 		// be performed on the returned value )
-		t_float* coefficients( t_int* );
+		t_float* coefficients( t_float* );
+
+		// Calculates the HRTF of the triplet, knowing the source
+		t_float** calculate_hrtf( t_float* );
 };
 
 #endif

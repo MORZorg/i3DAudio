@@ -69,7 +69,7 @@ static std::vector<Triplet> delaunay_triangulation()
 	return result;
 }
 
-t_float Triplet::calculate_distance( t_int source_coordinates[ 2 ] )
+t_float Triplet::calculate_distance( t_float source_coordinates[ 2 ] )
 {
 	t_float center[ 2 ] = { 0, 0 };
 	
@@ -85,7 +85,7 @@ t_float Triplet::calculate_distance( t_int source_coordinates[ 2 ] )
 	return distance;
 }
 
-t_float* Triplet::coefficients( t_int source_coordinates[ 2 ] )
+t_float* Triplet::coefficients( t_float source_coordinates[ 2 ] )
 {
 	if( !calculated_inverse )
 		calculate_H_inverse();
@@ -183,4 +183,22 @@ void Triplet::calculate_H_inverse()
 
 		calculated_inverse = true;
 	}
+}
+
+t_float** Triplet::calculate_hrtf( t_float source_coordinates[ 2 ] )
+{
+	// Creating and instantiating the result matrix
+	t_float** result = (t_float**) malloc( sizeof( t_float* ) * 2 );
+	for( int i = 0; i < 2; i++ )
+		result[ i ] = (t_float*) malloc( sizeof( t_float ) * 128 );
+		/* for( int j = 0; j < 128; j++ ) */
+		/* 	result[ i ][ j ] = 0; */
+
+	// Retrieving hrtf values from the indexes
+	for( int i = 0; i < 2; i++ )
+		for( int j = 0; j < 128; j++ )
+			for( int k = 0; k < 3; k++ )
+				result[ i ][ j ] += hrtf_impulses[ point_indexes[ k ] ][ i ][ j ];
+
+	return result;
 }

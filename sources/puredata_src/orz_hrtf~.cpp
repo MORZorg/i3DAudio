@@ -16,8 +16,38 @@ extern "C"
 		t_float* out_rx = (t_float*) w[3];
 		t_float* out_lx = (t_float*) w[4];
 		int blocksize = (int) w[5];
+		// FIXME: check order of azimuth and elevation
+		t_float source_position[] = { x->azimuth, x->elevation };
+		t_float* g_coefficients;
 
-		// Ordering the triplets and finding the best coefficents
+		// Ordering the triplets and finding the best coefficients
+		// Taking the 2% of triangles, in which we except to find the best triplet
+		int percentile_offset = (int) ceil( x->dt_triplets.size() * 0.02 );
+		std::nth_element( x->dt_triplets.begin(),
+						 x->dt_triplets.begin() + percentile_offset,
+						 x->dt_triplets.end(),
+						 [ &source_position ]( Triplet lhs, Triplet rhs ) -> bool
+						 {
+							return lhs.calculate_distance( source_position ) < rhs.calculate_distance( source_position );
+						 } );
+
+		// Cycling until i'll find the best coefficients, knowing that i'm looking in the
+		// most probable part first.
+		std::vector<Triplet>::iterator it;
+		for( it = x->dt_triplets.begin(); it < x->dt_triplets.end(); it++ )
+		{
+			// Calculating the distance
+			g_coefficients = it->coefficients( source_position );
+			if( g_coefficients[ 0 ] >= 0 && g_coefficients[ 1 ] >= 0 && g_coefficients[ 2 ] >= 0 )
+				break;
+		}
+
+		// I have my triplet
+		// Getting HRTF values of the triplet found
+		t_float** current_hrtf = it->calculate_hrtf( source_position );
+
+		// Filtering the "in" source with the newly composed filter
+		// TODO
 
 		// Returns a pointer to the end of the parameter vector
 		return w + 6;
