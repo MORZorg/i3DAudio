@@ -8,14 +8,73 @@ Triplet::Triplet( int* _point_indexes )
 	H_inverse = NULL;
 }
 
+static Triplet* delaunay_triangulation()
+{
+	// We calculate the convex hull of the points as intermediate step, by adding an extra
+	// coordinate to each point which value is x^2 + y^2.
+	// NOTE our points use azimuth and elevation as coordinates, but this obviously
+	// doesn't matter.
+	int n = 368;
+
+	// Compute the artificial "z" of every point
+	int z[ n ];
+
+	for( int i = 0; i < n; i++ )
+		z[ i ] = hrtf_coordinates[ i ][ 0 ] * hrtf_coordinates[ i ][ 0 ] + hrtf_coordinates[ i ][ 1 ] * hrtf_coordinates[ i ][ 1 ];
+
+	Triplet partial[ n ];
+	int free_spot = 0;
+
+	for( int i = 0; i < n - 2; i++ )
+	{
+		for( int j =  i + 1; j < n; j++ )
+		{
+			if( j == k )
+				continue;
+
+			// ( xn, yn, zn ) is the cross product of the vectors i -> j and j -> k, perpendicular
+			// to the triangle determined by i, j and k
+			int xn = ( hrtf_coordinates[ j ][ 1 ] - hrtf_coordinates[ i ][ 1 ] ) * ( z[ k ] * z[ i ] ) -
+				( hrtf_coordinates[ k ][ 1 ] - hrtf_coordinates[ i ][ 1 ] ) * ( z[ j ] * z[ i ] );
+
+			int yn = ( hrtf_coordinates[ k ][ 0 ] - hrtf_coordinates[ i ][ 0 ] ) * ( z[ j ] * z[ i ] ) -
+				( hrtf_coordinates[ j ][ 0 ] - hrtf_coordinates[ i ][ 0 ] ) * ( z[ k ] * z[ i ] );
+
+			int zn = ( hrtf_coordinates[ j ][ 0 ] - hrtf_coordinates[ i ][ 0 ] ) * ( hrtf_coordinates[ k ][ 1 ] - hrtf_coordinates[ i ][ 1 ] ) -
+				( hrtf_coordinates[ k ][ 0 ] - hrtf_coordinates[ i ][ 0 ] ) * ( hrtf_coordinates[ j ][ 1 ] - hrtf_coordinates[ i ][ 1 ] );
+
+			// Because of convex stuff, this flag permits to determine whether or not the triangle
+			// has to be inserted in the Delaunay triangulation
+			bool flag;
+
+			if( flag = ( zn < 0 ? 1 : 0 ) != 0 )
+				for( int m = 0; m < n; m++ )
+					flag = flag && ( (
+						( hrtf_coordinates[ m ][ 0 ] - hrtf_coordinates[ i ][ 0 ] ) * xn +
+						( hrtf_coordinates[ m ][ 1 ] - hrtf_coordinates[ i ][ 1 ] ) * yn +
+						( z[ m ] - z[ i ] ) * zn ) <= 0 );
+
+			if( !flag )
+				continue;
+
+			partial[ free_spot++ ] = Triplete( { i, j, k } );
+		}
+	}
+
+	// Shrink and return
+	Triplet* result = (Triplet*) realloc( partial, n * sizeof( Triplet ) );
+
+	return result;
+}
+
 t_float Triplet::calculate_distance( t_int source_coordinates[ 2 ] )
 {
 	t_float center[ 2 ] = { 0, 0 }
 	
 	for( int i = 0; i < 3; i++ )
 	{
-		center[ 0 ] += (t_float)( hrtf_coordinates[ point_indexes[ i ][ 0 ] ] ) / 3;
-		center[ 1 ] += (t_float)( hrtf_coordinates[ point_indexes[ i ][ 1 ] ] ) / 3;
+		center[ 0 ] += (t_float)( hrtf_coordinates[ point_indexes[ i ] ][ 0 ] ) / 3;
+		center[ 1 ] += (t_float)( hrtf_coordinates[ point_indexes[ i ] ][ 1 ] ) / 3;
 	}
 
 	// Or -?

@@ -19,6 +19,11 @@ class Triplet
 	public:
 		Triplet( int* );
 
+		// Calculates the Delaunay triangulation of all the points in hrtf_data.hpp
+		// We use the method that computes the convex hull as intermediate step
+		// http://stackoverflow.com/questions/5825089/how-does-this-code-for-delaunay-triangulation-work
+		static Triplet* delaunay_triangulation();
+
 		// NOTE doesn't calculate the actual distance, omits the arccos
 		// as suggested in the paper.
 		// As result, the values must be ordered in descending order instead

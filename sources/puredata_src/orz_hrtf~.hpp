@@ -9,11 +9,13 @@ typedef struct _orz_hrtf_tilde
 
 	t_float azimuth;
 	t_float elevation;
+
+	Triplet* possible_triplets;
 } t_orz_hrtf_tilde;
 
 extern "C"
 {
-	// Support methods for hrtf implementation
+	// Execution methods
 	static t_int* orz_hrtf_tilde_perform( t_int* );
 	static void orz_hrtf_tilde_dsp( t_orz_hrtf_tilde*, t_signal** );
 	
