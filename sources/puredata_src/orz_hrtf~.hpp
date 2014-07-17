@@ -10,7 +10,9 @@ typedef struct _orz_hrtf_tilde
 	t_float azimuth;
 	t_float elevation;
 
-	Triplet::Triplet* dt_triplets;
+	t_float f;
+
+	std::vector<Triplet> dt_triplets;
 } t_orz_hrtf_tilde;
 
 extern "C"
@@ -20,6 +22,6 @@ extern "C"
 	static void orz_hrtf_tilde_dsp( t_orz_hrtf_tilde*, t_signal** );
 	
 	// PureData dictated methods
-	static void* orz_hrtf_tilde_new( t_symbol*, int, t_atom* );
+	static void* orz_hrtf_tilde_new( t_floatarg, t_floatarg );
 	void orz_hrtf_tilde_setup();
 }

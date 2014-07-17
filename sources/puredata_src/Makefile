@@ -1,5 +1,5 @@
 orz_hrtf_linux: orz_hrtf~.cpp orz_hrtf~.hpp hrtf_triplet.o
-	$(CXX) -DPD -Wall -g -shared --export-dynamic -I/usr/include/pdextended -o orz_hrtf.pd_linux
+	$(CXX) -DPD -Wall -g -fPIC -shared -I/usr/include/pdextended -o orz_hrtf.pd_linux $<
 
 orz_hrtf_tilde_mac: orz_hrtf~.cpp orz_hrtf~.hpp
 	$(CXX) -DPD -Wall -g -shared -undefined suppress -flat_namespace -arch i386 \

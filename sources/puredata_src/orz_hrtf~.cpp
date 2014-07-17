@@ -30,12 +30,12 @@ extern "C"
 		// All of this stuff is given by puredata automatically, it seems
 		// The data from the signal are the input samples, the output left channel, the
 		// output right channel, the size of the blocks
-		dsp_add( orz_hrtf_tilde_perform( orz_hrtf_tilde_perform, 5, x,  sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n );
+		dsp_add( orz_hrtf_tilde_perform, 5, x,  sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n );
 	}
 
 	// Class constructor
 	// Should receive a sound sample and save it (why?)
-	static void* orz_hrtf_tilde_new( t_symbol* s, int argc, t_atom* argv )
+	static void* orz_hrtf_tilde_new( t_floatarg _azimuth, t_floatarg _elevation )
 	{
 		t_orz_hrtf_tilde* x = (t_orz_hrtf_tilde*) pd_new( orz_hrtf_tilde_class );
 
@@ -47,8 +47,8 @@ extern "C"
 		floatinlet_new( &x->x_obj, &x->elevation );
 
 		// Assigning the inlets
-		x->azimuth = argv[ 0 ];
-		x->elevation = argv[ 1 ];
+		x->azimuth = (t_float) _azimuth;
+		x->elevation = (t_float) _elevation;
 
 		// The hrtf database is already loaded in the hrtf_data.hpp header
 		// Creating the triplets
@@ -66,8 +66,9 @@ extern "C"
 			0, // Destructor method (0 = don't care)
 			sizeof( t_orz_hrtf_tilde ), // Size of the class
 			CLASS_DEFAULT, // Graphical representation of the object
-			A_GIMME, A_NULL ); // Definition of constructor arguments, terminated by A_NULL
+			A_DEFFLOAT, A_DEFFLOAT, A_NULL ); // Definition of constructor arguments, terminated by A_NULL
 
+		// The f variable is a dummy one contained in the data space, used to replace the signal inlet (the first) with a float inlet if the signal is missing
 		CLASS_MAINSIGNALIN( orz_hrtf_tilde_class, t_orz_hrtf_tilde, f );
 
 		class_addmethod(
