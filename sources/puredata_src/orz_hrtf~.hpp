@@ -10,7 +10,7 @@ typedef struct _orz_hrtf_tilde
 	t_float azimuth;
 	t_float elevation;
 
-	Triplet* possible_triplets;
+	Triplet::Triplet* dt_triplets;
 } t_orz_hrtf_tilde;
 
 extern "C"

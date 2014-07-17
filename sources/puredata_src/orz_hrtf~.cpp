@@ -18,7 +18,6 @@ extern "C"
 		int blocksize = (int) w[5];
 
 		// Ordering the triplets and finding the best coefficents
-		// TODO
 
 		// Returns a pointer to the end of the parameter vector
 		return w + 6;
@@ -53,7 +52,7 @@ extern "C"
 
 		// The hrtf database is already loaded in the hrtf_data.hpp header
 		// Creating the triplets
-		x->possible_triplets = Triplet::delaunay_triangulation();
+		x->dt_triplets = Triplet::delaunay_triangulation();
 
 		return (void*) x;
 	}

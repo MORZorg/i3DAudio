@@ -1,13 +1,17 @@
 #ifndef HRTF_TRIPLET
 #define HRTF_TRIPLET
 
+#include <cstdio>
+#include <cstdlib>
+#include <vector>
+
 #include "m_pd.h"
 #include "hrtf_data.hpp"
 
 class Triplet
 {
 	private:
-		int point_indexes[ 3 ];
+		int* point_indexes;
 
 		t_float** H_inverse;
 		bool calculated_inverse;
@@ -22,7 +26,7 @@ class Triplet
 		// Calculates the Delaunay triangulation of all the points in hrtf_data.hpp
 		// We use the method that computes the convex hull as intermediate step
 		// http://stackoverflow.com/questions/5825089/how-does-this-code-for-delaunay-triangulation-work
-		static Triplet* delaunay_triangulation();
+		static std::vector<Triplet> delaunay_triangulation();
 
 		// NOTE doesn't calculate the actual distance, omits the arccos
 		// as suggested in the paper.

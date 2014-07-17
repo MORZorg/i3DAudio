@@ -55,7 +55,7 @@ class DataReader
             file.write(" ")
           end
 
-          file.write("%+f," % value)
+          file.write("%f," % value)
 
           if j%8 == 7
             file.write("\n")
@@ -73,7 +73,7 @@ class DataReader
             file.write(" ")
           end
 
-          file.write("%+f," % value)
+          file.write("%f," % value)
 
           if j%8 == 7
             file.write("\n")
@@ -97,7 +97,7 @@ class DataReader
       file.write("extern \"C\" t_int hrtf_coordinates[#{coordinates.length}][2] =\n{\n")
       coordinates.each_with_index do |point, i|
         # file.write("\t\t{ #{point[0]}, #{point[1]} }")
-        file.write("\t{ %+03d, %+04d }" % point )
+        file.write("\t{ %d, %d }" % point )
 
         if i < coordinates.length-1
           file.write(",")
