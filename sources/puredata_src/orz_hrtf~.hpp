@@ -1,26 +1,23 @@
 #include "m_pd.h"
+#include "hrtf_triplet.hpp"
 
 typedef struct _orz_hrtf_tilde
 {
 	t_object x_obj;
+	t_outlet *left_channel;
+	t_outlet *right_channel;
 
-	t_sample f_signal;
-
-	// FIXME Sample input missing
-	// Inlets representing the position of the audio source
-	t_float x_horizontal, x_depth;
-
-	// Outlet containing the sample modified with the hrtf
-	t_outlet* x_out;
+	t_float azimuth;
+	t_float elevation;
 } t_orz_hrtf_tilde;
 
 extern "C"
 {
-	// PureData dictated methods
-	/* void orz_hrtf_bang( t_orz_hrtf* ); */
-	void* orz_hrtf_tilde_new( t_symbol*, int, t_atom* );
-	void orz_hrtf_tilde_setup();
-
 	// Support methods for hrtf implementation
-	void orz_hrtf_tilde_perform();
+	static t_int* orz_hrtf_tilde_perform( t_int* );
+	static void orz_hrtf_tilde_dsp( t_orz_hrtf_tilde*, t_signal** );
+	
+	// PureData dictated methods
+	static void* orz_hrtf_tilde_new( t_symbol*, int, t_atom* );
+	void orz_hrtf_tilde_setup();
 }
