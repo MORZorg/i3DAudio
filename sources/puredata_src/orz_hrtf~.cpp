@@ -11,14 +11,14 @@ extern "C"
 	{
 		// Retrieve the parameters, casting them to the correct
 		// pointer type
-		t_orz_hrtf_tilde* x = (t_orz_hrtf_tilde*) w[1];
+		t_orz_hrtf_tilde* x = (t_orz_hrtf_tilde*) w[ 1 ];
 		
-		t_float* inlet_signal = (t_float*) w[2];
+		t_float* inlet_signal = (t_float*) w[ 2 ];
 
-		t_float* outlet_right = (t_float*) w[3];
-		t_float* outlet_left = (t_float*) w[4];
+		t_float* outlet_right = (t_float*) w[ 3 ];
+		t_float* outlet_left = (t_float*) w[ 4 ];
 
-		int blocksize = (int) w[5];
+		int blocksize = (int) w[ 5 ];
 	
 		// FIXME: check order of azimuth and elevation
 		t_float source_position[] = { x->azimuth, x->elevation };

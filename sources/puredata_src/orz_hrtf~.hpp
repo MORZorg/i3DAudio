@@ -1,16 +1,10 @@
 #include "m_pd.h"
 #include "hrtf_triplet.hpp"
 #include "orz_utils.hpp"
+#include "kemar_parameters.hpp"
 
 #include <cmath>
 #include <algorithm>
-
-// KEMAR HRTF DB specifica parameters
-#define LEFT_CHANNEL 0
-#define RIGHT_CHANNEL 0
-
-#define SAMPLES_NUMBER 368
-#define SAMPLES_LENGTH 128
 
 typedef struct _orz_hrtf_tilde
 {
