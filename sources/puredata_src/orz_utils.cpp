@@ -101,21 +101,3 @@ double nth_element(double* source, int in_size, int n, int n_error)
 {
   return randomized_select(source, 0, in_size-1, n);
 }
-
-std::vector<t_float> filter( std::vector<t_float> signal, std::vector<t_float> kernel )
-{
-	std::vector<t_float> filtered( signal.size() );
-
-	// Filter from left to right
-	for( int i = 0; i < signal.size(); i++ )
-	{
-		filtered[ i ] = 0;
-
-		for( int j = 0; j < kernel.size(); j++ )
-		{
-			filtered[ i ] += signal[ i - j ] * kernel[ j ];  
-		}
-	}
-
-	return filtered;
-}

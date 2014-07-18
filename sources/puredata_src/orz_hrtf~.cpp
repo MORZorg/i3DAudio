@@ -12,9 +12,12 @@ extern "C"
 		// Retrieve the parameters, casting them to the correct
 		// pointer type
 		t_orz_hrtf_tilde* x = (t_orz_hrtf_tilde*) w[1];
-		t_float* in = (t_float*) w[2];
-		t_float* out_rx = (t_float*) w[3];
-		t_float* out_lx = (t_float*) w[4];
+		
+		t_float* inlet_signal = (t_float*) w[2];
+
+		t_float* outlet_right = (t_float*) w[3];
+		t_float* outlet_left = (t_float*) w[4];
+
 		int blocksize = (int) w[5];
 	
 		// FIXME: check order of azimuth and elevation
@@ -50,16 +53,43 @@ extern "C"
 		t_float** current_hrtf = it->calculate_hrtf( source_position );
 
 		// Filtering the "in" source with the newly composed filter
-		std::vector<t_float> in_vector( in, in + sizeof( in ) / sizeof( t_float ) );
-		std::vector<t_float> hrtf_left( current_hrtf[ 0 ], current_hrtf[ 0 ] + sizeof( current_hrtf[ 0 ] ) / sizeof( t_float ) );
-		std::vector<t_float> hrtf_right( current_hrtf[ 1 ], current_hrtf[ 1 ] + sizeof( current_hrtf[ 1 ] ) / sizeof( t_float ) );
+		int signal_size = sizeof( inlet_signal ) / sizeof( t_float );
+		int kernel_size = sizeof( current_hrtf[ LEFT_CHANNEL ] ) / sizeof( t_float );
 
-		std::vector<t_float> out_left = filter( in_vector, hrtf_left );
-		std::vector<t_float> out_right = filter( in_vector, hrtf_right );
+		t_float filtered_temp[ 2 ];
+		t_float signal_temp[ 2 ];
 
-		// Assign to outlets
-		std::copy( out_left.begin(), out_left.begin() + out_left.size(), out_lx );
-		std::copy( out_right.begin(), out_right.begin() + out_right.size(), out_rx );
+		// Filter from left to right, using past samples when data are not available
+		// for the first chunk, the past samples are all 0
+		for( int i = 0; i < signal_size; i++ )
+		{
+			filtered_temp[ LEFT_CHANNEL ] = 0;
+			filtered_temp[ RIGHT_CHANNEL ] = 0;
+
+			for( int j = 0; j < kernel_size; j++ )
+			{
+				if( i - j > 0 )
+				{
+					signal_temp[ LEFT_CHANNEL ] = inlet_signal[ i - j ];
+					signal_temp[ RIGHT_CHANNEL ] = inlet_signal[ i - j ];
+				}
+				else
+				{
+					signal_temp[ LEFT_CHANNEL ] = x->previous_sample[ LEFT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
+					signal_temp[ RIGHT_CHANNEL ] = x->previous_sample[ RIGHT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
+				}
+
+				filtered_temp[ LEFT_CHANNEL ] += signal_temp[ LEFT_CHANNEL ] * current_hrtf[ LEFT_CHANNEL ][ j ];  
+				filtered_temp[ RIGHT_CHANNEL ] += signal_temp[ RIGHT_CHANNEL ] * current_hrtf[ RIGHT_CHANNEL ][ j ];  
+			}
+
+			x->previous_sample[ LEFT_CHANNEL ][ i ] = inlet_signal[ i ];
+			x->previous_sample[ RIGHT_CHANNEL ][ i ] = inlet_signal[ i ];
+
+			// Assign to outlets
+			*outlet_left++ = filtered_temp[ LEFT_CHANNEL ];
+			*outlet_right++ = filtered_temp[ RIGHT_CHANNEL ];
+		}
 
 		// Returns a pointer to the end of the parameter vector
 		return w + 6;
@@ -95,6 +125,13 @@ extern "C"
 		// The hrtf database is already loaded in the hrtf_data.hpp header
 		// Creating the triplets
 		x->dt_triplets = Triplet::delaunay_triangulation();
+
+		// Initializating the last sample at 0
+		for( int i = 0; i < SAMPLES_LENGTH; i++ )
+		{
+			x->previous_sample[ LEFT_CHANNEL ][ i ] = 0;
+			x->previous_sample[ RIGHT_CHANNEL ][ i ] = 0;
+		}
 
 		return (void*) x;
 	}
