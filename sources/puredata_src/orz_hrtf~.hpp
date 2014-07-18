@@ -1,3 +1,6 @@
+#ifndef __ORZ_HRTF_TILDE__
+#define __ORZ_HRTF_TILDE__
+
 #include "m_pd.h"
 #include "hrtf_triplet.hpp"
 #include "orz_utils.hpp"
@@ -17,7 +20,7 @@ typedef struct _orz_hrtf_tilde
 
 	t_float f;
 
-	std::vector<Triplet> dt_triplets;
+	std::vector<hrtf::Triplet> dt_triplets;
 
 	// We must keep track of the past samples to start a new convolution!
 	t_float previous_sample[ 2 ][ SAMPLES_LENGTH ]; // Contains the last processed sample
@@ -33,3 +36,5 @@ extern "C"
 	static void* orz_hrtf_tilde_new( t_floatarg, t_floatarg );
 	void orz_hrtf_tilde_setup();
 }
+
+#endif  // __ORZ_HRTF_TILDE__
