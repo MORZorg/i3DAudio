@@ -3,7 +3,7 @@ orz_hrtf_linux: orz_hrtf~.cpp hrtf_triplet.o
 	$(CXX) $(CFLAGS) -DPD -Wall -g -fPIC -shared \
 		-I/usr/include/pdextended \
 		-o orz_hrtf~.pd_linux $^
-	cp orz_hrtf~.pd_linux ~/pd-externals
+	cp orz_hrtf~.pd_linux ~/pd-externals/
 
 orz_hrtf_tilde_mac: orz_hrtf~.cpp hrtf_triplet.o hrtf_data.hpp
 	$(CXX) $(CFLAGS) -DPD -Wall -g -shared -undefined suppress -flat_namespace -arch i386 \
@@ -19,6 +19,6 @@ hrtf_triplet.o: hrtf_triplet.cpp hrtf_triplet.hpp hrtf_data.hpp
 
 .PHONY: clean
 clean:
-	rm -rf *.o \
+	rm -rf *.o *.gch *.dSYM \
 		orz_hrtf~.pd_linux \
 		or_hrtf~.pd_darwin
