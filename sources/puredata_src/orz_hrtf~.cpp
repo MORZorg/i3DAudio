@@ -52,44 +52,48 @@ extern "C"
 		// Getting HRTF values of the triplet found
 		t_float** current_hrtf = it->calculate_hrtf( source_position );
 
-		// Filtering the "in" source with the newly composed filter
-		int signal_size = sizeof( inlet_signal ) / sizeof( t_float );
-		int kernel_size = sizeof( current_hrtf[ LEFT_CHANNEL ] ) / sizeof( t_float );
+		// Assigning the interpolated HRTF to the outlets
+		outlet_left = current_hrtf[ LEFT_CHANNEL ];
+		outlet_right = current_hrtf[ RIGHT_CHANNEL ];
 
-		t_float filtered_temp[ 2 ];
-		t_float signal_temp[ 2 ];
+		/* // Filtering the "in" source with the newly composed filter */
+		/* int signal_size = sizeof( inlet_signal ) / sizeof( t_float ); */
+		/* int kernel_size = sizeof( current_hrtf[ LEFT_CHANNEL ] ) / sizeof( t_float ); */
 
-		// Filter from left to right, using past samples when data are not available
-		// for the first chunk, the past samples are all 0
-		for( int i = 0; i < signal_size; i++ )
-		{
-			filtered_temp[ LEFT_CHANNEL ] = 0;
-			filtered_temp[ RIGHT_CHANNEL ] = 0;
+		/* t_float filtered_temp[ 2 ]; */
+		/* t_float signal_temp[ 2 ]; */
 
-			for( int j = 0; j < kernel_size; j++ )
-			{
-				if( i - j > 0 )
-				{
-					signal_temp[ LEFT_CHANNEL ] = inlet_signal[ i - j ];
-					signal_temp[ RIGHT_CHANNEL ] = inlet_signal[ i - j ];
-				}
-				else
-				{
-					signal_temp[ LEFT_CHANNEL ] = x->previous_sample[ LEFT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
-					signal_temp[ RIGHT_CHANNEL ] = x->previous_sample[ RIGHT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
-				}
+		/* // Filter from left to right, using past samples when data are not available */
+		/* // for the first chunk, the past samples are all 0 */
+		/* for( int i = 0; i < signal_size; i++ ) */
+		/* { */
+		/* 	filtered_temp[ LEFT_CHANNEL ] = 0; */
+		/* 	filtered_temp[ RIGHT_CHANNEL ] = 0; */
 
-				filtered_temp[ LEFT_CHANNEL ] += signal_temp[ LEFT_CHANNEL ] * current_hrtf[ LEFT_CHANNEL ][ j ];  
-				filtered_temp[ RIGHT_CHANNEL ] += signal_temp[ RIGHT_CHANNEL ] * current_hrtf[ RIGHT_CHANNEL ][ j ];  
-			}
+		/* 	for( int j = 0; j < kernel_size; j++ ) */
+		/* 	{ */
+		/* 		if( i - j > 0 ) */
+		/* 		{ */
+		/* 			signal_temp[ LEFT_CHANNEL ] = inlet_signal[ i - j ]; */
+		/* 			signal_temp[ RIGHT_CHANNEL ] = inlet_signal[ i - j ]; */
+		/* 		} */
+		/* 		else */
+		/* 		{ */
+		/* 			signal_temp[ LEFT_CHANNEL ] = x->previous_sample[ LEFT_CHANNEL ][ i - j + SAMPLES_LENGTH ]; */
+		/* 			signal_temp[ RIGHT_CHANNEL ] = x->previous_sample[ RIGHT_CHANNEL ][ i - j + SAMPLES_LENGTH ]; */
+		/* 		} */
 
-			x->previous_sample[ LEFT_CHANNEL ][ i ] = inlet_signal[ i ];
-			x->previous_sample[ RIGHT_CHANNEL ][ i ] = inlet_signal[ i ];
+		/* 		filtered_temp[ LEFT_CHANNEL ] += signal_temp[ LEFT_CHANNEL ] * current_hrtf[ LEFT_CHANNEL ][ j ]; */  
+		/* 		filtered_temp[ RIGHT_CHANNEL ] += signal_temp[ RIGHT_CHANNEL ] * current_hrtf[ RIGHT_CHANNEL ][ j ]; */  
+		/* 	} */
 
-			// Assign to outlets
-			*outlet_left++ = filtered_temp[ LEFT_CHANNEL ];
-			*outlet_right++ = filtered_temp[ RIGHT_CHANNEL ];
-		}
+		/* 	x->previous_sample[ LEFT_CHANNEL ][ i ] = inlet_signal[ i ]; */
+		/* 	x->previous_sample[ RIGHT_CHANNEL ][ i ] = inlet_signal[ i ]; */
+
+		/* 	// Assign to outlets */
+		/* 	*outlet_left++ = filtered_temp[ LEFT_CHANNEL ]; */
+		/* 	*outlet_right++ = filtered_temp[ RIGHT_CHANNEL ]; */
+		/* } */
 
 		// Returns a pointer to the end of the parameter vector
 		return w + 6;
