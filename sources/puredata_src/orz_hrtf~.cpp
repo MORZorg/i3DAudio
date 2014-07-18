@@ -25,7 +25,6 @@ extern "C"
 	
 		// FIXME: check order of azimuth and elevation
 		t_float source_position[] = { x->azimuth, x->elevation };
-		t_float* g_coefficients;
 
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
@@ -36,17 +35,19 @@ extern "C"
 						 x->dt_triplets.end(),
 						 [ &source_position ]( Triplet lhs, Triplet rhs ) -> bool
 						 {
-							return lhs.calculate_distance( source_position ) < rhs.calculate_distance( source_position );
+							return lhs.calculate_distance( source_position ) > rhs.calculate_distance( source_position );
 						 } );
 
 		// Cycling until i'll find the best coefficients, knowing that i'm looking in the
 		// most probable part first.
 		vector<Triplet>::iterator it;
 		
+		t_float* g_coefficients;
 		for( it = x->dt_triplets.begin(); it < x->dt_triplets.end(); it++ )
 		{
 			// Calculating the distance
 			g_coefficients = it->coefficients( source_position );
+			/* post( "Calculated %f %f %f.", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ] ); */
 			if( g_coefficients[ 0 ] >= 0 && g_coefficients[ 1 ] >= 0 && g_coefficients[ 2 ] >= 0 )
 				break;
 		}
@@ -55,6 +56,8 @@ extern "C"
 		// Getting HRTF values of the triplet found
 		if (it < x->dt_triplets.end())
 		{
+			post( "Found a triplet!" );
+			
 			t_float** current_hrtf = it->calculate_hrtf( source_position );
 
 			// Assigning the interpolated HRTF to the outlets

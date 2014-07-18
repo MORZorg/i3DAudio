@@ -81,12 +81,13 @@ namespace hrtf
 		
 		for( int i = 0; i < 3; i++ )
 		{
-			center[ AZIMUTH ] += hrtf_coordinates[ point_indexes[ i ] ][ AZIMUTH ] / 3;
-			center[ ELEVATION ] += hrtf_coordinates[ point_indexes[ i ] ][ ELEVATION ] / 3;
+			center[ AZIMUTH ] += hrtf_coordinates[ point_indexes[ i ] ][ AZIMUTH ];
+			center[ ELEVATION ] += hrtf_coordinates[ point_indexes[ i ] ][ ELEVATION ];
 		}
+		center[ AZIMUTH ] /= 3;
+		center[ ELEVATION ] /= 3;
 
-		// Or -?
-		t_float distance = source_coordinates[ AZIMUTH ] * center[ ELEVATION ] + source_coordinates[ ELEVATION ] * center[ AZIMUTH ]; 
+		t_float distance = source_coordinates[ AZIMUTH ] * center[ AZIMUTH ] + source_coordinates[ ELEVATION ] * center[ ELEVATION ]; 
 
 		return distance;
 	}
@@ -98,9 +99,9 @@ namespace hrtf
 
 		t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
 
-	g[ 0 ] = H_inverse[ 0 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 0 ][ 1 ] * source_coordinates[ ELEVATION ];
-	g[ 1 ] = H_inverse[ 1 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 1 ][ 1 ] * source_coordinates[ ELEVATION ];
-	g[ 2 ] = H_inverse[ 2 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 2 ][ 1 ] * source_coordinates[ ELEVATION ];
+		g[ 0 ] = H_inverse[ 0 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 0 ][ 1 ] * source_coordinates[ ELEVATION ];
+		g[ 1 ] = H_inverse[ 1 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 1 ][ 1 ] * source_coordinates[ ELEVATION ];
+		g[ 2 ] = H_inverse[ 2 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 2 ][ 1 ] * source_coordinates[ ELEVATION ];
 
 		return g;
 	}
@@ -178,11 +179,18 @@ namespace hrtf
 			H_inverse[ 2 ][ 1 ] = B_inv[ 2 ][ 0 ] * A_t[ 0 ][ 1 ] + B_inv[ 2 ][ 1 ] * A_t[ 1 ][ 1 ] + B_inv[ 2 ][ 2 ] * A_t[ 2 ][ 1 ];
 
 			calculated_inverse = true;
+			
+			debug << "Inverse:" << std::endl;
+			debug << "\t" << H_inverse[ 0 ][ 0 ] << ", " << H_inverse[ 0 ][ 1 ] << std::endl;
+			debug << "\t" << H_inverse[ 1 ][ 0 ] << ", " << H_inverse[ 1 ][ 1 ] << std::endl;
+			debug << "\t" << H_inverse[ 2 ][ 0 ] << ", " << H_inverse[ 2 ][ 1 ] << std::endl;
 		}
 	}
 
 	t_float** Triplet::calculate_hrtf( t_float source_coordinates[ 2 ] )
 	{
+		debug << "Found a valid HRTF!\n";
+
 		// Creating and instantiating the result matrix
 		t_float** result = (t_float**) malloc( sizeof( t_float* ) * 2 );
 		for( int i = 0; i < 2; i++ )
@@ -192,10 +200,7 @@ namespace hrtf
 		for( int i = 0; i < 2; i++ )
 			for( int j = 0; j < SAMPLES_LENGTH; j++ )
 				for( int k = 0; k < 3; k++ )
-				{
-					debug << "Calculating " << hrtf_impulses << " " << point_indexes << " " << i << " " << j << " " << k << std::endl;
 					result[ i ][ j ] += hrtf_impulses[ point_indexes[ k ] ][ i ][ j ];
-				}
 
 		return result;
 	}
