@@ -1,6 +1,7 @@
 #ifndef HRTF_TRIPLET
 #define HRTF_TRIPLET
 
+#include <fstream>
 #include <cstdio>
 #include <cstdlib>
 #include <vector>

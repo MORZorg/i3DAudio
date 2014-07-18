@@ -3,6 +3,8 @@
 
 namespace hrtf
 {
+	std::ofstream debug("/Users/mauzuc90/debug.txt");
+
 	Triplet::Triplet( int* _point_indexes )
 	{
 		point_indexes = _point_indexes;
@@ -60,7 +62,10 @@ namespace hrtf
 					if( !flag )
 						continue;
 
-					int _point_indexes[ 3 ] = { i, j, k };
+					int* _point_indexes = (int*) malloc( sizeof( int ) * 3 );
+                    _point_indexes[ 0 ] = i;
+                    _point_indexes[ 1 ] = j;
+                    _point_indexes[ 2 ] = k;
 
 					result.push_back( Triplet( _point_indexes ) );
 				}
@@ -76,8 +81,8 @@ namespace hrtf
 		
 		for( int i = 0; i < 3; i++ )
 		{
-			center[ AZIMUTH ] += (t_float)( hrtf_coordinates[ point_indexes[ i ] ][ AZIMUTH ] ) / 3;
-			center[ ELEVATION ] += (t_float)( hrtf_coordinates[ point_indexes[ i ] ][ ELEVATION ] ) / 3;
+			center[ AZIMUTH ] += hrtf_coordinates[ point_indexes[ i ] ][ AZIMUTH ] / 3;
+			center[ ELEVATION ] += hrtf_coordinates[ point_indexes[ i ] ][ ELEVATION ] / 3;
 		}
 
 		// Or -?
@@ -159,7 +164,9 @@ namespace hrtf
 				} };
 
 			// B_inverse * A_t
-			H_inverse = (t_float**) malloc( sizeof( t_float ) * 6 );
+			H_inverse = (t_float**) malloc( sizeof( t_float* ) * 3 );
+			for( int i = 0; i < 3; i++ )
+				H_inverse[ i ] = (t_float*) malloc( sizeof( t_float ) * 2 );
 			
 			H_inverse[ 0 ][ 0 ] = B_inv[ 0 ][ 0 ] * A_t[ 0 ][ 0 ] + B_inv[ 0 ][ 1 ] * A_t[ 1 ][ 0 ] + B_inv[ 0 ][ 2 ] * A_t[ 2 ][ 0 ];
 			H_inverse[ 0 ][ 1 ] = B_inv[ 0 ][ 0 ] * A_t[ 0 ][ 1 ] + B_inv[ 0 ][ 1 ] * A_t[ 1 ][ 1 ] + B_inv[ 0 ][ 2 ] * A_t[ 2 ][ 1 ];
@@ -185,7 +192,10 @@ namespace hrtf
 		for( int i = 0; i < 2; i++ )
 			for( int j = 0; j < SAMPLES_LENGTH; j++ )
 				for( int k = 0; k < 3; k++ )
+				{
+					debug << "Calculating " << hrtf_impulses << " " << point_indexes << " " << i << " " << j << " " << k << std::endl;
 					result[ i ][ j ] += hrtf_impulses[ point_indexes[ k ] ][ i ][ j ];
+				}
 
 		return result;
 	}

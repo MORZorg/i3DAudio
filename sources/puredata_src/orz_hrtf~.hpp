@@ -1,12 +1,12 @@
 #ifndef __ORZ_HRTF_TILDE__
 #define __ORZ_HRTF_TILDE__
 
+#include <cmath>
+#include <algorithm>
+
 #include "m_pd.h"
 #include "hrtf_triplet.hpp"
 #include "kemar_parameters.hpp"
-
-#include <cmath>
-#include <algorithm>
 
 typedef struct _orz_hrtf_tilde
 {
