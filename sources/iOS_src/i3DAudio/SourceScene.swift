@@ -15,20 +15,32 @@ extension SKNode {
 }
 
 class SourceScene: SKScene {
-    let perspectiveImages = ["side": "HeadSide", "front": "HeadFront"]
-        
+    let perspectiveImages = ["side": "HeadSide", "front": "HeadFront", "top": "HeadTop"]
+    
     var shownPerspective: String?
+    
     var headNode: SKNode?
-    var sourceNode: SKNode?
+    var sourceNodeHandler: SourceNodeHandler?
     var currentTouch: AnyObject?
     
     override func didMoveToView(view: SKView) {
         headNode = self.childNodeWithName("head")
-        sourceNode = self.childNodeWithName("source")
+        let sourceNode = self.childNodeWithName("source")
+        switch shownPerspective {
+        case let perspective where perspective == "top":
+            sourceNodeHandler = TopSourceNodeHandler(node: sourceNode)
+            
+        case let perspective where perspective == "front":
+            sourceNodeHandler = FrontSourceNodeHandler(node: sourceNode)
+            
+        case let perspective where perspective == "side":
+            sourceNodeHandler = SideSourceNodeHandler(node: sourceNode)
+            
+        default:
+            sourceNodeHandler = SourceNodeHandler(node: sourceNode)
+        }
         
-        headNode!.runAction(SKAction.setTexture(SKTexture(imageNamed: perspectiveImages[shownPerspective!])))
-        
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: frame)
+        headNode!.runAction(SKAction.setTexture(sourceNodeHandler?.getHeadTexture()))
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -44,54 +56,26 @@ class SourceScene: SKScene {
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
         /* Called when a touch moves */
         if let location = currentTouch?.locationInNode(self) {
-            sourceNode!.position = location
-            
-            switch(shownPerspective!) {
-            case "side":
-                SourceData.instance.setCartesianCoordinates(x: Double(location.x), z: Double(location.y))
-                
-            case "front":
-                SourceData.instance.setCartesianCoordinates(y: Double(location.x), z: Double(location.y))
-                
-            default:
-                break
-            }
+            sourceNodeHandler?.changePosition(location)
         }
     }
     
     override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
         /* Called when a touch ends */
-        if let location = currentTouch?.locationInNode(self) {
-            sourceNode!.position = location
-            
-            switch(shownPerspective!) {
-            case "side":
-                SourceData.instance.setCartesianCoordinates(x: Double(location.x), z: Double(location.y))
-                
-            case "front":
-                SourceData.instance.setCartesianCoordinates(y: Double(location.x), z: Double(location.y))
-                
-            default:
-                break
-            }
-        }
+        touchesMoved(touches, withEvent: event)
         currentTouch = nil
     }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        let coordinates = SourceData.instance.getCartesianCoordinates()
-        switch(shownPerspective!) {
-        case "side":
-            sourceNode!.position = CGPointMake(Float(coordinates.x), Float(coordinates.z))
+        if let handler = sourceNodeHandler {
+            handler.updatePosition()
             
-        case "front":
-            sourceNode!.position = CGPointMake(Float(coordinates.y), Float(coordinates.z))
-            
-        default:
-            break
+            if handler.hasChanged {
+                
+                handler.sourceNode.zRotation = handler.sourceNode.bearingTowards(headNode!)
+                handler.hasChanged = false
+            }
         }
-        
-        sourceNode!.zRotation = sourceNode!.bearingTowards(headNode!)
     }
 }
