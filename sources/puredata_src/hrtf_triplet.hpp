@@ -6,7 +6,6 @@
 #include <vector>
 
 #include "m_pd.h"
-#include "hrtf_data.hpp"
 #include "kemar_parameters.hpp"
 
 namespace hrtf

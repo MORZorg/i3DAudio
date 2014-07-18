@@ -1,4 +1,5 @@
 #include "hrtf_triplet.hpp"
+#include "hrtf_data.hpp"
 
 namespace hrtf
 {

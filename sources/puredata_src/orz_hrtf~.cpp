@@ -56,47 +56,47 @@ extern "C"
 		t_float** current_hrtf = it->calculate_hrtf( source_position );
 
 		// Assigning the interpolated HRTF to the outlets
-		outlet_left = current_hrtf[ LEFT_CHANNEL ];
-		outlet_right = current_hrtf[ RIGHT_CHANNEL ];
+		/* outlet_left = current_hrtf[ LEFT_CHANNEL ]; */
+		/* outlet_right = current_hrtf[ RIGHT_CHANNEL ]; */
 
-		/* // Filtering the "in" source with the newly composed filter */
-		/* int signal_size = sizeof( inlet_signal ) / sizeof( t_float ); */
-		/* int kernel_size = sizeof( current_hrtf[ LEFT_CHANNEL ] ) / sizeof( t_float ); */
+		// Filtering the "in" source with the newly composed filter
+		int signal_size = sizeof( inlet_signal ) / sizeof( t_float );
+		int kernel_size = sizeof( current_hrtf[ LEFT_CHANNEL ] ) / sizeof( t_float );
 
-		/* t_float filtered_temp[ 2 ]; */
-		/* t_float signal_temp[ 2 ]; */
+		t_float filtered_temp[ 2 ];
+		t_float signal_temp[ 2 ];
 
-		/* // Filter from left to right, using past samples when data are not available */
-		/* // for the first chunk, the past samples are all 0 */
-		/* for( int i = 0; i < signal_size; i++ ) */
-		/* { */
-		/* 	filtered_temp[ LEFT_CHANNEL ] = 0; */
-		/* 	filtered_temp[ RIGHT_CHANNEL ] = 0; */
+		// Filter from left to right, using past samples when data are not available
+		// for the first chunk, the past samples are all 0
+		for( int i = 0; i < signal_size; i++ )
+		{
+			filtered_temp[ LEFT_CHANNEL ] = 0;
+			filtered_temp[ RIGHT_CHANNEL ] = 0;
 
-		/* 	for( int j = 0; j < kernel_size; j++ ) */
-		/* 	{ */
-		/* 		if( i - j > 0 ) */
-		/* 		{ */
-		/* 			signal_temp[ LEFT_CHANNEL ] = inlet_signal[ i - j ]; */
-		/* 			signal_temp[ RIGHT_CHANNEL ] = inlet_signal[ i - j ]; */
-		/* 		} */
-		/* 		else */
-		/* 		{ */
-		/* 			signal_temp[ LEFT_CHANNEL ] = x->previous_sample[ LEFT_CHANNEL ][ i - j + SAMPLES_LENGTH ]; */
-		/* 			signal_temp[ RIGHT_CHANNEL ] = x->previous_sample[ RIGHT_CHANNEL ][ i - j + SAMPLES_LENGTH ]; */
-		/* 		} */
+			for( int j = 0; j < kernel_size; j++ )
+			{
+				if( i - j > 0 )
+				{
+					signal_temp[ LEFT_CHANNEL ] = inlet_signal[ i - j ];
+					signal_temp[ RIGHT_CHANNEL ] = inlet_signal[ i - j ];
+				}
+				else
+				{
+					signal_temp[ LEFT_CHANNEL ] = x->previous_sample[ LEFT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
+					signal_temp[ RIGHT_CHANNEL ] = x->previous_sample[ RIGHT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
+				}
 
-		/* 		filtered_temp[ LEFT_CHANNEL ] += signal_temp[ LEFT_CHANNEL ] * current_hrtf[ LEFT_CHANNEL ][ j ]; */  
-		/* 		filtered_temp[ RIGHT_CHANNEL ] += signal_temp[ RIGHT_CHANNEL ] * current_hrtf[ RIGHT_CHANNEL ][ j ]; */  
-		/* 	} */
+				filtered_temp[ LEFT_CHANNEL ] += signal_temp[ LEFT_CHANNEL ] * current_hrtf[ LEFT_CHANNEL ][ j ];  
+				filtered_temp[ RIGHT_CHANNEL ] += signal_temp[ RIGHT_CHANNEL ] * current_hrtf[ RIGHT_CHANNEL ][ j ];  
+			}
 
-		/* 	x->previous_sample[ LEFT_CHANNEL ][ i ] = inlet_signal[ i ]; */
-		/* 	x->previous_sample[ RIGHT_CHANNEL ][ i ] = inlet_signal[ i ]; */
+			x->previous_sample[ LEFT_CHANNEL ][ i ] = inlet_signal[ i ];
+			x->previous_sample[ RIGHT_CHANNEL ][ i ] = inlet_signal[ i ];
 
-		/* 	// Assign to outlets */
-		/* 	*outlet_left++ = filtered_temp[ LEFT_CHANNEL ]; */
-		/* 	*outlet_right++ = filtered_temp[ RIGHT_CHANNEL ]; */
-		/* } */
+			// Assign to outlets
+			*outlet_left++ = filtered_temp[ LEFT_CHANNEL ];
+			*outlet_right++ = filtered_temp[ RIGHT_CHANNEL ];
+		}
 
 		// Returns a pointer to the end of the parameter vector
 		return w + 6;
@@ -110,7 +110,7 @@ extern "C"
 		// All of this stuff is given by puredata automatically, it seems
 		// The data from the signal are the input samples, the output left channel, the
 		// output right channel, the size of the blocks
-		/* dsp_add( orz_hrtf_tilde_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n ); */
+		dsp_add( orz_hrtf_tilde_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n );
 	}
 
 	// Class constructor
