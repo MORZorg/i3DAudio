@@ -13,6 +13,7 @@
 
 # Object files
 *.dSYM
+*.o
 
 # PureData
 *.pd_darwin
