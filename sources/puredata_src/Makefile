@@ -1,17 +1,23 @@
 CFLAGS=-O3 -std=c++0x
-orz_hrtf_linux: orz_hrtf~.cpp hrtf_triplet.o
+orz_hrtf_linux: orz_hrtf~.cpp hrtf_triplet.o hrtf_data.hpp
 	$(CXX) $(CFLAGS) -DPD -Wall -g -fPIC -shared \
 		-I/usr/include/pdextended \
 		-o orz_hrtf~.pd_linux $^
 	cp orz_hrtf~.pd_linux ~/pd-externals
 
-orz_hrtf_tilde_mac: orz_hrtf~.cpp hrtf_triplet.o
+orz_hrtf_tilde_mac: orz_hrtf~.cpp hrtf_triplet.o hrtf_data.hpp
 	$(CXX) $(CFLAGS) -DPD -Wall -g -shared -undefined suppress -flat_namespace -arch i386 \
         -I/Applications/Pd-extended.app/Contents/Resources/include/ \
-        -o orz_hrtf~.pd_darwin $^
+		$^
+	mv a.out orz_hrtf~.pd_darwin
 	cp orz_hrtf~.pd_darwin ~/Library/Pd/
 
 hrtf_triplet.o: hrtf_triplet.cpp hrtf_triplet.hpp orz_utils.o
+	$(CXX) $(CFLAGS) -Os -DPD -Wall -g -arch i386 \
+        -I/Applications/Pd-extended.app/Contents/Resources/include/ \
+        -c $<
+
+hrtf_data.o: hrtf_data.cpp
 	$(CXX) $(CFLAGS) -Os -DPD -Wall -g -arch i386 \
         -I/Applications/Pd-extended.app/Contents/Resources/include/ \
         -c $<
