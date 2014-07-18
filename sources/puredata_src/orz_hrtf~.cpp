@@ -16,6 +16,7 @@ extern "C"
 		t_float* out_rx = (t_float*) w[3];
 		t_float* out_lx = (t_float*) w[4];
 		int blocksize = (int) w[5];
+	
 		// FIXME: check order of azimuth and elevation
 		t_float source_position[] = { x->azimuth, x->elevation };
 		t_float* g_coefficients;
@@ -23,6 +24,7 @@ extern "C"
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
 		int percentile_offset = (int) ceil( x->dt_triplets.size() * 0.02 );
+		
 		std::nth_element( x->dt_triplets.begin(),
 						 x->dt_triplets.begin() + percentile_offset,
 						 x->dt_triplets.end(),
@@ -34,6 +36,7 @@ extern "C"
 		// Cycling until i'll find the best coefficients, knowing that i'm looking in the
 		// most probable part first.
 		std::vector<Triplet>::iterator it;
+		
 		for( it = x->dt_triplets.begin(); it < x->dt_triplets.end(); it++ )
 		{
 			// Calculating the distance
@@ -47,7 +50,16 @@ extern "C"
 		t_float** current_hrtf = it->calculate_hrtf( source_position );
 
 		// Filtering the "in" source with the newly composed filter
-		// TODO
+		std::vector<t_float> in_vector( in, in + sizeof( in ) / sizeof( t_float ) );
+		std::vector<t_float> hrtf_left( current_hrtf[ 0 ], current_hrtf[ 0 ] + sizeof( current_hrtf[ 0 ] ) / sizeof( t_float ) );
+		std::vector<t_float> hrtf_right( current_hrtf[ 1 ], current_hrtf[ 1 ] + sizeof( current_hrtf[ 1 ] ) / sizeof( t_float ) );
+
+		std::vector<t_float> out_left = filter( in_vector, hrtf_left );
+		std::vector<t_float> out_right = filter( in_vector, hrtf_right );
+
+		// Assign to outlets
+		std::copy( out_left.begin(), out_left.begin() + out_left.size(), out_lx );
+		std::copy( out_right.begin(), out_right.begin() + out_right.size(), out_rx );
 
 		// Returns a pointer to the end of the parameter vector
 		return w + 6;
@@ -60,7 +72,7 @@ extern "C"
 		// All of this stuff is given by puredata automatically, it seems
 		// The data from the signal are the input samples, the output left channel, the
 		// output right channel, the size of the blocks
-		dsp_add( orz_hrtf_tilde_perform, 5, x,  sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n );
+		dsp_add( orz_hrtf_tilde_perform, 5, x, sp[0]->s_vec, sp[1]->s_vec, sp[2]->s_vec, sp[0]->s_n );
 	}
 
 	// Class constructor
