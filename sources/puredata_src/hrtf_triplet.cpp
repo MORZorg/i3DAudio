@@ -90,9 +90,9 @@ t_float* Triplet::coefficients( t_float source_coordinates[ 2 ] )
 
 	t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
 
-	g[ 1 ] = H_inverse[ 0 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 0 ][ 1 ] * source_coordinates[ ELEVATION ];
-	g[ 2 ] = H_inverse[ 1 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 1 ][ 1 ] * source_coordinates[ ELEVATION ];
-	g[ 3 ] = H_inverse[ 2 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 2 ][ 1 ] * source_coordinates[ ELEVATION ];
+	g[ 0 ] = H_inverse[ 0 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 0 ][ 1 ] * source_coordinates[ ELEVATION ];
+	g[ 1 ] = H_inverse[ 1 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 1 ][ 1 ] * source_coordinates[ ELEVATION ];
+	g[ 2 ] = H_inverse[ 2 ][ 0 ] * source_coordinates[ AZIMUTH ] + H_inverse[ 2 ][ 1 ] * source_coordinates[ ELEVATION ];
 
 	return g;
 }
