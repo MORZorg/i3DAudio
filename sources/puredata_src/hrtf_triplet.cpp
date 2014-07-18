@@ -8,7 +8,7 @@ Triplet::Triplet( int* _point_indexes )
 	H_inverse = NULL;
 }
 
-static std::vector<Triplet> delaunay_triangulation()
+std::vector<Triplet> Triplet::delaunay_triangulation()
 {
 	// We calculate the convex hull of the points as intermediate step, by adding an extra
 	// coordinate to each point which value is x^2 + y^2.
