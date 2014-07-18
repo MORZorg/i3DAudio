@@ -1,6 +1,8 @@
 CFLAGS=-O3 -std=c++0x
 orz_hrtf_linux: orz_hrtf~.cpp orz_hrtf~.hpp hrtf_triplet.o
-	$(CXX) $(CFLAGS) -DPD -Wall -g -fPIC -shared -I/usr/include/pdextended -o orz_hrtf.pd_linux $<
+	$(CXX) $(CFLAGS) -DPD -Wall -g -fPIC -shared \
+		-I/usr/include/pdextended \
+		-o orz_hrtf~.pd_linux $<
 
 orz_hrtf_tilde_mac: orz_hrtf~.cpp orz_hrtf~.hpp
 	$(CXX) -DPD -Wall -g -shared -undefined suppress -flat_namespace -arch i386 \
@@ -13,3 +15,8 @@ hrtf_triplet.o: hrtf_triplet.cpp hrtf_triplet.hpp orz_utils.o
 
 orz_utils.o: orz_utils.cpp orz_utils.hpp
 	$(CXX) -Os -g -c $<
+
+clean:
+	rm -rf *.o \
+		orz_hrtf~.pd_linux \
+		or_hrtf~.pd_darwin
