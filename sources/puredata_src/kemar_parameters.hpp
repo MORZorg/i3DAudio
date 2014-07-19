@@ -8,8 +8,7 @@
 #define SAMPLES_NUMBER 368
 #define SAMPLES_LENGTH 128
 
-// FIXME check if true
-#define AZIMUTH 0
-#define ELEVATION 1
+#define AZIMUTH 1
+#define ELEVATION 0
 
 #endif

@@ -23,8 +23,9 @@ extern "C"
 
 		int blocksize = (int) w[ 5 ];
 	
-		// FIXME: check order of azimuth and elevation
-		t_float source_position[] = { x->azimuth, x->elevation };
+		t_float source_position[ 2 ];
+		source_position[ AZIMUTH ] = x->azimuth;
+		source_position[ ELEVATION ] = x->elevation;
 
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
@@ -35,19 +36,19 @@ extern "C"
 						 x->dt_triplets.end(),
 						 [ &source_position ]( Triplet lhs, Triplet rhs ) -> bool
 						 {
-							return lhs.calculate_distance( source_position ) > rhs.calculate_distance( source_position );
+							return lhs.calculate_distance( source_position ) < rhs.calculate_distance( source_position );
 						 } );
 
-		// Cycling until i'll find the best coefficients, knowing that i'm looking in the
+		// Cycling until I'll find the best coefficients, knowing that I'm looking in the
 		// most probable part first.
 		vector<Triplet>::iterator it;
 		
 		t_float* g_coefficients;
 		for( it = x->dt_triplets.begin(); it < x->dt_triplets.end(); it++ )
 		{
-			// Calculating the distance
+			// Calculating the coefficients
 			g_coefficients = it->coefficients( source_position );
-			/* post( "Calculated %f %f %f.", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ] ); */
+			/* post("Calculated %f %f %f", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ]); */
 			if( g_coefficients[ 0 ] >= 0 && g_coefficients[ 1 ] >= 0 && g_coefficients[ 2 ] >= 0 )
 				break;
 		}
@@ -72,20 +73,18 @@ extern "C"
 			/* outlet_right = current_hrtf[ RIGHT_CHANNEL ]; */
 
 			// Filtering the "in" source with the newly composed filter
-			int signal_size = sizeof( inlet_signal ) / sizeof( t_float );
-			int kernel_size = sizeof( current_hrtf[ LEFT_CHANNEL ] ) / sizeof( t_float );
 
 			t_float filtered_temp[ 2 ];
 			t_float signal_temp[ 2 ];
 
 			// Filter from left to right, using past samples when data are not available
 			// for the first chunk, the past samples are all 0
-			for( int i = 0; i < signal_size; i++ )
+			for( int i = 0; i < blocksize; i++ )
 			{
 				filtered_temp[ LEFT_CHANNEL ] = 0;
 				filtered_temp[ RIGHT_CHANNEL ] = 0;
 
-				for( int j = 0; j < kernel_size; j++ )
+				for( int j = 0; j < SAMPLES_LENGTH; j++ )
 				{
 					if( i - j > 0 )
 					{

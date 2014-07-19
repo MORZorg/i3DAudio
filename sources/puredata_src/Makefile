@@ -14,7 +14,7 @@ orz_hrtf_tilde_mac: orz_hrtf~.cpp hrtf_triplet.o hrtf_data.hpp
 	cp orz_hrtf~.pd_darwin ~/Library/Pd/
 
 hrtf_triplet.o: hrtf_triplet.cpp hrtf_triplet.hpp hrtf_data.hpp
-	$(CXX) $(CFLAGS) -Os -DPD -Wall -g -fPIC \
+	$(CXX) $(CFLAGS) -Os -DPD -Wall -g -fPIC -arch i386 \
         -I/Applications/Pd-extended.app/Contents/Resources/include/ \
         -c $<
 
