@@ -57,6 +57,13 @@ extern "C"
 		if( it < x->dt_triplets.end() )
 		{
 			post( "Found a triplet!" );
+
+			// Normalizing the coefficients
+			int g_sum = 0;
+			for( int i = 0; i < 3; i++ )
+				g_sum += g_coefficients[ i ];
+			for( int i = 0; i < 3; i++ )
+				g_coefficients[ i ] = g_coefficients[ i ] / g_sum;
 			
 			t_float** current_hrtf = it->calculate_hrtf( source_position );
 
