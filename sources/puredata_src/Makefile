@@ -1,4 +1,5 @@
 CFLAGS=-O3 -std=c++0x
+
 orz_hrtf_linux: orz_hrtf~.cpp hrtf_triplet.o 
 	$(CXX) $(CFLAGS) -DPD -Wall -g -fPIC -shared \
 		-I/usr/include/pdextended \
@@ -13,7 +14,7 @@ orz_hrtf_tilde_mac: orz_hrtf~.cpp hrtf_triplet.o hrtf_data.hpp
 	cp orz_hrtf~.pd_darwin ~/Library/Pd/
 
 hrtf_triplet.o: hrtf_triplet.cpp hrtf_triplet.hpp hrtf_data.hpp
-	$(CXX) $(CFLAGS) -Os -DPD -Wall -g -fPIC -arch i386 \
+	$(CXX) $(CFLAGS) -Os -DPD -Wall -g -fPIC \
         -I/Applications/Pd-extended.app/Contents/Resources/include/ \
         -c $<
 
