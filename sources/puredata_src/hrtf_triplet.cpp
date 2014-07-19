@@ -68,6 +68,7 @@ namespace hrtf
 		t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
 
 #ifdef DEBUG
+		debug << "Triplet: " << point_indexes[ 0 ] << " " << point_indexes[ 1 ] << " " << point_indexes[ 2 ] << std::endl;
 		debug << "Source: " << source_coordinates[ AZIMUTH ] << ", " << source_coordinates[ ELEVATION ] << std::endl;
 #endif
 
