@@ -3,7 +3,7 @@
 
 namespace hrtf
 {
-	std::ofstream debug("/home/mattia/debug.txt");
+	std::ofstream debug("/Users/mauzuc90/debug.txt");
 
 	Triplet::Triplet( int* _point_indexes )
 	{
@@ -111,84 +111,69 @@ namespace hrtf
 			debug << "Triplet:" << std::endl;
 			debug << point_indexes[ 0 ] << " " << point_indexes[ 1 ] << " " << point_indexes[ 2 ] << std::endl;
 
-			float A[ 2 ][ 3 ] = {
+			t_float A[ 2 ][ 3 ] = {
 				{
-					(float) hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ],
-					(float) hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ],
-					(float) hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ]
+					(t_float) hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ],
+					(t_float) hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ],
+					(t_float) hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ]
 				}, {
-					(float) hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ],
-					(float) hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ],
-					(float) hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ]
+					(t_float) hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ],
+					(t_float) hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ],
+					(t_float) hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ]
 				} };
 
 			debug << "A:" << std::endl;
 			debug << "\t" << A[ 0 ][ 0 ] << ", " << A[ 0 ][ 1 ] << ", " << A[ 0 ][ 2 ] << std::endl;
 			debug << "\t" << A[ 1 ][ 0 ] << ", " << A[ 1 ][ 1 ] << ", " << A[ 1 ][ 2 ] << std::endl;
 
-			float A_t[ 3 ][ 2 ] = {
+			t_float A_t[ 3 ][ 2 ] = {
 				{ A[ 0 ][ 0 ], A[ 1 ][ 0 ] },
 				{ A[ 0 ][ 1 ], A[ 1 ][ 1 ] },
 				{ A[ 0 ][ 2 ], A[ 1 ][ 2 ] } };
 
-			// A_t * A
-			float B[ 3 ][ 3 ] = {
+			// A * A_t
+			t_float B[ 2 ][ 2 ] = {
 				{
-					A_t[ 0 ][ 0 ] * A[ 0 ][ 0 ] + A_t[ 0 ][ 1 ] * A[ 1 ][ 0 ],
-					A_t[ 0 ][ 0 ] * A[ 0 ][ 1 ] + A_t[ 0 ][ 1 ] * A[ 1 ][ 1 ],
-					A_t[ 0 ][ 0 ] * A[ 0 ][ 2 ] + A_t[ 0 ][ 1 ] * A[ 1 ][ 2 ]
-				}, {
-					A_t[ 1 ][ 0 ] * A[ 0 ][ 0 ] + A_t[ 1 ][ 1 ] * A[ 1 ][ 0 ],
-					A_t[ 1 ][ 0 ] * A[ 0 ][ 1 ] + A_t[ 1 ][ 1 ] * A[ 1 ][ 1 ],
-					A_t[ 1 ][ 0 ] * A[ 0 ][ 2 ] + A_t[ 1 ][ 1 ] * A[ 1 ][ 2 ]
-				}, {
-					A_t[ 2 ][ 0 ] * A[ 0 ][ 0 ] + A_t[ 2 ][ 1 ] * A[ 1 ][ 0 ],
-					A_t[ 2 ][ 0 ] * A[ 0 ][ 1 ] + A_t[ 2 ][ 1 ] * A[ 1 ][ 1 ],
-					A_t[ 2 ][ 0 ] * A[ 0 ][ 2 ] + A_t[ 2 ][ 1 ] * A[ 1 ][ 2 ]
+					A[ 0 ][ 0 ] * A_t[ 0 ][ 0 ] + A[ 0 ][ 1 ] * A_t[ 1 ][ 0 ] + A[ 0 ][ 2 ] * A_t[ 2 ][ 0 ],
+					A[ 0 ][ 0 ] * A_t[ 0 ][ 1 ] + A[ 0 ][ 1 ] * A_t[ 1 ][ 1 ] + A[ 0 ][ 2 ] * A_t[ 2 ][ 1 ],
+				}, {                                               
+					A[ 1 ][ 0 ] * A_t[ 0 ][ 0 ] + A[ 1 ][ 1 ] * A_t[ 1 ][ 0 ] + A[ 1 ][ 2 ] * A_t[ 2 ][ 0 ],
+					A[ 1 ][ 0 ] * A_t[ 0 ][ 1 ] + A[ 1 ][ 1 ] * A_t[ 1 ][ 1 ] + A[ 1 ][ 2 ] * A_t[ 2 ][ 1 ],
 				} };
 			
 			debug << "B:" << std::endl;
-			debug << "\t" << B[ 0 ][ 0 ] << ", " << B[ 0 ][ 1 ] << ", " << B[ 0 ][ 2 ] << std::endl;
-			debug << "\t" << B[ 1 ][ 0 ] << ", " << B[ 1 ][ 1 ] << ", " << B[ 1 ][ 2 ] << std::endl;
-			debug << "\t" << B[ 2 ][ 0 ] << ", " << B[ 2 ][ 1 ] << ", " << B[ 2 ][ 2 ] << std::endl;
+			debug << "\t" << B[ 0 ][ 0 ] << ", " << B[ 0 ][ 1 ] << std::endl;
+			debug << "\t" << B[ 1 ][ 0 ] << ", " << B[ 1 ][ 1 ] << std::endl;
 
 			// Inverse of B
-			float inv_det_B = B[ 0 ][ 0 ] * ( B[ 1 ][ 1 ] * B[ 2 ][ 2 ] - B[ 2 ][ 1 ] * B[ 1 ][ 2 ] ) -
-				B[ 0 ][ 1 ] * ( B[ 2 ][ 2 ] * B[ 1 ][ 0 ] - B[ 2 ][ 1 ] * B[ 2 ][ 0 ] ) +
-				B[ 0 ][ 2 ] * ( B[ 1 ][ 0 ] * B[ 2 ][ 1 ] - B[ 1 ][ 1 ] * B[ 2 ][ 0 ] );
+			t_float inv_det_B = B[ 0 ][ 0 ] * B[ 1 ][ 1 ] - B[ 1 ][ 0 ] * B[ 0 ][ 1 ];
 
 			debug << "Det B: " << inv_det_B << std::endl;
 
 			inv_det_B = 1 / inv_det_B;
 
-			float B_inv[ 3 ][ 3 ] = {
+			t_float B_inv[ 2 ][ 2 ] = {
 				{
-					inv_det_B * ( B[ 1 ][ 1 ] * B[ 2 ][ 2 ] - B[ 2 ][ 1 ] * B[ 1 ][ 2 ] ),
-					-1 * inv_det_B * ( B[ 1 ][ 0 ] * B[ 2 ][ 2 ] - B[ 2 ][ 0 ] * B[ 1 ][ 2 ] ),
-					inv_det_B * ( B[ 1 ][ 0 ] * B[ 2 ][ 1 ] - B[ 2 ][ 0 ] * B[ 1 ][ 1 ] )
+					inv_det_B * B[ 1 ][ 1 ],
+					-1 * inv_det_B * B[ 1 ][ 0 ]
 				}, {
-					-1 * inv_det_B * ( B[ 0 ][ 1 ] * B[ 2 ][ 2 ] - B[ 2 ][ 1 ] * B[ 0 ][ 2 ] ),
-					inv_det_B * ( B[ 0 ][ 0 ] * B[ 2 ][ 2 ] - B[ 2 ][ 0 ] * B[ 0 ][ 2 ] ),
-					-1 * inv_det_B * ( B[ 0 ][ 0 ] * B[ 2 ][ 1 ] - B[ 2 ][ 0 ] * B[ 0 ][ 1 ] )
-				}, {
-					inv_det_B * ( B[ 0 ][ 1 ] * B[ 1 ][ 2 ] - B[ 1 ][ 1 ] * B[ 0 ][ 2 ] ),
-					-1 * inv_det_B * ( B[ 0 ][ 0 ] * B[ 1 ][ 2 ] - B[ 1 ][ 0 ] * B[ 0 ][ 2 ] ),
-					inv_det_B * ( B[ 0 ][ 0 ] * B[ 1 ][ 1 ] - B[ 1 ][ 0 ] * B[ 0 ][ 1 ] )
+					-1 * inv_det_B * B[ 0 ][ 1 ],
+					inv_det_B * B[ 0 ][ 0 ]
 				} };
 
-			// B_inverse * A_t
+			// A_t * B_inverse
 			H_inverse = (t_float**) malloc( sizeof( t_float* ) * 3 );
 			for( int i = 0; i < 3; i++ )
 				H_inverse[ i ] = (t_float*) malloc( sizeof( t_float ) * 2 );
 			
-			H_inverse[ 0 ][ 0 ] = B_inv[ 0 ][ 0 ] * A_t[ 0 ][ 0 ] + B_inv[ 0 ][ 1 ] * A_t[ 1 ][ 0 ] + B_inv[ 0 ][ 2 ] * A_t[ 2 ][ 0 ];
-			H_inverse[ 0 ][ 1 ] = B_inv[ 0 ][ 0 ] * A_t[ 0 ][ 1 ] + B_inv[ 0 ][ 1 ] * A_t[ 1 ][ 1 ] + B_inv[ 0 ][ 2 ] * A_t[ 2 ][ 1 ];
+			H_inverse[ 0 ][ 0 ] = A_t[ 0 ][ 0 ] * B_inv[ 0 ][ 0 ] + A_t[ 0 ][ 1 ] * B_inv[ 1 ][ 0 ];
+			H_inverse[ 0 ][ 1 ] = A_t[ 0 ][ 0 ] * B_inv[ 0 ][ 1 ] + A_t[ 0 ][ 1 ] * B_inv[ 1 ][ 1 ];
 
-			H_inverse[ 1 ][ 0 ] = B_inv[ 1 ][ 0 ] * A_t[ 0 ][ 0 ] + B_inv[ 1 ][ 1 ] * A_t[ 1 ][ 0 ] + B_inv[ 1 ][ 2 ] * A_t[ 2 ][ 0 ];
-			H_inverse[ 1 ][ 1 ] = B_inv[ 1 ][ 0 ] * A_t[ 0 ][ 1 ] + B_inv[ 1 ][ 1 ] * A_t[ 1 ][ 1 ] + B_inv[ 1 ][ 2 ] * A_t[ 2 ][ 1 ];
+			H_inverse[ 1 ][ 0 ] = A_t[ 1 ][ 0 ] * B_inv[ 0 ][ 0 ] + A_t[ 1 ][ 1 ] * B_inv[ 1 ][ 0 ];
+			H_inverse[ 1 ][ 1 ] = A_t[ 1 ][ 0 ] * B_inv[ 0 ][ 1 ] + A_t[ 1 ][ 1 ] * B_inv[ 1 ][ 1 ];
 
-			H_inverse[ 2 ][ 0 ] = B_inv[ 2 ][ 0 ] * A_t[ 0 ][ 0 ] + B_inv[ 2 ][ 1 ] * A_t[ 1 ][ 0 ] + B_inv[ 2 ][ 2 ] * A_t[ 2 ][ 0 ];
-			H_inverse[ 2 ][ 1 ] = B_inv[ 2 ][ 0 ] * A_t[ 0 ][ 1 ] + B_inv[ 2 ][ 1 ] * A_t[ 1 ][ 1 ] + B_inv[ 2 ][ 2 ] * A_t[ 2 ][ 1 ];
+			H_inverse[ 2 ][ 0 ] = A_t[ 2 ][ 0 ] * B_inv[ 0 ][ 0 ] + A_t[ 2 ][ 1 ] * B_inv[ 1 ][ 0 ];
+			H_inverse[ 2 ][ 1 ] = A_t[ 2 ][ 0 ] * B_inv[ 0 ][ 1 ] + A_t[ 2 ][ 1 ] * B_inv[ 1 ][ 1 ];
 
 			debug << "Inverse:" << std::endl;
 			debug << "\t" << H_inverse[ 0 ][ 0 ] << ", " << H_inverse[ 0 ][ 1 ] << std::endl;
