@@ -108,9 +108,9 @@ class DataReader
       file.write("};\n\n")
 
       # Coordinates
-      file.write("extern \"C\" t_int hrtf_coordinates[][2] =\n{\n")
+      file.write("extern \"C\" t_int hrtf_coordinates[][3] =\n{\n")
       coordinates.each_with_index do |point, i|
-        file.write("\t{ %d, %d }" % point )
+        file.write("\t{ 1, %d, %d }" % point )
 
         if i < coordinates.length-1
           file.write(",")
