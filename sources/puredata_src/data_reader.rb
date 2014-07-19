@@ -37,14 +37,34 @@ class DataReader
     self
   end
 
+  def elaborate_data()
+    File.open("data_reader.m", 'w') do |file|
+      file.write("input = [\n");
+      coordinates.each_with_index do |point, i|
+        cartesian = [ Math.cos(point[0]) * Math.cos(point[1]),
+                      Math.cos(point[0]) * Math.sin(point[1]),
+                      Math.sin(point[0]) ]
+
+        file.write("\t%f, %f, %f;\n" % cartesian )
+      end
+      file.write("];")
+    end
+
+    `matlab -nodisplay -nosplash -r "data_triangulation; exit" > /dev/null`
+
+    `rm data_reader.m`
+
+    self
+  end
+
   def write_data(filename)
     File.open(filename, 'w') do |file|
 
       # Header
-      file.write("#include \"m_pd.h\"\n\n")
-      
+      file.write("#ifndef __HRTF_DATA__\n#define __HRTF_DATA__\n\n#include \"m_pd.h\"\n\n")
+
       # Values
-      file.write("extern \"C\" t_float hrtf_impulses[#{values.length}][2][#{values[0].length/2}] =\n{\n")
+      file.write("extern \"C\" t_float hrtf_impulses[][2][#{values[0].length/2}] =\n{\n")
       values.each_with_index do |point, i|
         file.write("\t{\n\t\t{\n")
 
@@ -59,8 +79,6 @@ class DataReader
 
           if j%8 == 7
             file.write("\n")
-          # else
-          #   file.write(",")
           end
         end
 
@@ -77,8 +95,6 @@ class DataReader
 
           if j%8 == 7
             file.write("\n")
-          # else
-          #   file.write(",")
           end
         end
 
@@ -87,16 +103,13 @@ class DataReader
         if i < values.length-1
           file.write(",");
         end
-		file.write("\n");
+        file.write("\n");
       end
-      file.write("};")
-
-      file.write("\n\n")
+      file.write("};\n\n")
 
       # Coordinates
-      file.write("extern \"C\" t_int hrtf_coordinates[#{coordinates.length}][2] =\n{\n")
+      file.write("extern \"C\" t_int hrtf_coordinates[][2] =\n{\n")
       coordinates.each_with_index do |point, i|
-        # file.write("\t\t{ #{point[0]}, #{point[1]} }")
         file.write("\t{ %d, %d }" % point )
 
         if i < coordinates.length-1
@@ -104,8 +117,15 @@ class DataReader
         end
         file.write("\n")
       end
-      
-      file.write("};")
+
+      file.write("};\n\n")
+    end
+
+    elaborate_data
+
+    File.open(filename, 'a') do |file|
+      # Footer
+      file.write("#endif  // __HRTF_DATA__");
     end
   end
 end

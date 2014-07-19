@@ -18,61 +18,10 @@ namespace hrtf
 
 	std::vector<Triplet> Triplet::delaunay_triangulation()
 	{
-		// We calculate the convex hull of the points as intermediate step, by adding an extra
-		// coordinate to each point which value is x^2 + y^2.
-		// NOTE our points use azimuth and elevation as coordinates, but this obviously
-		// doesn't matter.
-		// Compute the artificial "z" of every point
-		int z[ SAMPLES_NUMBER ];
-
-		for( int i = 0; i < SAMPLES_NUMBER; i++ )
-			z[ i ] = hrtf_coordinates[ i ][ AZIMUTH ] * hrtf_coordinates[ i ][ AZIMUTH ] + hrtf_coordinates[ i ][ ELEVATION ] * hrtf_coordinates[ i ][ ELEVATION ];
-
 		std::vector<Triplet> result;
 
-		for( int i = 0; i < SAMPLES_NUMBER - 2; i++ )
-		{
-			for( int j = i + 1; j < SAMPLES_NUMBER; j++ )
-			{
-				for( int k = i + 1; k < SAMPLES_NUMBER; k++ )
-				{
-					if( j == k )
-						continue;
-
-					// ( xn, yn, zn ) is the cross product of the vectors i -> j and j -> k, perpendicular
-					// to the triangle determined by i, j and k
-					int xn = ( hrtf_coordinates[ j ][ ELEVATION ] - hrtf_coordinates[ i ][ ELEVATION ] ) * ( z[ k ] * z[ i ] ) -
-						( hrtf_coordinates[ k ][ ELEVATION ] - hrtf_coordinates[ i ][ ELEVATION ] ) * ( z[ j ] * z[ i ] );
-
-					int yn = ( hrtf_coordinates[ k ][ AZIMUTH ] - hrtf_coordinates[ i ][ AZIMUTH ] ) * ( z[ j ] * z[ i ] ) -
-						( hrtf_coordinates[ j ][ AZIMUTH ] - hrtf_coordinates[ i ][ AZIMUTH ] ) * ( z[ k ] * z[ i ] );
-
-					int zn = ( hrtf_coordinates[ j ][ AZIMUTH ] - hrtf_coordinates[ i ][ AZIMUTH ] ) * ( hrtf_coordinates[ k ][ ELEVATION ] - hrtf_coordinates[ i ][ ELEVATION ] ) -
-						( hrtf_coordinates[ k ][ AZIMUTH ] - hrtf_coordinates[ i ][ AZIMUTH ] ) * ( hrtf_coordinates[ j ][ ELEVATION ] - hrtf_coordinates[ i ][ ELEVATION ] );
-
-					// Because of convex stuff, this flag permits to determine whether or not the triangle
-					// has to be inserted in the Delaunay triangulation
-					bool flag;
-
-					if( ( flag = ( zn < 0 ? 1 : 0 ) != 0 ) )
-						for( int m = 0; m < SAMPLES_NUMBER; m++ )
-							flag = flag && ( (
-								( hrtf_coordinates[ m ][ AZIMUTH ] - hrtf_coordinates[ i ][ AZIMUTH ] ) * xn +
-								( hrtf_coordinates[ m ][ ELEVATION ] - hrtf_coordinates[ i ][ ELEVATION ] ) * yn +
-								( z[ m ] - z[ i ] ) * zn ) <= 0 );
-
-					if( !flag )
-						continue;
-
-					int* _point_indexes = (int*) malloc( sizeof( int ) * 3 );
-                    _point_indexes[ 0 ] = i;
-                    _point_indexes[ 1 ] = j;
-                    _point_indexes[ 2 ] = k;
-
-					result.push_back( Triplet( _point_indexes ) );
-				}
-			}
-		}
+		for( int i = 0; i < TRIPLET_SIZE - 2; i++ )
+			result.push_back( Triplet( hrtf_triplets[ i ] ) );
 
 		return result;
 	}

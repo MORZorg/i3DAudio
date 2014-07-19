@@ -1,6 +1,6 @@
 CFLAGS=-O3 -std=c++0x
 
-orz_hrtf_linux: orz_hrtf~.cpp hrtf_triplet.o 
+orz_hrtf_linux: orz_hrtf~.cpp hrtf_triplet.o
 	$(CXX) $(CFLAGS) -DPD -Wall -g -fPIC -shared \
 		-I/usr/include/pdextended \
 		-o orz_hrtf~.pd_linux $^
