@@ -17,8 +17,10 @@ namespace hrtf
 		private:
 			int* point_indexes;
 
-			t_float** H_inverse;
+			t_float center[ 2 ];
+			t_float H_inverse[ 3 ][ 2 ];
 
+			void calculate_center();
 			// Calculates the pseudoinverse of the matrix A, which has the points' coordinates
 			// as columns. The inverse is ( A_t * A ) ^ -1 * A_t
 			void calculate_H_inverse();
