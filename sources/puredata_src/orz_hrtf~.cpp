@@ -23,9 +23,10 @@ extern "C"
 
 		int blocksize = (int) w[ 5 ];
 	
-		t_float source_position[ 2 ];
+		t_float source_position[ 3 ];
 		source_position[ AZIMUTH ] = x->azimuth;
 		source_position[ ELEVATION ] = x->elevation;
+		source_position[ DISTANCE ] = 1;
 
 		// FIXME: should we also have to check for azimuth bounds? => € [ 0, 360 ]
 
