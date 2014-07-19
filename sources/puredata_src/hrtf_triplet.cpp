@@ -3,13 +3,12 @@
 
 namespace hrtf
 {
-	std::ofstream debug("/Users/mauzuc90/debug.txt");
+	std::ofstream debug("/home/mattia/debug.txt");
 
 	Triplet::Triplet( int* _point_indexes )
 	{
 		point_indexes = _point_indexes;
 
-		calculated_inverse = false;
 		H_inverse = NULL;
 	}
 
@@ -94,8 +93,7 @@ namespace hrtf
 
 	t_float* Triplet::coefficients( t_float source_coordinates[ 2 ] )
 	{
-		if( !calculated_inverse )
-			calculate_H_inverse();
+		calculate_H_inverse();
 
 		t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
 
@@ -108,26 +106,33 @@ namespace hrtf
 
 	void Triplet::calculate_H_inverse()
 	{
-		if( !calculated_inverse )
+		if( H_inverse == NULL )
 		{
-			t_int A[ 2 ][ 3 ] = {
+			debug << "Triplet:" << std::endl;
+			debug << point_indexes[ 0 ] << " " << point_indexes[ 1 ] << " " << point_indexes[ 2 ] << std::endl;
+
+			float A[ 2 ][ 3 ] = {
 				{
-					hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ],
-					hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ],
-					hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ]
+					(float) hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ],
+					(float) hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ],
+					(float) hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ]
 				}, {
-					hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ],
-					hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ],
-					hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ]
+					(float) hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ],
+					(float) hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ],
+					(float) hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ]
 				} };
 
-			t_int A_t[ 3 ][ 2 ] = {
+			debug << "A:" << std::endl;
+			debug << "\t" << A[ 0 ][ 0 ] << ", " << A[ 0 ][ 1 ] << ", " << A[ 0 ][ 2 ] << std::endl;
+			debug << "\t" << A[ 1 ][ 0 ] << ", " << A[ 1 ][ 1 ] << ", " << A[ 1 ][ 2 ] << std::endl;
+
+			float A_t[ 3 ][ 2 ] = {
 				{ A[ 0 ][ 0 ], A[ 1 ][ 0 ] },
 				{ A[ 0 ][ 1 ], A[ 1 ][ 1 ] },
 				{ A[ 0 ][ 2 ], A[ 1 ][ 2 ] } };
 
 			// A_t * A
-			t_int B[ 3 ][ 3 ] = {
+			float B[ 3 ][ 3 ] = {
 				{
 					A_t[ 0 ][ 0 ] * A[ 0 ][ 0 ] + A_t[ 0 ][ 1 ] * A[ 1 ][ 0 ],
 					A_t[ 0 ][ 0 ] * A[ 0 ][ 1 ] + A_t[ 0 ][ 1 ] * A[ 1 ][ 1 ],
@@ -141,15 +146,22 @@ namespace hrtf
 					A_t[ 2 ][ 0 ] * A[ 0 ][ 1 ] + A_t[ 2 ][ 1 ] * A[ 1 ][ 1 ],
 					A_t[ 2 ][ 0 ] * A[ 0 ][ 2 ] + A_t[ 2 ][ 1 ] * A[ 1 ][ 2 ]
 				} };
+			
+			debug << "B:" << std::endl;
+			debug << "\t" << B[ 0 ][ 0 ] << ", " << B[ 0 ][ 1 ] << ", " << B[ 0 ][ 2 ] << std::endl;
+			debug << "\t" << B[ 1 ][ 0 ] << ", " << B[ 1 ][ 1 ] << ", " << B[ 1 ][ 2 ] << std::endl;
+			debug << "\t" << B[ 2 ][ 0 ] << ", " << B[ 2 ][ 1 ] << ", " << B[ 2 ][ 2 ] << std::endl;
 
 			// Inverse of B
-			t_float inv_det_B = B[ 0 ][ 0 ] * ( B[ 1 ][ 1 ] * B[ 2 ][ 2 ] - B[ 2 ][ 1 ] * B[ 1 ][ 2 ] ) -
+			float inv_det_B = B[ 0 ][ 0 ] * ( B[ 1 ][ 1 ] * B[ 2 ][ 2 ] - B[ 2 ][ 1 ] * B[ 1 ][ 2 ] ) -
 				B[ 0 ][ 1 ] * ( B[ 2 ][ 2 ] * B[ 1 ][ 0 ] - B[ 2 ][ 1 ] * B[ 2 ][ 0 ] ) +
 				B[ 0 ][ 2 ] * ( B[ 1 ][ 0 ] * B[ 2 ][ 1 ] - B[ 1 ][ 1 ] * B[ 2 ][ 0 ] );
 
+			debug << "Det B: " << inv_det_B << std::endl;
+
 			inv_det_B = 1 / inv_det_B;
 
-			t_float B_inv[ 3 ][ 3 ] = {
+			float B_inv[ 3 ][ 3 ] = {
 				{
 					inv_det_B * ( B[ 1 ][ 1 ] * B[ 2 ][ 2 ] - B[ 2 ][ 1 ] * B[ 1 ][ 2 ] ),
 					-1 * inv_det_B * ( B[ 1 ][ 0 ] * B[ 2 ][ 2 ] - B[ 2 ][ 0 ] * B[ 1 ][ 2 ] ),
@@ -178,8 +190,6 @@ namespace hrtf
 			H_inverse[ 2 ][ 0 ] = B_inv[ 2 ][ 0 ] * A_t[ 0 ][ 0 ] + B_inv[ 2 ][ 1 ] * A_t[ 1 ][ 0 ] + B_inv[ 2 ][ 2 ] * A_t[ 2 ][ 0 ];
 			H_inverse[ 2 ][ 1 ] = B_inv[ 2 ][ 0 ] * A_t[ 0 ][ 1 ] + B_inv[ 2 ][ 1 ] * A_t[ 1 ][ 1 ] + B_inv[ 2 ][ 2 ] * A_t[ 2 ][ 1 ];
 
-			calculated_inverse = true;
-			
 			debug << "Inverse:" << std::endl;
 			debug << "\t" << H_inverse[ 0 ][ 0 ] << ", " << H_inverse[ 0 ][ 1 ] << std::endl;
 			debug << "\t" << H_inverse[ 1 ][ 0 ] << ", " << H_inverse[ 1 ][ 1 ] << std::endl;

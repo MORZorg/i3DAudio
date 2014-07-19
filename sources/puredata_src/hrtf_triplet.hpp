@@ -17,7 +17,6 @@ namespace hrtf
 			int* point_indexes;
 
 			t_float** H_inverse;
-			bool calculated_inverse;
 
 			// Calculates the pseudoinverse of the matrix A, which has the points' coordinates
 			// as columns. The inverse is ( A_t * A ) ^ -1 * A_t

@@ -54,7 +54,7 @@ extern "C"
 
 		// I have my triplet
 		// Getting HRTF values of the triplet found
-		if (it < x->dt_triplets.end())
+		if( it < x->dt_triplets.end() )
 		{
 			post( "Found a triplet!" );
 			
@@ -110,7 +110,7 @@ extern "C"
 
 	static void orz_hrtf_tilde_dsp( t_orz_hrtf_tilde* x, t_signal** sp )
 	{
-		post("Called setup");
+		post("DSP signal elaboration");
 		// Add a callback function that actually performs what has to be done
 		// The function has 5 parameters, the class and the data obtained by the signal
 		// All of this stuff is given by puredata automatically, it seems
