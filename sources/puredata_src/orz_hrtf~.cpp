@@ -27,6 +27,12 @@ extern "C"
 		source_position[ AZIMUTH ] = x->azimuth;
 		source_position[ ELEVATION ] = x->elevation;
 
+		// FIXME: should we also have to check for azimuth bounds? => € [ 0, 360 ]
+
+		// Simmetricity of HRTF between channels
+		int left_channel = ( x->azimuth <= 180 ? 0 : 1 );
+		int right_channel = ( x->azimuth <= 180 ? 1 : 0 );
+
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
 		int percentile_offset = (int) ceil( x->dt_triplets.size() * 0.02 );
@@ -81,32 +87,32 @@ extern "C"
 			// for the first chunk, the past samples are all 0
 			for( int i = 0; i < blocksize; i++ )
 			{
-				filtered_temp[ LEFT_CHANNEL ] = 0;
-				filtered_temp[ RIGHT_CHANNEL ] = 0;
+				filtered_temp[ left_channel ] = 0;
+				filtered_temp[ right_channel ] = 0;
 
 				for( int j = 0; j < SAMPLES_LENGTH; j++ )
 				{
 					if( i - j > 0 )
 					{
-						signal_temp[ LEFT_CHANNEL ] = inlet_signal[ i - j ];
-						signal_temp[ RIGHT_CHANNEL ] = inlet_signal[ i - j ];
+						signal_temp[ left_channel ] = inlet_signal[ i - j ];
+						signal_temp[ right_channel ] = inlet_signal[ i - j ];
 					}
 					else
 					{
-						signal_temp[ LEFT_CHANNEL ] = x->previous_sample[ LEFT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
-						signal_temp[ RIGHT_CHANNEL ] = x->previous_sample[ RIGHT_CHANNEL ][ i - j + SAMPLES_LENGTH ];
+						signal_temp[ left_channel ] = x->previous_sample[ left_channel ][ i - j + SAMPLES_LENGTH ];
+						signal_temp[ right_channel ] = x->previous_sample[ right_channel ][ i - j + SAMPLES_LENGTH ];
 					}
 
-					filtered_temp[ LEFT_CHANNEL ] += signal_temp[ LEFT_CHANNEL ] * current_hrtf[ LEFT_CHANNEL ][ j ];  
-					filtered_temp[ RIGHT_CHANNEL ] += signal_temp[ RIGHT_CHANNEL ] * current_hrtf[ RIGHT_CHANNEL ][ j ];  
+					filtered_temp[ left_channel ] += signal_temp[ left_channel ] * current_hrtf[ left_channel ][ j ];  
+					filtered_temp[ right_channel ] += signal_temp[ right_channel ] * current_hrtf[ right_channel ][ j ];  
 				}
 
-				x->previous_sample[ LEFT_CHANNEL ][ i ] = inlet_signal[ i ];
-				x->previous_sample[ RIGHT_CHANNEL ][ i ] = inlet_signal[ i ];
+				x->previous_sample[ left_channel ][ i ] = inlet_signal[ i ];
+				x->previous_sample[ right_channel ][ i ] = inlet_signal[ i ];
 
 				// Assign to outlets
-				*outlet_left++ = filtered_temp[ LEFT_CHANNEL ];
-				*outlet_right++ = filtered_temp[ RIGHT_CHANNEL ];
+				*outlet_left++ = filtered_temp[ left_channel ];
+				*outlet_right++ = filtered_temp[ right_channel ];
 			}
 		}
 
@@ -155,8 +161,8 @@ extern "C"
 		// Initializating the last sample at 0
 		for( int i = 0; i < SAMPLES_LENGTH; i++ )
 		{
-			x->previous_sample[ LEFT_CHANNEL ][ i ] = 0;
-			x->previous_sample[ RIGHT_CHANNEL ][ i ] = 0;
+			x->previous_sample[ 0 ][ i ] = 0;
+			x->previous_sample[ 1 ][ i ] = 0;
 		}
 
 		post("return");
