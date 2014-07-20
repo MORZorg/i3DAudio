@@ -14,6 +14,8 @@ class Array
   end
 end
 
+RAD_TO_DEG = 180 / Math::PI
+
 class DataReader
   attr_reader :values, :coordinates
 
@@ -41,11 +43,7 @@ class DataReader
     File.open("data_reader.m", 'w') do |file|
       file.write("input = [\n");
       coordinates.each_with_index do |point, i|
-        cartesian = [ Math.cos(point[0]) * Math.cos(point[1]),
-                      Math.cos(point[0]) * Math.sin(point[1]),
-                      Math.sin(point[0]) ]
-
-        file.write("\t%f, %f, %f;\n" % cartesian )
+        file.write("\t%f, %f;\n" % point)
       end
       file.write("];")
     end

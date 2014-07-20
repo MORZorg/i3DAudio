@@ -2,10 +2,12 @@ addpath('./sphere/');
 
 %% Elaboration
 data_reader;
-[~, output] = sphere_delaunay(length(input), input');
+% [~, output] = sphere_delaunay(length(input), input');
+temp = delaunayTriangulation(input);
+output = temp.ConnectivityList;
 
 % Index adjustment
-output = output' - 1;
+output = output - 1;
 
 %% Output
 ftemp = fopen('hrtf_data.hpp', 'A');
