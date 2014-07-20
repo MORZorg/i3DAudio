@@ -38,13 +38,13 @@ namespace hrtf
 			// as suggested in the paper.
 			// As result, the values must be ordered in descending order instead
 			// of ascending one
-			t_float calculate_distance( t_float* );
+			t_float calculate_distance( t_float[ 3 ] );
 			// Calculates the g coefficents, either positive or negative (the check must
 			// be performed on the returned value )
-			t_float* coefficients( t_float* );
+			void coefficients( t_float*, t_float[ 3 ] );
 
 			// Calculates the HRTF of the triplet, knowing the source
-			t_float** calculate_hrtf( t_float[ 3 ], int, int );
+			void calculate_hrtf( t_float**, t_float[ 3 ], int, int );
 
             std::string to_string();
 	};

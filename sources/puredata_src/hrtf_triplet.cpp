@@ -46,7 +46,6 @@ namespace hrtf
 		center[ DISTANCE ] /= 3.0;
 	}
 
-
 	t_float Triplet::calculate_distance( t_float source_coordinates[ 3 ] )
 	{
 #ifdef DEBUG
@@ -73,10 +72,8 @@ namespace hrtf
 		return distance;
 	}
 
-	t_float* Triplet::coefficients( t_float source_coordinates[ 3 ] )
+	void Triplet::coefficients( t_float* g, t_float source_coordinates[ 3 ] )
 	{
-		t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
-
 #ifdef DEBUG
 		debug << "Triplet: " << point_indexes[ 0 ] << " "
 							 << point_indexes[ 1 ] << " "
@@ -104,8 +101,6 @@ namespace hrtf
 							 << g[ 1 ] << ", "
 							 << g[ 2 ] << std::endl;
 #endif
-
-		return g;
 	}
 
 	void Triplet::calculate_H_inverse()
@@ -172,7 +167,7 @@ namespace hrtf
 #endif
 	}
 
-	t_float** Triplet::calculate_hrtf( t_float g_coefficients[ 3 ], int left_channel, int right_channel )
+	void Triplet::calculate_hrtf( t_float** hrtf, t_float g_coefficients[ 3 ], int left_channel, int right_channel )
 	{
 #ifdef DEBUG
 		debug << "Found a valid HRTF!\n";
@@ -180,21 +175,18 @@ namespace hrtf
 								  << g_coefficients[ 1 ] << ", "
 								  << g_coefficients[ 2 ] << std::endl;
 #endif
-
-		// Creating and instantiating the result matrix
-		t_float** result = (t_float**) malloc( sizeof( t_float* ) * 2 );
-		for( int i = 0; i < 2; i++ )
-			result[ i ] = (t_float*) malloc( sizeof( t_float ) * SAMPLES_LENGTH );
-
 		// Retrieving hrtf values from the indexes
 		for( int i = 0; i < SAMPLES_LENGTH; i++ )
+		{
+			hrtf[ 0 ][ i ] = 0;
+			hrtf[ 1 ][ i ] = 0;
+
 			for( int j = 0; j < 3; j++ )
 			{
-				result[ 0 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
-				result[ 1 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
+				hrtf[ 0 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
+				hrtf[ 1 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
 			}
-
-		return result;
+		}
 	}
 
     std::string Triplet::to_string()
