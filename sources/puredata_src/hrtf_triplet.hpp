@@ -2,6 +2,7 @@
 #define HRTF_TRIPLET
 
 #include <fstream>
+#include <sstream>
 #include <cstdio>
 #include <cstdlib>
 #include <vector>
@@ -44,6 +45,8 @@ namespace hrtf
 
 			// Calculates the HRTF of the triplet, knowing the source
 			t_float** calculate_hrtf( t_float[ 3 ], int, int );
+
+            std::string to_string();
 	};
 }
 

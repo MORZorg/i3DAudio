@@ -24,12 +24,6 @@ extern "C"
 		int blocksize = (int) w[ 5 ];
 	
 		t_float source_position[ 3 ];
-		source_position[ AZIMUTH ] = x->azimuth;
-		source_position[ ELEVATION ] = x->elevation;
-		source_position[ DISTANCE ] = 1;
-
-		// FIXME: should we also have to check for azimuth bounds? => € [ 0, 360 ]
-
 		// Symmetry of HRTF between channels
 		int left_channel;
 		int right_channel;
@@ -37,13 +31,18 @@ extern "C"
 		{
 			left_channel = 0;
 			right_channel = 1;
+			source_position[ AZIMUTH ] = x->azimuth;
 		}
 		else
 		{ 
 			left_channel = 1;
 			right_channel = 0;
-			x->azimuth = 360.0 - x->azimuth;
+			source_position[ AZIMUTH ] = 360.0 - x->azimuth;
 		}
+		source_position[ ELEVATION ] = x->elevation;
+		source_position[ DISTANCE ] = 1;
+
+		// FIXME: should we also have to check for azimuth bounds? => € [ 0, 360 ]
 
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
@@ -73,9 +72,8 @@ extern "C"
 		// Getting HRTF values of the triplet found
 		if( it < x->dt_triplets.end() )
 		{
-#ifdef DEBUG
-			post( "Found a triplet!" );
-#endif
+			post( "Found a triplet for (%f, %f): %s", source_position[ ELEVATION ], source_position[ AZIMUTH ], it->to_string().c_str() );
+			post( "The weights are: [%f, %f, %f]", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ] );
 
 			// Normalizing the coefficients
 			t_float g_sum = 0;

@@ -143,13 +143,13 @@ namespace hrtf
 		inv_det_H = 1 / inv_det_H;
 
 		H_inverse[ 0 ][ 0 ] =  inv_det_H * ( H[ 1 ][ 1 ] * H[ 2 ][ 2 ] - H[ 2 ][ 1 ] * H[ 1 ][ 2 ] );
-		H_inverse[ 0 ][ 1 ] = -inv_det_H * ( H[ 1 ][ 0 ] * H[ 2 ][ 2 ] - H[ 2 ][ 0 ] * H[ 1 ][ 2 ] );
-		H_inverse[ 0 ][ 2 ] =  inv_det_H * ( H[ 1 ][ 0 ] * H[ 2 ][ 1 ] - H[ 2 ][ 0 ] * H[ 1 ][ 1 ] );
-		H_inverse[ 1 ][ 0 ] = -inv_det_H * ( H[ 0 ][ 1 ] * H[ 2 ][ 2 ] - H[ 2 ][ 1 ] * H[ 0 ][ 2 ] );
+		H_inverse[ 0 ][ 1 ] = -inv_det_H * ( H[ 0 ][ 1 ] * H[ 2 ][ 2 ] - H[ 2 ][ 1 ] * H[ 0 ][ 2 ] );
+		H_inverse[ 0 ][ 2 ] =  inv_det_H * ( H[ 0 ][ 1 ] * H[ 1 ][ 2 ] - H[ 1 ][ 1 ] * H[ 0 ][ 2 ] );
+		H_inverse[ 1 ][ 0 ] = -inv_det_H * ( H[ 1 ][ 0 ] * H[ 2 ][ 2 ] - H[ 2 ][ 0 ] * H[ 1 ][ 2 ] );
 		H_inverse[ 1 ][ 1 ] =  inv_det_H * ( H[ 0 ][ 0 ] * H[ 2 ][ 2 ] - H[ 2 ][ 0 ] * H[ 0 ][ 2 ] );
-		H_inverse[ 1 ][ 2 ] = -inv_det_H * ( H[ 0 ][ 0 ] * H[ 2 ][ 1 ] - H[ 2 ][ 0 ] * H[ 0 ][ 1 ] );
-		H_inverse[ 2 ][ 0 ] =  inv_det_H * ( H[ 0 ][ 1 ] * H[ 1 ][ 2 ] - H[ 1 ][ 1 ] * H[ 0 ][ 2 ] );
-		H_inverse[ 2 ][ 1 ] = -inv_det_H * ( H[ 0 ][ 0 ] * H[ 1 ][ 2 ] - H[ 1 ][ 0 ] * H[ 0 ][ 2 ] );
+		H_inverse[ 1 ][ 2 ] = -inv_det_H * ( H[ 0 ][ 0 ] * H[ 1 ][ 2 ] - H[ 1 ][ 0 ] * H[ 0 ][ 2 ] );
+		H_inverse[ 2 ][ 0 ] =  inv_det_H * ( H[ 1 ][ 0 ] * H[ 2 ][ 1 ] - H[ 2 ][ 0 ] * H[ 1 ][ 1 ] );
+		H_inverse[ 2 ][ 1 ] = -inv_det_H * ( H[ 0 ][ 0 ] * H[ 2 ][ 1 ] - H[ 2 ][ 0 ] * H[ 0 ][ 1 ] );
 		H_inverse[ 2 ][ 2 ] =  inv_det_H * ( H[ 0 ][ 0 ] * H[ 1 ][ 1 ] - H[ 1 ][ 0 ] * H[ 0 ][ 1 ] );
 
 #ifdef DEBUG
@@ -184,4 +184,11 @@ namespace hrtf
 
 		return result;
 	}
+
+    std::string Triplet::to_string()
+    {
+      std::ostringstream ss;
+      ss << "[(" << hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ] << ", " << hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ] << "), (" << hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ] << ", " << hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ] << "), (" << hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ] << ", " << hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ] << ")]";
+      return ss.str();
+    }
 }

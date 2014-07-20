@@ -1,7 +1,7 @@
 #N canvas 334 148 822 659 10;
 #X msg 644 355 \; pd dsp 1;
 #X msg 329 451 0 \, 360 5000;
-#X floatatom 327 287 5 0 0 0 - - -, f 5;
+#X floatatom 327 287 5 0 0 0 - - -;
 #N canvas 0 50 385 256 (subpatch) 0;
 #X floatatom 261 193 0 0 0 0 cpu-meter - -;
 #X obj 260 129 cputime;
@@ -35,7 +35,7 @@ of KEMAR Dummy-Head Microphone (http://sound.media.mit.edu/KEMAR.html)
 #X obj 122 343 tabplay~ table;
 #X obj 327 329 line 0 1;
 #X obj 327 306 pack 0 50;
-#X floatatom 328 377 5 0 0 0 - - -, f 5;
+#X floatatom 328 377 5 0 0 0 - - -;
 #X obj 328 419 line 0 1;
 #X obj 328 396 pack 0 50;
 #X msg 331 508 0 \, 360 5000;
