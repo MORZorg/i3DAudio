@@ -84,42 +84,41 @@ extern "C"
 			for( int i = 0; i < 3; i++ )
 				g_coefficients[ i ] = g_coefficients[ i ] / g_sum;
 			
-			x->current_hrtf = it->calculate_hrtf( g_coefficients );
+			x->current_hrtf = it->calculate_hrtf( g_coefficients, left_channel, right_channel );
 
-			// Assigning the interpolated HRTF to the outlets
-			/* outlet_left = current_hrtf[ LEFT_CHANNEL ]; */
-			/* outlet_right = current_hrtf[ RIGHT_CHANNEL ]; */
+			// Shortcircuiting
+			/* outlet_left = inlet_signal; */
+			/* outlet_right = inlet_signal; */
 
 			// Filtering the "in" source with the newly composed filter
-
 			t_float filtered_temp[ 2 ];
 			int blockscale = 8192 / blocksize;
 
 			// Convolution
             while (blocksize--)
             {
-				filtered_temp[ left_channel ] = 0;
-				filtered_temp[ right_channel ] = 0;
+				filtered_temp[ 0 ] = 0;
+				filtered_temp[ 1 ] = 0;
 
 				x->conv_buffer[ x->buffer_pin ] = *(inlet_signal++);
 				unsigned scaled_blocksize = blocksize * blockscale;
 				unsigned blocksize_delta = 8191 - scaled_blocksize;
 				for ( int i = 0; i < SAMPLES_LENGTH; i++ )
 				{ 
-					filtered_temp[ left_channel ] += ( x->previous_hrtf[ left_channel ][ i ] * x->cross_coef[ blocksize_delta ] + 
-													   x->previous_hrtf[ left_channel ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 
-						x->conv_buffer[ ( x->buffer_pin - i ) & ( SAMPLES_LENGTH - 1 ) ];
-					filtered_temp[ right_channel ] += ( x->previous_hrtf[ right_channel ][ i ] * x->cross_coef[ blocksize_delta ] + 
-														x->current_hrtf[ right_channel ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 
-						x->conv_buffer[ ( x->buffer_pin - i ) & ( SAMPLES_LENGTH - 1 ) ];
+					filtered_temp[ 0 ] += ( x->previous_hrtf[ 0 ][ i ] * x->cross_coef[ blocksize_delta ] + 
+													   x->previous_hrtf[ 0 ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 
+													   x->conv_buffer[ ( x->buffer_pin - i ) & ( SAMPLES_LENGTH - 1 ) ];
+					filtered_temp[ 1 ] += ( x->previous_hrtf[ 1 ][ i ] * x->cross_coef[ blocksize_delta ] + 
+														x->current_hrtf[ 1 ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 
+														x->conv_buffer[ ( x->buffer_pin - i ) & ( SAMPLES_LENGTH - 1 ) ];
 
-					x->previous_hrtf[ left_channel ][ i ] = x->current_hrtf[ left_channel ][ i ];
-					x->previous_hrtf[ right_channel ][ i ] = x->current_hrtf[ right_channel ][ i ];
+					x->previous_hrtf[ 0 ][ i ] = x->current_hrtf[ 0 ][ i ];
+					x->previous_hrtf[ 1 ][ i ] = x->current_hrtf[ 1 ][ i ];
 				}	
 				x->buffer_pin = (x->buffer_pin + 1) & ( SAMPLES_LENGTH - 1 );
 
-				*outlet_left++ = filtered_temp[ left_channel ];
-				*outlet_right++ = filtered_temp[ right_channel ];
+				*outlet_left++ = filtered_temp[ 0 ];
+				*outlet_right++ = filtered_temp[ 1 ];
             }
 
 		}

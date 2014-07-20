@@ -153,7 +153,7 @@ namespace hrtf
 #endif
 	}
 
-	t_float** Triplet::calculate_hrtf( t_float g_coefficients[ 3 ] )
+	t_float** Triplet::calculate_hrtf( t_float g_coefficients[ 3 ], int left_channel, int right_channel )
 	{
 #ifdef DEBUG
 		debug << "Found a valid HRTF!\n";
@@ -166,10 +166,12 @@ namespace hrtf
 			result[ i ] = (t_float*) malloc( sizeof( t_float ) * SAMPLES_LENGTH );
 
 		// Retrieving hrtf values from the indexes
-		for( int i = 0; i < 2; i++ )
-			for( int j = 0; j < SAMPLES_LENGTH; j++ )
-				for( int k = 0; k < 3; k++ )
-					result[ i ][ j ] += g_coefficients[ i ] * hrtf_impulses[ point_indexes[ k ] ][ i ][ j ];
+		for( int i = 0; i < SAMPLES_LENGTH; i++ )
+			for( int j = 0; j < 3; j++ )
+			{
+				result[ left_channel ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
+				result[ right_channel ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
+			}
 
 		return result;
 	}
