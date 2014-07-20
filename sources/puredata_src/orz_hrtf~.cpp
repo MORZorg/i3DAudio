@@ -41,7 +41,13 @@ extern "C"
 			right_channel = 0;
 			source_position[ AZIMUTH ] = 360.0 - x->azimuth;
 		}
-		source_position[ ELEVATION ] = x->elevation;
+        
+        if( x->elevation > 85 )
+            source_position[ ELEVATION ] = 85;
+        else if( x->elevation < -39 )
+            source_position[ ELEVATION ] = -39;
+        else
+            source_position[ ELEVATION ] = x->elevation;
 		source_position[ DISTANCE ] = 1;
 
 		// Ordering the triplets and finding the best coefficients
