@@ -50,17 +50,16 @@ extern "C"
 		int percentile_offset = (int) ceil( x->dt_triplets.size() * 0.02 );
 		
 		nth_element( x->dt_triplets.begin(),
-						 x->dt_triplets.begin() + percentile_offset,
-						 x->dt_triplets.end(),
-						 [ &source_position ]( Triplet lhs, Triplet rhs ) -> bool
-						 {
-							return lhs.calculate_distance( source_position ) < rhs.calculate_distance( source_position );
-						 } );
+					 x->dt_triplets.begin() + percentile_offset,
+					 x->dt_triplets.end(),
+					 [ &source_position ]( Triplet lhs, Triplet rhs ) -> bool
+					 {
+						 return lhs.calculate_distance( source_position ) < rhs.calculate_distance( source_position );
+					 } );
 
 		// Cycling until I'll find the best coefficients, knowing that I'm looking in the
 		// most probable part first.
 		vector<Triplet>::iterator it;
-		
 		t_float* g_coefficients;
 		for( it = x->dt_triplets.begin(); it < x->dt_triplets.end(); it++ )
 		{
@@ -79,13 +78,13 @@ extern "C"
 #endif
 
 			// Normalizing the coefficients
-			int g_sum = 0;
+			t_float g_sum = 0;
 			for( int i = 0; i < 3; i++ )
 				g_sum += g_coefficients[ i ];
 			for( int i = 0; i < 3; i++ )
 				g_coefficients[ i ] = g_coefficients[ i ] / g_sum;
 			
-			x->current_hrtf = it->calculate_hrtf( source_position );
+			x->current_hrtf = it->calculate_hrtf( g_coefficients );
 
 			// Assigning the interpolated HRTF to the outlets
 			/* outlet_left = current_hrtf[ LEFT_CHANNEL ]; */

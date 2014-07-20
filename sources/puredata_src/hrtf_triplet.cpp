@@ -153,10 +153,11 @@ namespace hrtf
 #endif
 	}
 
-	t_float** Triplet::calculate_hrtf( t_float source_coordinates[ 2 ] )
+	t_float** Triplet::calculate_hrtf( t_float g_coefficients[ 3 ] )
 	{
 #ifdef DEBUG
 		debug << "Found a valid HRTF!\n";
+        debug << "Coefficients: " << g_coefficients[ 0 ] << ", " << g_coefficients[ 1 ] << ", " << g_coefficients[ 2 ] << std::endl;
 #endif
 
 		// Creating and instantiating the result matrix
@@ -168,7 +169,7 @@ namespace hrtf
 		for( int i = 0; i < 2; i++ )
 			for( int j = 0; j < SAMPLES_LENGTH; j++ )
 				for( int k = 0; k < 3; k++ )
-					result[ i ][ j ] += hrtf_impulses[ point_indexes[ k ] ][ i ][ j ];
+					result[ i ][ j ] += g_coefficients[ i ] * hrtf_impulses[ point_indexes[ k ] ][ i ][ j ];
 
 		return result;
 	}

@@ -43,7 +43,7 @@ namespace hrtf
 			t_float* coefficients( t_float* );
 
 			// Calculates the HRTF of the triplet, knowing the source
-			t_float** calculate_hrtf( t_float* );
+			t_float** calculate_hrtf( t_float[ 3 ] );
 	};
 }
 
