@@ -17,12 +17,18 @@ typedef struct _orz_hrtf_tilde
 	t_float azimuth;
 	t_float elevation;
 
-	t_float f;
+    t_float cross_coef[ 8192 ]; 
+    t_float conv_buffer[ SAMPLES_LENGTH ];
+
+    t_float** current_hrtf;
+    t_float previous_hrtf[ 2 ][ SAMPLES_LENGTH ];
+
+    t_int buffer_pin;
 
 	std::vector<hrtf::Triplet> dt_triplets;
-
-	// We must keep track of the past samples to start a new convolution!
-	t_float previous_sample[ 2 ][ SAMPLES_LENGTH ]; // Contains the last processed sample
+    
+    // Dummy float for DSP
+	t_float f;
 } t_orz_hrtf_tilde;
 
 extern "C"

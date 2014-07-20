@@ -55,7 +55,6 @@ extern "C"
 		{
 			// Calculating the coefficients
 			g_coefficients = it->coefficients( source_position );
-			/* post("Calculated %f %f %f", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ]); */
 			if( g_coefficients[ 0 ] >= 0 && g_coefficients[ 1 ] >= 0 && g_coefficients[ 2 ] >= 0 )
 				break;
 		}
@@ -64,7 +63,9 @@ extern "C"
 		// Getting HRTF values of the triplet found
 		if( it < x->dt_triplets.end() )
 		{
+#ifdef DEBUG
 			post( "Found a triplet!" );
+#endif
 
 			// Normalizing the coefficients
 			int g_sum = 0;
@@ -73,7 +74,7 @@ extern "C"
 			for( int i = 0; i < 3; i++ )
 				g_coefficients[ i ] = g_coefficients[ i ] / g_sum;
 			
-			t_float** current_hrtf = it->calculate_hrtf( source_position );
+			x->current_hrtf = it->calculate_hrtf( source_position );
 
 			// Assigning the interpolated HRTF to the outlets
 			/* outlet_left = current_hrtf[ LEFT_CHANNEL ]; */
@@ -82,39 +83,35 @@ extern "C"
 			// Filtering the "in" source with the newly composed filter
 
 			t_float filtered_temp[ 2 ];
-			t_float signal_temp[ 2 ];
+			int blockscale = 8192 / blocksize;
 
-			// Filter from left to right, using past samples when data are not available
-			// for the first chunk, the past samples are all 0
-			for( int i = 0; i < blocksize; i++ )
-			{
+			// Convolution
+            while (blocksize--)
+            {
 				filtered_temp[ left_channel ] = 0;
 				filtered_temp[ right_channel ] = 0;
 
-				for( int j = 0; j < SAMPLES_LENGTH; j++ )
-				{
-					if( i - j > 0 )
-					{
-						signal_temp[ left_channel ] = inlet_signal[ i - j ];
-						signal_temp[ right_channel ] = inlet_signal[ i - j ];
-					}
-					else
-					{
-						signal_temp[ left_channel ] = x->previous_sample[ left_channel ][ i - j + SAMPLES_LENGTH ];
-						signal_temp[ right_channel ] = x->previous_sample[ right_channel ][ i - j + SAMPLES_LENGTH ];
-					}
+				x->conv_buffer[ x->buffer_pin ] = *(inlet_signal++);
+				unsigned scaled_blocksize = blocksize * blockscale;
+				unsigned blocksize_delta = 8191 - scaled_blocksize;
+				for ( int i = 0; i < SAMPLES_LENGTH; i++ )
+				{ 
+					filtered_temp[ left_channel ] += ( x->previous_hrtf[ left_channel ][ i ] * x->cross_coef[ blocksize_delta ] + 
+													   x->previous_hrtf[ left_channel ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 
+						x->conv_buffer[ ( x->buffer_pin - i ) & ( SAMPLES_LENGTH - 1 ) ];
+					filtered_temp[ right_channel ] += ( x->previous_hrtf[ right_channel ][ i ] * x->cross_coef[ blocksize_delta ] + 
+														x->current_hrtf[ right_channel ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 
+						x->conv_buffer[ ( x->buffer_pin - i ) & ( SAMPLES_LENGTH - 1 ) ];
 
-					filtered_temp[ left_channel ] += signal_temp[ left_channel ] * current_hrtf[ left_channel ][ j ];  
-					filtered_temp[ right_channel ] += signal_temp[ right_channel ] * current_hrtf[ right_channel ][ j ];  
-				}
+					x->previous_hrtf[ left_channel ][ i ] = x->current_hrtf[ left_channel ][ i ];
+					x->previous_hrtf[ right_channel ][ i ] = x->current_hrtf[ right_channel ][ i ];
+				}	
+				x->buffer_pin = (x->buffer_pin + 1) & ( SAMPLES_LENGTH - 1 );
 
-				x->previous_sample[ left_channel ][ i ] = inlet_signal[ i ];
-				x->previous_sample[ right_channel ][ i ] = inlet_signal[ i ];
-
-				// Assign to outlets
 				*outlet_left++ = filtered_temp[ left_channel ];
 				*outlet_right++ = filtered_temp[ right_channel ];
-			}
+            }
+
 		}
 
 		// Returns a pointer to the end of the parameter vector
@@ -123,7 +120,6 @@ extern "C"
 
 	static void orz_hrtf_tilde_dsp( t_orz_hrtf_tilde* x, t_signal** sp )
 	{
-		post("DSP signal elaboration");
 		// Add a callback function that actually performs what has to be done
 		// The function has 5 parameters, the class and the data obtained by the signal
 		// All of this stuff is given by puredata automatically, it seems
@@ -136,44 +132,44 @@ extern "C"
 	// Should receive a sound sample and save it (why?)
 	static void* orz_hrtf_tilde_new( t_floatarg _azimuth, t_floatarg _elevation )
 	{
-		post("called new");
 		t_orz_hrtf_tilde* x = (t_orz_hrtf_tilde*) pd_new( orz_hrtf_tilde_class );
 
-		post("channels");
 		// Registering variables as outlets and inlets
 		x->left_channel = outlet_new( &x->x_obj, gensym( "signal" ) );
 		x->right_channel = outlet_new( &x->x_obj, gensym( "signal" ) );
 
-		post("inlets");
 		floatinlet_new( &x->x_obj, &x->azimuth );
 		floatinlet_new( &x->x_obj, &x->elevation );
 
-		post("assign inlets");
 		// Assigning the inlets
 		x->azimuth = (t_float) _azimuth;
 		x->elevation = (t_float) _elevation;
 
-		post("triangulation");
 		// The hrtf database is already loaded in the hrtf_data.hpp header
 		// Creating the triplets
 		x->dt_triplets = Triplet::delaunay_triangulation();
 
-		post("initialization");
 		// Initializating the last sample at 0
 		for( int i = 0; i < SAMPLES_LENGTH; i++ )
 		{
-			x->previous_sample[ 0 ][ i ] = 0;
-			x->previous_sample[ 1 ][ i ] = 0;
+			x->conv_buffer[ i ] = 0;
+			x->previous_hrtf[ 0 ][ i ] = 0;
+			x->previous_hrtf[ 1 ][ i ] = 0;
 		}
 
-		post("return");
+		// Coefficients to change smoothly the filter between consecutive blocks
+		for( int i = 0; i < 8192 ; i++ )
+		{	
+			x->cross_coef[i] = 1.0 * i / 8192;
+		}
+		
+
 		return (void*) x;
 	}
 
 	// Called by PD when the library orz_hrtf_tilde~ is loaded
 	void orz_hrtf_tilde_setup()
 	{
-		post("Called setup");
 		orz_hrtf_tilde_class = class_new(
 			gensym( "orz_hrtf~" ), // Created symbol to use in pd
 			(t_newmethod) orz_hrtf_tilde_new, // Constructor method
@@ -182,11 +178,9 @@ extern "C"
 			CLASS_DEFAULT, // Graphical representation of the object
 			A_DEFFLOAT, A_DEFFLOAT, A_NULL ); // Definition of constructor arguments, terminated by A_NULL
 
-		post("something");
 		// The f variable is a dummy one contained in the data space, used to replace the signal inlet (the first) with a float inlet if the signal is missing
 		CLASS_MAINSIGNALIN( orz_hrtf_tilde_class, t_orz_hrtf_tilde, f );
 
-		post("method");
 		class_addmethod(
 			orz_hrtf_tilde_class, // The class to which the method must be added
 			(t_method) orz_hrtf_tilde_dsp, // The method's name - the symbol must be dsp

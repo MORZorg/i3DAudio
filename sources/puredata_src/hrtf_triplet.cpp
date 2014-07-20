@@ -1,7 +1,7 @@
 #include "hrtf_triplet.hpp"
 #include "hrtf_data.hpp"
 
-#define DEBUG
+/* #define DEBUG */
 
 namespace hrtf
 {
