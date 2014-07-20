@@ -23,8 +23,9 @@ typedef struct _orz_hrtf_tilde
 
     t_float cross_coef[ 8192 ]; 
     t_float conv_buffer[ SAMPLES_LENGTH ];
-
-    t_float** current_hrtf;
+    
+    t_float coefficients[ 3 ];
+    t_float current_hrtf[ 2 ][ SAMPLES_LENGTH ];
     t_float previous_hrtf[ 2 ][ SAMPLES_LENGTH ];
 
     t_int buffer_pin;

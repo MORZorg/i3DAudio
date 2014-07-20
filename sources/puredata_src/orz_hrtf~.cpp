@@ -59,13 +59,12 @@ extern "C"
 		// Cycling until I'll find the best coefficients, knowing that I'm looking in the
 		// most probable part first.
 		vector<Triplet>::iterator it;
-		t_float g_coefficients[ 3 ];
 
 		for( it = x->dt_triplets.begin(); it < x->dt_triplets.end(); it++ )
 		{
 			// Calculating the coefficients
-			it->coefficients( g_coefficients, source_position );
-			if( g_coefficients[ 0 ] >= 0 && g_coefficients[ 1 ] >= 0 && g_coefficients[ 2 ] >= 0 )
+			it->coefficients( x->coefficients, source_position );
+			if( x->coefficients[ 0 ] >= 0 && x->coefficients[ 1 ] >= 0 && x->coefficients[ 2 ] >= 0 )
 				break;
 		}
 
@@ -75,17 +74,17 @@ extern "C"
 		{
 #ifdef ORZ_DEBUG
 			post( "Found a triplet for (%f, %f): %s", source_position[ ELEVATION ], source_position[ AZIMUTH ], it->to_string().c_str() );
-			post( "The weights are: [%f, %f, %f]", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ] );
+			post( "The weights are: [%f, %f, %f]", x->coefficients[ 0 ], x->coefficients[ 1 ], x->coefficients[ 2 ] );
 #endif
 
 			// Normalizing the coefficients
 			t_float g_sum = 0;
 			for( int i = 0; i < 3; i++ )
-				g_sum += g_coefficients[ i ];
+				g_sum += x->coefficients[ i ];
 			for( int i = 0; i < 3; i++ )
-				g_coefficients[ i ] = g_coefficients[ i ] / g_sum;
+				x->coefficients[ i ] = x->coefficients[ i ] / g_sum;
 
-			it->calculate_hrtf( x->current_hrtf, g_coefficients, left_channel, right_channel );
+			it->calculate_hrtf( x->current_hrtf, x->coefficients, left_channel, right_channel );
 
 			// Shortcircuiting
 			/* outlet_left = inlet_signal; */
@@ -159,17 +158,10 @@ extern "C"
 		// Creating the triplets
 		x->dt_triplets = Triplet::delaunay_triangulation();
 
-		x->current_hrtf = (t_float**) malloc( sizeof(t_float*) * 2 );
-		x->current_hrtf[ 0 ] = (t_float*) malloc( sizeof(t_float) * SAMPLES_LENGTH );
-		x->current_hrtf[ 1 ] = (t_float*) malloc( sizeof(t_float) * SAMPLES_LENGTH );
-
 		// Initializating the last sample at 0
 		for( int i = 0; i < SAMPLES_LENGTH; i++ )
 		{
 			x->conv_buffer[ i ] = 0;
-
-			x->current_hrtf[ 0 ][ i ] = 0;
-			x->current_hrtf[ 1 ][ i ] = 0;
 			
 			x->previous_hrtf[ 0 ][ i ] = 0;
 			x->previous_hrtf[ 1 ][ i ] = 0;

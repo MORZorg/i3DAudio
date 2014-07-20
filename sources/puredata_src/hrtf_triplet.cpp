@@ -167,7 +167,7 @@ namespace hrtf
 #endif
 	}
 
-	void Triplet::calculate_hrtf( t_float** hrtf, t_float g_coefficients[ 3 ], int left_channel, int right_channel )
+	void Triplet::calculate_hrtf( t_float hrtf[ 2 ][ SAMPLES_LENGTH ], t_float g_coefficients[ 3 ], int left_channel, int right_channel )
 	{
 #ifdef ORZ_DEBUG
 		debug << "Found a valid HRTF!\n";

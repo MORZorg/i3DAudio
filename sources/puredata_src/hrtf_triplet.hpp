@@ -44,7 +44,7 @@ namespace hrtf
 			void coefficients( t_float*, t_float[ 3 ] );
 
 			// Calculates the HRTF of the triplet, knowing the source
-			void calculate_hrtf( t_float**, t_float[ 3 ], int, int );
+			void calculate_hrtf( t_float[ 2 ][ SAMPLES_LENGTH ], t_float[ 3 ], int, int );
 
             std::string to_string();
 	};
