@@ -103,7 +103,7 @@ extern "C"
 				x->conv_buffer[ x->buffer_pin ] = *(inlet_signal++);
 				unsigned scaled_blocksize = blocksize * blockscale;
 				unsigned blocksize_delta = 8191 - scaled_blocksize;
-				for ( int i = 0; i < SAMPLES_LENGTH; i++ )
+				for( int i = 0; i < SAMPLES_LENGTH; i++ )
 				{ 
 					filtered_temp[ 0 ] += ( x->previous_hrtf[ 0 ][ i ] * x->cross_coef[ blocksize_delta ] + 
 											x->current_hrtf[ 0 ][ i ] * x->cross_coef[ scaled_blocksize ] ) * 

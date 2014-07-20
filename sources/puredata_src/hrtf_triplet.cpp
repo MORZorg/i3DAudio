@@ -68,8 +68,13 @@ namespace hrtf
 		t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
 
 #ifdef DEBUG
-		debug << "Triplet: " << point_indexes[ 0 ] << " " << point_indexes[ 1 ] << " " << point_indexes[ 2 ] << std::endl;
-		debug << "Source: " << source_coordinates[ AZIMUTH ] << ", " << source_coordinates[ ELEVATION ] << std::endl;
+		debug << "Triplet: " << point_indexes[ 0 ] << " "
+							 << point_indexes[ 1 ] << " "
+							 << point_indexes[ 2 ] << std::endl;
+
+		debug << "Source: "	<< source_coordinates[ AZIMUTH ] << ", "
+							<< source_coordinates[ ELEVATION ] << ", "
+							<< source_coordinates[ DISTANCE ] << std::endl;
 #endif
 
 		g[ 0 ] = H_inverse[ 0 ][ AZIMUTH ] * source_coordinates[ AZIMUTH ] +
@@ -85,7 +90,9 @@ namespace hrtf
 				 H_inverse[ 2 ][ DISTANCE ] * source_coordinates[ DISTANCE ];
 
 #ifdef DEBUG
-		debug << "Weights: " << g[ 0 ] << ", " << g[ 1 ] << ", " << g[ 2 ] << std::endl;
+		debug << "Weights: " << g[ 0 ] << ", " 
+							 << g[ 1 ] << ", "
+							 << g[ 2 ] << std::endl;
 #endif
 
 		return g;
