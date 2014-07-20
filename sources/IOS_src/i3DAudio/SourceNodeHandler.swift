@@ -43,6 +43,7 @@ class TopSourceNodeHandler: SourceNodeHandler {
     override func updatePosition() {
         let sourcePosition = SourceData.instance.getCartesianCoordinates()
         super.changePosition(CGPointMake(sourcePosition.y, -sourcePosition.x))
+        
     }
     
     override func getHeadTexture() -> SKTexture? {

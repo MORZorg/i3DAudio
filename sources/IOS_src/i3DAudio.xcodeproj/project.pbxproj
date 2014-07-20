@@ -13,7 +13,6 @@
 		C252B1641979053800A386A4 /* SourceNodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C252B1631979053800A386A4 /* SourceNodeHandler.swift */; };
 		C252B2A61979206B00A386A4 /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C252B2A51979206B00A386A4 /* AudioController.swift */; };
 		C252B2CD197926C600A386A4 /* the_lord_has_spoken.wav in Resources */ = {isa = PBXBuildFile; fileRef = C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */; };
-		C252B5A519792B9B00760AF1 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B59C19792B3A00760AF1 /* libpd-ios.a */; };
 		C252B5A719792B9F00760AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B5A619792B9F00760AF1 /* AudioToolbox.framework */; };
 		C252B5A919792BA300760AF1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B5A819792BA300760AF1 /* AVFoundation.framework */; };
 		C2B0D5871977FB1B00C1AA94 /* SourceScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */; };
@@ -22,6 +21,7 @@
 		C2B6A24D19729ABD00643E96 /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24C19729ABD00643E96 /* SourceViewController.swift */; };
 		C2B6A25019729ABD00643E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2B6A24E19729ABD00643E96 /* Main.storyboard */; };
 		C2B6A25E19729ABE00643E96 /* i3DAudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A25D19729ABE00643E96 /* i3DAudioTests.swift */; };
+		C2F7ED0C197BCCF1006CB0BC /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B59C19792B3A00760AF1 /* libpd-ios.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,9 +83,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2F7ED0C197BCCF1006CB0BC /* libpd-ios.a in Frameworks */,
 				C252B5A919792BA300760AF1 /* AVFoundation.framework in Frameworks */,
 				C252B5A719792B9F00760AF1 /* AudioToolbox.framework in Frameworks */,
-				C252B5A519792B9B00760AF1 /* libpd-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

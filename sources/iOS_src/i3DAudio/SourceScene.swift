@@ -9,7 +9,7 @@
 import SpriteKit
 
 extension SKNode {
-    func bearingTowards(node: SKNode) -> Float {
+    func bearingTowards(node: SKNode) -> CGFloat {
         return atan2(node.position.y - position.y, node.position.x - position.x)
     }
 }

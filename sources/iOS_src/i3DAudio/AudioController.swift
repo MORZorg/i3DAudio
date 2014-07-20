@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AudioController: NSObject {
+class AudioController: NSObject, SimpleObserver {
     let controller = PdAudioController()
     
     init() {
@@ -21,9 +21,16 @@ class AudioController: NSObject {
         controller.active = true
         
         controller.print()
+        
+        SourceData.instance.delegate = self
     }
     
     func receivePrint(message: String) {
         println("(pd) \(message)");
+    }
+    
+    func update(object: AnyObject, property: String) {
+        // FIXME Use something like object.propertyForKey(property) as Float
+        PdBase.sendFloat(0.0, toReceiver: property)
     }
 }

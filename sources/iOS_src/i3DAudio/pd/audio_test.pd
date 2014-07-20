@@ -1,4 +1,4 @@
-#N canvas 428 612 334 215 10;
+#N canvas 561 403 626 377 10;
 #X obj 86 194 dac~;
 #X obj 86 128 readsf~ 2;
 #X msg 87 58 start;
@@ -6,6 +6,10 @@
 #X msg 12 26 open the_lord_has_spoken.wav;
 #X obj 107 4 loadbang;
 #X obj 253 106 print fungo;
+#X obj 294 185 r azimuth;
+#X obj 362 185 r elevation;
+#X obj 442 185 r distance;
+#X obj 336 255 print;
 #X connect 1 0 0 0;
 #X connect 1 1 0 1;
 #X connect 2 0 1 0;
@@ -14,3 +18,6 @@
 #X connect 4 0 2 0;
 #X connect 5 0 4 0;
 #X connect 5 0 6 0;
+#X connect 7 0 10 0;
+#X connect 8 0 10 0;
+#X connect 9 0 10 0;
