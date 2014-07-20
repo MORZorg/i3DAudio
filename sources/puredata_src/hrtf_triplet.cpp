@@ -68,8 +68,13 @@ namespace hrtf
 		t_float* g = (t_float*) malloc( sizeof( t_float ) * 3 );
 
 #ifdef DEBUG
-		debug << "Triplet: " << point_indexes[ 0 ] << " " << point_indexes[ 1 ] << " " << point_indexes[ 2 ] << std::endl;
-		debug << "Source: " << source_coordinates[ AZIMUTH ] << ", " << source_coordinates[ ELEVATION ] << std::endl;
+		debug << "Triplet: " << point_indexes[ 0 ] << " "
+							 << point_indexes[ 1 ] << " "
+							 << point_indexes[ 2 ] << std::endl;
+
+		debug << "Source: "	<< source_coordinates[ AZIMUTH ] << ", "
+							<< source_coordinates[ ELEVATION ] << ", "
+							<< source_coordinates[ DISTANCE ] << std::endl;
 #endif
 
 		g[ 0 ] = H_inverse[ 0 ][ AZIMUTH ] * source_coordinates[ AZIMUTH ] +
@@ -85,7 +90,9 @@ namespace hrtf
 				 H_inverse[ 2 ][ DISTANCE ] * source_coordinates[ DISTANCE ];
 
 #ifdef DEBUG
-		debug << "Weights: " << g[ 0 ] << ", " << g[ 1 ] << ", " << g[ 2 ] << std::endl;
+		debug << "Weights: " << g[ 0 ] << ", " 
+							 << g[ 1 ] << ", "
+							 << g[ 2 ] << std::endl;
 #endif
 
 		return g;
@@ -157,7 +164,9 @@ namespace hrtf
 	{
 #ifdef DEBUG
 		debug << "Found a valid HRTF!\n";
-        debug << "Coefficients: " << g_coefficients[ 0 ] << ", " << g_coefficients[ 1 ] << ", " << g_coefficients[ 2 ] << std::endl;
+        debug << "Coefficients: " << g_coefficients[ 0 ] << ", "
+								  << g_coefficients[ 1 ] << ", "
+								  << g_coefficients[ 2 ] << std::endl;
 #endif
 
 		// Creating and instantiating the result matrix
@@ -169,8 +178,8 @@ namespace hrtf
 		for( int i = 0; i < SAMPLES_LENGTH; i++ )
 			for( int j = 0; j < 3; j++ )
 			{
-				result[ left_channel ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
-				result[ right_channel ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
+				result[ 0 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
+				result[ 1 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
 			}
 
 		return result;
