@@ -157,7 +157,9 @@ namespace hrtf
 	{
 #ifdef DEBUG
 		debug << "Found a valid HRTF!\n";
-        debug << "Coefficients: " << g_coefficients[ 0 ] << ", " << g_coefficients[ 1 ] << ", " << g_coefficients[ 2 ] << std::endl;
+        debug << "Coefficients: " << g_coefficients[ 0 ] << ", "
+								  << g_coefficients[ 1 ] << ", "
+								  << g_coefficients[ 2 ] << std::endl;
 #endif
 
 		// Creating and instantiating the result matrix
@@ -169,8 +171,8 @@ namespace hrtf
 		for( int i = 0; i < SAMPLES_LENGTH; i++ )
 			for( int j = 0; j < 3; j++ )
 			{
-				result[ left_channel ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
-				result[ right_channel ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
+				result[ 0 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ left_channel ][ i ];
+				result[ 1 ][ i ] += g_coefficients[ j ] * hrtf_impulses[ point_indexes[ j ] ][ right_channel ][ i ];
 			}
 
 		return result;
