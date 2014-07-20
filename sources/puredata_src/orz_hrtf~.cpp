@@ -42,8 +42,6 @@ extern "C"
 		source_position[ ELEVATION ] = x->elevation;
 		source_position[ DISTANCE ] = 1;
 
-		// FIXME: should we also have to check for azimuth bounds? => € [ 0, 360 ]
-
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
 		int percentile_offset = (int) ceil( x->dt_triplets.size() * 0.02 );

@@ -17,11 +17,12 @@ namespace hrtf
 		calculate_H_inverse();
 	}
 
+	// Calculated via MatLAB, here we only import its result.
 	std::vector<Triplet> Triplet::delaunay_triangulation()
 	{
 		std::vector<Triplet> result;
 
-		for( int i = 0; i < TRIPLET_SIZE - 2; i++ )
+		for( int i = 0; i < TRIPLET_SIZE; i++ )
 			result.push_back( Triplet( hrtf_triplets[ i ] ) );
 
 		return result;
@@ -39,9 +40,10 @@ namespace hrtf
 			center[ ELEVATION ] += hrtf_coordinates[ point_indexes[ i ] ][ ELEVATION ];
 			center[ DISTANCE ] += hrtf_coordinates[ point_indexes[ i ] ][ DISTANCE ];
 		}
-		center[ AZIMUTH ] /= 3;
-		center[ ELEVATION ] /= 3;
-		center[ DISTANCE ] /= 3;
+
+		center[ AZIMUTH ] /= 3.0;
+		center[ ELEVATION ] /= 3.0;
+		center[ DISTANCE ] /= 3.0;
 	}
 
 
@@ -49,15 +51,23 @@ namespace hrtf
 	{
 #ifdef DEBUG
 		debug << "Distance between: " << std::endl;
-		debug << "\t" << center[ 0 ] << ", " << center[ 1 ] << ", " << center[ 2 ] << std::endl;
-		debug << "\t" << source_coordinates[ 0 ] << ", " << source_coordinates[ 1 ] << ", " << source_coordinates[ 2 ] << std::endl;
+		debug << "\t" << center[ 0 ] << ", "
+					  << center[ 1 ] << ", "
+					  << center[ 2 ] << std::endl;
+
+		debug << "\t" << source_coordinates[ 0 ] << ", "
+					  << source_coordinates[ 1 ] << ", "
+					  << source_coordinates[ 2 ] << std::endl;
 #endif
 
 		/* t_float distance = source_coordinates[ AZIMUTH ] * center[ AZIMUTH ] + source_coordinates[ ELEVATION ] * center[ ELEVATION ]; */
-		t_float distance = abs( (t_float) source_coordinates[ AZIMUTH ] - center[ AZIMUTH ] ) + abs( (t_float) source_coordinates[ ELEVATION ] - center[ ELEVATION ] ) + abs( (t_float) source_coordinates[ DISTANCE ] - center[ DISTANCE ] );
+		t_float distance = 
+			abs( (t_float) source_coordinates[ AZIMUTH ] - center[ AZIMUTH ] )
+			+ abs( (t_float) source_coordinates[ ELEVATION ] - center[ ELEVATION ] )
+			+ abs( (t_float) source_coordinates[ DISTANCE ] - center[ DISTANCE ] );
 
 #ifdef DEBUG
-		debug << "\t\t" << distance << std::endl;
+		debug << "\t = " << distance << std::endl;
 #endif
 
 		return distance;
@@ -102,7 +112,9 @@ namespace hrtf
 	{
 #ifdef DEBUG
 		debug << "Triplet:" << std::endl;
-		debug << point_indexes[ 0 ] << " " << point_indexes[ 1 ] << " " << point_indexes[ 2 ] << std::endl;
+		debug << point_indexes[ 0 ] << " "
+			  << point_indexes[ 1 ] << " "
+			  << point_indexes[ 2 ] << std::endl;
 #endif
 
 		t_float H[ 3 ][ 3 ] = 
@@ -133,7 +145,7 @@ namespace hrtf
 
 		// Inverse of H
 		t_float inv_det_H = H[ 0 ][ 0 ] * ( H[ 1 ][ 1 ] * H[ 2 ][ 2 ] - H[ 2 ][ 1 ] * H[ 1 ][ 2 ] ) -
-							H[ 0 ][ 1 ] * ( H[ 2 ][ 2 ] * H[ 1 ][ 0 ] - H[ 2 ][ 1 ] * H[ 2 ][ 0 ] ) +
+							H[ 0 ][ 1 ] * ( H[ 2 ][ 2 ] * H[ 1 ][ 0 ] - H[ 1 ][ 2 ] * H[ 2 ][ 0 ] ) +
 		  					H[ 0 ][ 2 ] * ( H[ 1 ][ 0 ] * H[ 2 ][ 1 ] - H[ 1 ][ 1 ] * H[ 2 ][ 0 ] );	
 
 #ifdef DEBUG
@@ -188,7 +200,13 @@ namespace hrtf
     std::string Triplet::to_string()
     {
       std::ostringstream ss;
-      ss << "[(" << hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ] << ", " << hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ] << "), (" << hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ] << ", " << hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ] << "), (" << hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ] << ", " << hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ] << ")]";
+      ss << "[(" << hrtf_coordinates[ point_indexes[ 0 ] ][ ELEVATION ] << ", "
+				 << hrtf_coordinates[ point_indexes[ 0 ] ][ AZIMUTH ] << "), ("
+				 << hrtf_coordinates[ point_indexes[ 1 ] ][ ELEVATION ] << ", "
+				 << hrtf_coordinates[ point_indexes[ 1 ] ][ AZIMUTH ] << "), ("
+				 << hrtf_coordinates[ point_indexes[ 2 ] ][ ELEVATION ] << ", "
+				 << hrtf_coordinates[ point_indexes[ 2 ] ][ AZIMUTH ] << ")]";
+
       return ss.str();
     }
 }
