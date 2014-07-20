@@ -30,9 +30,20 @@ extern "C"
 
 		// FIXME: should we also have to check for azimuth bounds? => € [ 0, 360 ]
 
-		// Simmetricity of HRTF between channels
-		int left_channel = ( x->azimuth <= 180 ? 0 : 1 );
-		int right_channel = ( x->azimuth <= 180 ? 1 : 0 );
+		// Symmetry of HRTF between channels
+		int left_channel;
+		int right_channel;
+		if( x->azimuth <= 180 )
+		{
+			left_channel = 0;
+			right_channel = 1;
+		}
+		else
+		{ 
+			left_channel = 1;
+			right_channel = 0;
+			x->azimuth = 360.0 - x->azimuth;
+		}
 
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
