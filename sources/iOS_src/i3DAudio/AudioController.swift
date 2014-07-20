@@ -30,7 +30,6 @@ class AudioController: NSObject, SimpleObserver {
     }
     
     func update(object: AnyObject, property: String) {
-        // FIXME Use something like object.propertyForKey(property) as Float
-        PdBase.sendFloat(0.0, toReceiver: property)
+        PdBase.sendFloat(object.valueForKey(property) as Float, toReceiver: property)
     }
 }
