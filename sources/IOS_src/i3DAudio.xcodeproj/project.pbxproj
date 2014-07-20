@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C214E84D197BFA500028C773 /* hrtf.pd in Resources */ = {isa = PBXBuildFile; fileRef = C214E84C197BFA500028C773 /* hrtf.pd */; };
+		C214E861197C00340028C773 /* OrzHrtfTildeCompatibility.mm in Sources */ = {isa = PBXBuildFile; fileRef = C214E860197C00340028C773 /* OrzHrtfTildeCompatibility.mm */; };
 		C2181ADC19781B7400B87E3E /* SourceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2181ADB19781B7400B87E3E /* SourceData.swift */; };
 		C220082A1977F9F700AA31D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22008291977F9F700AA31D1 /* Images.xcassets */; };
 		C2260A0A197948D10063E832 /* audio_test.pd in Resources */ = {isa = PBXBuildFile; fileRef = C2260A09197948D10063E832 /* audio_test.pd */; };
@@ -15,6 +17,8 @@
 		C252B2CD197926C600A386A4 /* the_lord_has_spoken.wav in Resources */ = {isa = PBXBuildFile; fileRef = C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */; };
 		C252B5A719792B9F00760AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B5A619792B9F00760AF1 /* AudioToolbox.framework */; };
 		C252B5A919792BA300760AF1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B5A819792BA300760AF1 /* AVFoundation.framework */; };
+		C29E42FF197C0A1600163E4C /* hrtf_triplet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29E42FA197C0A1600163E4C /* hrtf_triplet.cpp */; };
+		C29E4300197C0A1600163E4C /* orz_hrtf~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29E42FD197C0A1600163E4C /* orz_hrtf~.cpp */; };
 		C2B0D5871977FB1B00C1AA94 /* SourceScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */; };
 		C2B6A24719729ABD00643E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24619729ABD00643E96 /* AppDelegate.swift */; };
 		C2B6A24B19729ABD00643E96 /* SourceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24A19729ABD00643E96 /* SourceScene.swift */; };
@@ -56,6 +60,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C214E84C197BFA500028C773 /* hrtf.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hrtf.pd; path = pd/hrtf.pd; sourceTree = "<group>"; };
+		C214E85F197C00340028C773 /* OrzHrtfTildeCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrzHrtfTildeCompatibility.h; path = pd/OrzHrtfTildeCompatibility.h; sourceTree = "<group>"; };
+		C214E860197C00340028C773 /* OrzHrtfTildeCompatibility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OrzHrtfTildeCompatibility.mm; path = pd/OrzHrtfTildeCompatibility.mm; sourceTree = "<group>"; };
 		C2181ADB19781B7400B87E3E /* SourceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceData.swift; sourceTree = "<group>"; };
 		C22008291977F9F700AA31D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C2260A09197948D10063E832 /* audio_test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = audio_test.pd; path = pd/audio_test.pd; sourceTree = "<group>"; };
@@ -66,6 +73,12 @@
 		C252B59619792B3A00760AF1 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = "pd-for-ios/libpd/libpd.xcodeproj"; sourceTree = "<group>"; };
 		C252B5A619792B9F00760AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C252B5A819792BA300760AF1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C29E42F9197C0A1600163E4C /* hrtf_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = hrtf_data.hpp; path = ../../puredata_src/hrtf_data.hpp; sourceTree = "<group>"; };
+		C29E42FA197C0A1600163E4C /* hrtf_triplet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hrtf_triplet.cpp; path = ../../puredata_src/hrtf_triplet.cpp; sourceTree = "<group>"; };
+		C29E42FB197C0A1600163E4C /* hrtf_triplet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = hrtf_triplet.hpp; path = ../../puredata_src/hrtf_triplet.hpp; sourceTree = "<group>"; };
+		C29E42FC197C0A1600163E4C /* kemar_parameters.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = kemar_parameters.hpp; path = ../../puredata_src/kemar_parameters.hpp; sourceTree = "<group>"; };
+		C29E42FD197C0A1600163E4C /* orz_hrtf~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "orz_hrtf~.cpp"; path = "../../puredata_src/orz_hrtf~.cpp"; sourceTree = "<group>"; };
+		C29E42FE197C0A1600163E4C /* orz_hrtf~.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "orz_hrtf~.hpp"; path = "../../puredata_src/orz_hrtf~.hpp"; sourceTree = "<group>"; };
 		C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SourceScene.sks; sourceTree = "<group>"; };
 		C2B6A24119729ABD00643E96 /* i3DAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i3DAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B6A24519729ABD00643E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +112,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C214E84F197BFACE0028C773 /* PD external */ = {
+			isa = PBXGroup;
+			children = (
+				C29E42F9197C0A1600163E4C /* hrtf_data.hpp */,
+				C29E42FA197C0A1600163E4C /* hrtf_triplet.cpp */,
+				C29E42FB197C0A1600163E4C /* hrtf_triplet.hpp */,
+				C29E42FC197C0A1600163E4C /* kemar_parameters.hpp */,
+				C29E42FD197C0A1600163E4C /* orz_hrtf~.cpp */,
+				C29E42FE197C0A1600163E4C /* orz_hrtf~.hpp */,
+				C214E85F197C00340028C773 /* OrzHrtfTildeCompatibility.h */,
+				C214E860197C00340028C773 /* OrzHrtfTildeCompatibility.mm */,
+			);
+			name = "PD external";
+			sourceTree = "<group>";
+		};
 		C252B59719792B3A00760AF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +160,7 @@
 		C2B6A24319729ABD00643E96 /* i3DAudio */ = {
 			isa = PBXGroup;
 			children = (
+				C214E84F197BFACE0028C773 /* PD external */,
 				C2B6A24619729ABD00643E96 /* AppDelegate.swift */,
 				C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */,
 				C2181ADB19781B7400B87E3E /* SourceData.swift */,
@@ -150,6 +179,7 @@
 		C2B6A24419729ABD00643E96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C214E84C197BFA500028C773 /* hrtf.pd */,
 				C2260A09197948D10063E832 /* audio_test.pd */,
 				C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */,
 				C2B6A24519729ABD00643E96 /* Info.plist */,
@@ -281,6 +311,7 @@
 				C2260A0A197948D10063E832 /* audio_test.pd in Resources */,
 				C252B2CD197926C600A386A4 /* the_lord_has_spoken.wav in Resources */,
 				C220082A1977F9F700AA31D1 /* Images.xcassets in Resources */,
+				C214E84D197BFA500028C773 /* hrtf.pd in Resources */,
 				C2B0D5871977FB1B00C1AA94 /* SourceScene.sks in Resources */,
 				C2B6A25019729ABD00643E96 /* Main.storyboard in Resources */,
 			);
@@ -300,12 +331,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C29E4300197C0A1600163E4C /* orz_hrtf~.cpp in Sources */,
+				C29E42FF197C0A1600163E4C /* hrtf_triplet.cpp in Sources */,
 				C2B6A24B19729ABD00643E96 /* SourceScene.swift in Sources */,
 				C252B1641979053800A386A4 /* SourceNodeHandler.swift in Sources */,
 				C2B6A24D19729ABD00643E96 /* SourceViewController.swift in Sources */,
 				C2181ADC19781B7400B87E3E /* SourceData.swift in Sources */,
 				C252B2A61979206B00A386A4 /* AudioController.swift in Sources */,
 				C2B6A24719729ABD00643E96 /* AppDelegate.swift in Sources */,
+				C214E861197C00340028C773 /* OrzHrtfTildeCompatibility.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +470,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "i3DAudio/i3DAudio-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "pd-for-ios/libpd/objc/**";
+				USER_HEADER_SEARCH_PATHS = "pd-for-ios/libpd/objc/** pd-for-ios/libpd/pure-data/**";
 			};
 			name = Debug;
 		};
@@ -452,7 +486,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "i3DAudio/i3DAudio-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "pd-for-ios/libpd/objc/**";
+				USER_HEADER_SEARCH_PATHS = "pd-for-ios/libpd/objc/** pd-for-ios/libpd/pure-data/**";
 			};
 			name = Release;
 		};

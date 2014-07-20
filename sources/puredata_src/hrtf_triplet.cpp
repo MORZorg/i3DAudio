@@ -1,11 +1,11 @@
 #include "hrtf_triplet.hpp"
 #include "hrtf_data.hpp"
 
-/* #define DEBUG */
+/* #define ORZ_DEBUG */
 
 namespace hrtf
 {
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 	std::ofstream debug("/Users/mauzuc90/debug.txt");
 #endif
 
@@ -48,7 +48,7 @@ namespace hrtf
 
 	t_float Triplet::calculate_distance( t_float source_coordinates[ 3 ] )
 	{
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Distance between: " << std::endl;
 		debug << "\t" << center[ 0 ] << ", "
 					  << center[ 1 ] << ", "
@@ -65,7 +65,7 @@ namespace hrtf
 			+ abs( (t_float) source_coordinates[ ELEVATION ] - center[ ELEVATION ] )
 			+ abs( (t_float) source_coordinates[ DISTANCE ] - center[ DISTANCE ] );
 
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "\t = " << distance << std::endl;
 #endif
 
@@ -74,7 +74,7 @@ namespace hrtf
 
 	void Triplet::coefficients( t_float* g, t_float source_coordinates[ 3 ] )
 	{
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Triplet: " << point_indexes[ 0 ] << " "
 							 << point_indexes[ 1 ] << " "
 							 << point_indexes[ 2 ] << std::endl;
@@ -96,7 +96,7 @@ namespace hrtf
 				 H_inverse[ 2 ][ ELEVATION ] * source_coordinates[ ELEVATION ] +
 				 H_inverse[ 2 ][ DISTANCE ] * source_coordinates[ DISTANCE ];
 
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Weights: " << g[ 0 ] << ", " 
 							 << g[ 1 ] << ", "
 							 << g[ 2 ] << std::endl;
@@ -105,7 +105,7 @@ namespace hrtf
 
 	void Triplet::calculate_H_inverse()
 	{
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Triplet:" << std::endl;
 		debug << point_indexes[ 0 ] << " "
 			  << point_indexes[ 1 ] << " "
@@ -131,7 +131,7 @@ namespace hrtf
 			}
 		};
 
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "H:" << std::endl;
 		debug << "\t" << H[ 0 ][ 0 ] << ", " << H[ 0 ][ 1 ] << ", " << H[ 0 ][ 2 ] << std::endl;
 		debug << "\t" << H[ 1 ][ 0 ] << ", " << H[ 1 ][ 1 ] << ", " << H[ 1 ][ 2 ] << std::endl;
@@ -143,7 +143,7 @@ namespace hrtf
 							H[ 0 ][ 1 ] * ( H[ 2 ][ 2 ] * H[ 1 ][ 0 ] - H[ 1 ][ 2 ] * H[ 2 ][ 0 ] ) +
 		  					H[ 0 ][ 2 ] * ( H[ 1 ][ 0 ] * H[ 2 ][ 1 ] - H[ 1 ][ 1 ] * H[ 2 ][ 0 ] );	
 
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Det H: " << inv_det_H << std::endl;
 #endif
 
@@ -159,7 +159,7 @@ namespace hrtf
 		H_inverse[ 2 ][ 1 ] = -inv_det_H * ( H[ 0 ][ 0 ] * H[ 2 ][ 1 ] - H[ 2 ][ 0 ] * H[ 0 ][ 1 ] );
 		H_inverse[ 2 ][ 2 ] =  inv_det_H * ( H[ 0 ][ 0 ] * H[ 1 ][ 1 ] - H[ 1 ][ 0 ] * H[ 0 ][ 1 ] );
 
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Inverse:" << std::endl;
 		debug << "\t" << H_inverse[ 0 ][ 0 ] << ", " << H_inverse[ 0 ][ 1 ] << ", " << H_inverse[ 0 ][ 2 ] << std::endl;
 		debug << "\t" << H_inverse[ 1 ][ 0 ] << ", " << H_inverse[ 1 ][ 1 ] << ", " << H_inverse[ 1 ][ 2 ] << std::endl;
@@ -169,7 +169,7 @@ namespace hrtf
 
 	void Triplet::calculate_hrtf( t_float** hrtf, t_float g_coefficients[ 3 ], int left_channel, int right_channel )
 	{
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 		debug << "Found a valid HRTF!\n";
         debug << "Coefficients: " << g_coefficients[ 0 ] << ", "
 								  << g_coefficients[ 1 ] << ", "

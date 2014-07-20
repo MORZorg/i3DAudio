@@ -8,6 +8,10 @@
 #include "hrtf_triplet.hpp"
 #include "kemar_parameters.hpp"
 
+// Suppresses the "unused function" warnings in XCode.
+// This is because the functions are used, just not directly by it.
+#pragma clang diagnostic ignored "-Wunused-function"
+
 typedef struct _orz_hrtf_tilde
 {
 	t_object x_obj;

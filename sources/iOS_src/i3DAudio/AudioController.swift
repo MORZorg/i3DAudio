@@ -16,11 +16,16 @@ class AudioController: NSObject, SimpleObserver {
         
         controller.configureAmbientWithSampleRate(44100, numberChannels: 2, mixingEnabled: true)
         PdBase.setDelegate(self)
+        OrzHrtfTildeCompatibility.setup()
         
-        PdBase.openFile("audio_test.pd", path: NSBundle.mainBundle().resourcePath)
+        PdBase.openFile("hrtf.pd", path: NSBundle.mainBundle().resourcePath)
         controller.active = true
         
         controller.print()
+        
+        // This bang seems useless...
+        PdBase.sendBangToReceiver("open")
+        PdBase.sendBangToReceiver("start")
         
         SourceData.instance.delegate = self
     }

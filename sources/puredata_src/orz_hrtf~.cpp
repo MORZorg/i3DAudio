@@ -27,6 +27,8 @@ extern "C"
 		// Symmetry of HRTF between channels
 		int left_channel;
 		int right_channel;
+        while( x->azimuth < 0 )
+            x->azimuth += 360;
 		if( x->azimuth <= 180 )
 		{
 			left_channel = 0;
@@ -71,7 +73,7 @@ extern "C"
 		// Getting HRTF values of the triplet found
 		if( it < x->dt_triplets.end() )
 		{
-#ifdef DEBUG
+#ifdef ORZ_DEBUG
 			post( "Found a triplet for (%f, %f): %s", source_position[ ELEVATION ], source_position[ AZIMUTH ], it->to_string().c_str() );
 			post( "The weights are: [%f, %f, %f]", g_coefficients[ 0 ], g_coefficients[ 1 ], g_coefficients[ 2 ] );
 #endif
@@ -82,12 +84,8 @@ extern "C"
 				g_sum += g_coefficients[ i ];
 			for( int i = 0; i < 3; i++ )
 				g_coefficients[ i ] = g_coefficients[ i ] / g_sum;
-			
-			post( "Before %f %f %f %f", x->current_hrtf[ 0 ][ 0 ], x->current_hrtf[ 0 ][ 1 ], x->current_hrtf[ 1 ][ 0 ], x->current_hrtf[ 1 ][ 1 ] );
 
 			it->calculate_hrtf( x->current_hrtf, g_coefficients, left_channel, right_channel );
-			
-			post( "After %f %f %f %f", x->current_hrtf[ 0 ][ 0 ], x->current_hrtf[ 0 ][ 1 ], x->current_hrtf[ 1 ][ 0 ], x->current_hrtf[ 1 ][ 1 ] );
 
 			// Shortcircuiting
 			/* outlet_left = inlet_signal; */
