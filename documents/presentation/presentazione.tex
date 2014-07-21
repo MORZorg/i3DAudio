@@ -3,29 +3,31 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{units}
-\usepackage{amsmath}
+\usepackage{mathtools}
 
 %\usetheme{Copenhagen}
 \usetheme{Antibes}
+
+% Footer with page number
+\setbeamertemplate{footline}%{miniframes theme}
+{
+	\begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+	\end{beamercolorbox}
+
+	\begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,
+		leftskip=.3cm,rightskip=.3cm plus1fil]{author in head/foot}
+		\leavevmode{\usebeamerfont{author in head/foot}\insertshortauthor}
+		\hfill
+		\insertframenumber
+	\end{beamercolorbox}
+
+	\begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
+	\end{beamercolorbox}
+}
+
+% Other stuff
 \hypersetup{pdfstartview={Fit}}
 \setbeamertemplate{caption}[numbered]
-
-% Defining a new environment for continual enumerating throught frames
-\makeatletter
-\newenvironment{cenumerate}{
-	\enumerate
-	\setcounter{\@enumctr}{\csname saved@\@enumctr\endcsname}
-}{
-	\expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}
-	\endenumerate
-}
-\newenvironment{cenumerate*}{
-	\enumerate
-}{
-	\expandafter\xdef\csname saved@\@enumctr\endcsname{\the\value{\@enumctr}}
-	\endenumerate
-}
-\makeatother
 
 \title{3D audio source simulation on iOS devices}
 \author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia,\\Zucchelli Maurizio}
@@ -41,27 +43,24 @@
 	\section{Overview}
 	
 	\begin{frame}
-	\frametitle{\insertsection}
-	The project goal is to realize a 3D audio simulator for the iPad, in
-	which an audio source can be moved using a graphical interface [or it follows
-	the user's head orientation automatically].\\
-	To simulate a particular source position we use the KEMAR HRTF database and an
-	interpolation that uses Delaunay triangulation.\\
+		\frametitle{\insertsection}
+		The project goal is to realize a 3D audio simulator for the iPad, in
+		which an audio source can be moved using a graphical interface [or it follows
+		the user's head orientation automatically].\\
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{\insertsection}
-	The app is written in multiple languages:
-	\begin{itemize}
-		\item {\bf Ruby} A {\em Ruby} script is used to translate the database in a {\em C++} header
-		\item {\bf Matlab} A {\em Matlab} script is used to perform the Delaunay triangulation
-			offline
-		\item {\bf Pure Data} The audio I/O is managed using a {\em Pure Data} patch
-		\item {\bf C++} The functional core of the patch is a PD external written entirely
-			by us
-		\item {\bf Swift} The new Apple's language for iOS systems is used to develop the
-			graphical inferface of the app, which communicates with the PD patch
-	\end{itemize}
+		\frametitle{\insertsection}
+		The app is written in multiple languages:
+		\begin{itemize}
+			\item {\bf Ruby}, {\bf Matlab} A {\em Ruby} and a {\em Matlab} scripts are used to 
+			preprocess the Database
+			\item {\bf Pure Data} The audio I/O is managed using a {\em Pure Data} patch
+			\item {\bf C++} The functional core of the patch is a PD external written entirely
+				by us
+			\item {\bf Swift} The new Apple's language for iOS devices is used to develop the
+				graphical inferface of the app, which communicates with the PD patch
+		\end{itemize}
 	\end{frame}
 
 	\AtBeginSection[]
@@ -72,50 +71,44 @@
 		\end{frame}
 	}
 
-	\section{KEMAR Database Preprocessing}
+	\section{Database Preprocessing}
 
 	\begin{frame}
-	\frametitle{\insertsection}
-	The KEMAR database is a list of HRTF recorded using a manikin with two
-	microphones in place of the ears.\\
-	The HRTF are measured in the two ears separately, and each couple is
-	associated with the source's position.\\
+		\frametitle{\insertsection}
+		The KEMAR database is a list of HRTF recorded using a manikin with two
+		microphones in place of the ears.\\
+		Each HRTF is a couple of 128-samples FIR filters (one per ear), associated to the position
+		of the source at the moment of recording.\\
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{\insertsection}
-	For the purposes of this project, being it written in C++, we decided to
-	extract the useful information from the database and copy it inside a C++ header,
-	in order to have them available as data inside global variables at runtime without
-	any furter elaboration.\\
-	A Ruby script does the trick, by defining two multi-dimensional vectors,
-	one for the HRTFs and one for the points' coordinates (distance, azimuth and elevation).\\
+		\frametitle{\insertsection}
+		The database is a textual file containing the data.\\
+		The database is processed offline, using two scripts that create a C++ header in which the data
+		are defined as instance of two global vectors and an additional vector containing the result
+		of the {\em Delaunay triangulation}.\\
 	\end{frame}
 
 	\subsection{Delaunay Triangulation}
 
 	\begin{frame}
-	\frametitle{\insertsection - \insertsubsection}
-	In order to reach our goal, we need to estimate the three points closest to
-	the source's actual position.\\
-	To do this, we decided to simplify the points' space by calculation a {\em Delaunay
-	Triangulation}.\\
-	This is a way to split the space in a set of triangles such that the minimum angle
-	of all the angles of the triangles in the triangulation is maximized.
+		\frametitle{\insertsection - \insertsubsection}
+		It is an algorithm that, given a set of points in a space, determines a subdivision in triangles
+		having the points as vertices, such that no point is left inside a triangle.\\
+		This subdivision allows us to search for the three points that are closes to the source at any time
+		with less effort, compared to a brute force search.\\
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{\insertsection - \insertsubsection}
-	..Or, in other words, such that no triangle has a point inside of it.
+		\frametitle{\insertsection - \insertsubsection}
+		The subdivision is performed thanks to a Matlab script.\\
+		The script is called by the Ruby one, which saves the result in the C++ header, alongside
+		the original data.
 	\end{frame}
 
 	\begin{frame}
-	\frametitle{\insertsection - \insertsubsection}
-	This subdivision of the space can be performed in many ways. We decided to use
-	a Matlab script, since Matlab is great in this things.\\
-	The script is called by the Ruby one, and the output is put in a third array in
-	the C++ header, each position of the array containing the indexes of the points of
-	a triangle.\\
+		\frametitle{\insertsection - \insertsubsection}
+		// TODO insert Matlab subdivision
 	\end{frame}
 
 	\section{Pure Data patch}
@@ -127,60 +120,52 @@
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		The patch is very simple: it inputs the signal along with the source's actual
-		azimuth and elevation as inlets to the block orz$\_$hrtf$\sim$, which produces
-		as outlets the left and right channel of the filtered signal.\\
+		The input signal, along with the source's actual azimuth and elevation, are provided
+		as inlets to the block orz$\_$hrtf$\sim$, which produces as outlets the
+		left and right channel of the filtered signal.\\
 		The whole filtering is performed by that block, implemented as C++ external.\\
 	\end{frame}
 
-	\section{HRTF processing and signal filtering}
+	\section{Processing external}
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		A Pure Data external is structure in a very precise manner and, actually, must be
-		written in C (the passage to C++ is simply done by writing the needed methods in a wrapper).\\
-		A {\em setup} method is called when the block is loaded in the patch, and it must initialize
-		a "class" with the inlets, outlets and the methods to call when a signal is given in PD.
-		In particular, for the "signal" externals a method to process the {\em DSP} signal must be given.\\
-		A {\em new} method instantiates every element of the class after its creation by setup.\\
-		A method to handle the DSP signal, in our case called {\em perform}.\\
+		A Pure Data external is structured in a very precise manner and must be	written in C (or wrapped in C++).\\
+		A {\em setup} method is called when the block is loaded in the patch, and it must initialize inlets,
+		outlets and callback methods.\\
+		A {\em new} method instantiates the internal data of the class after its creation by setup.\\
+		A callback method to handle the DSP signal must be present, in our case it is called {\em perform}.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		The perform method receives the signal and azimuth, elevation and range parameters on the inlets,
+		The perform method receives the signal and azimuth, elevation and range parameters,
 		then proceeds in three separate steps:
 		\begin{itemize}
-			\item Find the triangle formed by the points that are closest to the source
+			\item Find the points that form the triangle which encloses the source
 			\item Determine the coefficients for the HRTF interpolation and calculate the HRTF in the source's
 				position
 			\item Filter the signal separately with the left and right HRTFs
 		\end{itemize}
 	\end{frame}
 
-	\subsection{Triangle search}
+	\subsection{HRTF interpolation}
 
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
-		To search the triangle formed by the points closest to the source, we use the nth$\_$element C function.\\
-		This function analyzes all the triangles produced by Matlab (and easily accessible as data inside a
-		multi-dimensional vector) and finds the 2\% having the vertices closest to the source, where the closeness is
-		determined by a simple distance function.\\
-		The function puts the triangles, ordered, in a given structure.\\
+		We use the distance between the triangles and the source as a first estimate of the probability of enclosing
+		the source, thus reducing the set of triangles in which we have to search the correct one.\\
+		The correct one will be the one that produces positive coefficients for the source's HRTF interpolation.\\
 	\end{frame}
-	
-	\subsection{HRTF computation}
 
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
-		Given the set of 2\% best triangles, we search for the first having coefficients for the linear combination of
-		the HRTFs that are greater than zero.\\
-		These coefficients g of the combination are computed as\\
-		//CMON equation Y DONT U WORK
+		The interpolation is performed as linear combination of the HRTFs of the points with the coefficients, computed as
+		\\//CMON equation Y DONT U WORK\\
+%		\begin{equation} g = H^{-1} \cdot s \end{equation}
+		and normalized to their own summation.\\
 		Where H is a matrix having the points' coordinates as column, and s is a vector containing the source's
 		coordinates.\\
-		Having the coefficients, we normalize them to their own summation and, then calculate the source's HRTF as simple
-		linear combination of the HRTFs of the points in the triangle.\\
 	\end{frame}
 	
 	\subsection{Filtering}
@@ -188,8 +173,7 @@
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
 		The filtering is done by performing a convolution of the signal with the two computed HRTFs.\\
-		Past filters are kept as external's attributes to perform an overlap and add.\\
-		//FIXME extend?
+		Past filters are kept as external's attributes to smoothen the transition from one filter to another\\
 	\end{frame}
 
 	\section{The iPad interface}
