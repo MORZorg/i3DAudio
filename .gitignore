@@ -19,3 +19,9 @@
 # PureData
 *.pd_darwin
 *.pd_linux
+*.toc
+*.snm
+*.out
+*.nav
+*.log
+*.aux
