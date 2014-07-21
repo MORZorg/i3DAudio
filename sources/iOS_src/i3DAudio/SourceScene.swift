@@ -8,73 +8,85 @@
 
 import SpriteKit
 
-extension SKNode {
-    func bearingTowards(node: SKNode) -> CGFloat {
-        return atan2(node.position.y - position.y, node.position.x - position.x)
+extension CGPoint {
+    func bearingTowards(point: CGPoint) -> CGFloat {
+        return atan2(point.y - y, point.x - x)
     }
 }
 
 class SourceScene: SKScene {
-    let perspectiveImages = ["side": "HeadSide", "front": "HeadFront", "top": "HeadTop"]
-    
     var shownPerspective: String?
     
-    var headNode: SKNode?
+    var headNodeHandler: HeadNodeHandler?
+    var headTouch: AnyObject?
+    
     var sourceNodeHandler: SourceNodeHandler?
-    var currentTouch: AnyObject?
+    var sourceTouch: AnyObject?
     
     override func didMoveToView(view: SKView) {
-        headNode = self.childNodeWithName("head")
+        let headNode = self.childNodeWithName("head")
         let sourceNode = self.childNodeWithName("source")
         switch shownPerspective {
         case let perspective where perspective == "top":
+            headNodeHandler = TopHeadNodeHandler(node: headNode)
             sourceNodeHandler = TopSourceNodeHandler(node: sourceNode)
             
         case let perspective where perspective == "front":
+            headNodeHandler = FrontHeadNodeHandler(node: headNode)
             sourceNodeHandler = FrontSourceNodeHandler(node: sourceNode)
             
         case let perspective where perspective == "side":
+            headNodeHandler = SideHeadNodeHandler(node: headNode)
             sourceNodeHandler = SideSourceNodeHandler(node: sourceNode)
             
         default:
+            headNodeHandler = HeadNodeHandler(node: headNode)
             sourceNodeHandler = SourceNodeHandler(node: sourceNode)
         }
         
-        headNode!.runAction(SKAction.setTexture(sourceNodeHandler?.getHeadTexture()))
+        headNode!.runAction(SKAction.setTexture(headNodeHandler?.getTexture()))
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch begins */
-//        for touch in touches {
-//            if sourceNode == nodeAtPoint(touch.locationInNode(self)) {
-//                currentTouch = touch
-//            }
-//        }
-        currentTouch = touches.anyObject()
+        for touch in touches {
+            if sourceNodeHandler?.node == nodeAtPoint(touch.locationInNode(self)) {
+                sourceTouch = touch
+            }
+            else if headNodeHandler?.node == nodeAtPoint(touch.locationInNode(self)) {
+                headTouch = touch
+            }
+        }
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
         /* Called when a touch moves */
-        if let location = currentTouch?.locationInNode(self) {
+        if let location = sourceTouch?.locationInNode(self) {
             sourceNodeHandler?.changePosition(location)
+        }
+        if let location = headTouch?.locationInNode(self) {
+            headNodeHandler?.changeRotation(headNodeHandler!.node.position.bearingTowards(location))
         }
     }
     
     override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
         /* Called when a touch ends */
         touchesMoved(touches, withEvent: event)
-        currentTouch = nil
+        headTouch = nil
+        sourceTouch = nil
     }
    
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
-        if let handler = sourceNodeHandler {
-            handler.updatePosition()
-            
-            if handler.hasChanged {
+        if let sourceHandler = sourceNodeHandler {
+            if let headHandler = headNodeHandler {
+                sourceHandler.updatePosition()
+                headHandler.updateRotation()
                 
-                handler.sourceNode.zRotation = handler.sourceNode.bearingTowards(headNode!)
-                handler.hasChanged = false
+                if sourceHandler.hasChanged {
+                    sourceHandler.node.zRotation = sourceHandler.node.position.bearingTowards(headHandler.node.position)
+                    sourceHandler.hasChanged = false
+                }
             }
         }
     }

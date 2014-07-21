@@ -27,7 +27,8 @@ class AudioController: NSObject, SimpleObserver {
         PdBase.sendBangToReceiver("open")
         PdBase.sendBangToReceiver("start")
         
-        SourceData.instance.delegate = self
+        SourcePosition.instance.delegate = self
+        HeadOrientation.instance.delegate = self
     }
     
     func receivePrint(message: String) {

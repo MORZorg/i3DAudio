@@ -26,9 +26,11 @@ extern "C"
 		t_float source_position[ 3 ];
 		// Symmetry of HRTF between channels
 		int left_channel;
-		int right_channel;
+        int right_channel;
         while( x->azimuth < 0 )
             x->azimuth += 360;
+        while( x->azimuth > 360 )
+            x->azimuth -= 360;
 		if( x->azimuth <= 180 )
 		{
 			left_channel = 0;
@@ -42,6 +44,10 @@ extern "C"
 			source_position[ AZIMUTH ] = 360.0 - x->azimuth;
 		}
         
+        while( x->elevation < -90 )
+            x->elevation += 180;
+        while( x->elevation > 90 )
+            x->elevation -= 90;
         if( x->elevation > 85 )
             source_position[ ELEVATION ] = 85;
         else if( x->elevation < -39 )
