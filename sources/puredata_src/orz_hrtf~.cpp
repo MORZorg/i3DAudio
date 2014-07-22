@@ -61,10 +61,10 @@ extern "C"
         else
             source_position[ ELEVATION ] = x->elevation;
 
-		source_position[ DISTANCE ] = x->distance < 0.1 ? 0.1 : x->distance;
+		source_position[ DISTANCE ] = 1;
 
 		// Pre-filtering the signal to attenuate it by 1 / distance^2
-		t_float attenuation = 1 / ( source_position[ DISTANCE ] * source_position[ DISTANCE ] );
+		t_float attenuation = 1 / ( x->distance * x->distance );
 
 		for( int i = 0; i < blocksize; i++ )
 			inlet_signal[ i ] = attenuation * inlet_signal[ i ];
