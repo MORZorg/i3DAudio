@@ -45,9 +45,11 @@ class PositionSingleton: NSObject {
     }
     
     func setCartesianCoordinates(#x: CGFloat, y: CGFloat, z: CGFloat) {
+        // Handle here the constraints
+        
         let distancePixels = sqrt(x*x + y*y + z*z)
         distance = distancePixels / distanceScale
-        elevation = asin(z / distancePixels) * radToDeg
+        elevation = max(asin(z / distancePixels) * radToDeg, -40)
         azimuth = atan2(y, x) * radToDeg
     }
     
@@ -72,17 +74,6 @@ class PositionSingleton: NSObject {
         let azimuthDeg = azimuth / radToDeg
         
         return (distancePixels * cos(azimuthDeg) * cos(elevationDeg), distancePixels * sin(azimuthDeg) * cos(elevationDeg), distancePixels * sin(elevationDeg))
-    }
-}
-
-class SourcePosition: PositionSingleton {
-    override func setCartesianCoordinates(#x: CGFloat, y: CGFloat, z: CGFloat) {
-        // Handle here the constraints
-        
-        let distancePixels = sqrt(x*x + y*y + z*z)
-        distance = 1  // distancePixels / distanceScale
-        elevation = max(asin(z / distancePixels) * radToDeg, -40)
-        azimuth = atan2(y, x) * radToDeg
     }
 }
 
@@ -141,8 +132,4 @@ class OrientationSingleton: NSObject {
     func getRollRadians() -> CGFloat {
         return roll / radToDeg
     }
-}
-
-class HeadOrientation: OrientationSingleton {
-    
 }

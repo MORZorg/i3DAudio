@@ -36,11 +36,11 @@ class HeadNodeHandler: NSObject {
 class TopHeadNodeHandler: HeadNodeHandler {
     override func changeRotation(newRotation: CGFloat) {
         super.changeRotation(newRotation)
-        HeadOrientation.instance.setYawRadians(newRotation)
+        OrientationSingleton.instance.setYawRadians(newRotation)
     }
     
     override func updateRotation() {
-        super.changeRotation(HeadOrientation.instance.getYawRadians())
+        super.changeRotation(OrientationSingleton.instance.getYawRadians())
     }
     
     override func getTexture() -> SKTexture? {
@@ -51,11 +51,11 @@ class TopHeadNodeHandler: HeadNodeHandler {
 class FrontHeadNodeHandler: HeadNodeHandler {
     override func changeRotation(newRotation: CGFloat) {
         super.changeRotation(newRotation)
-        HeadOrientation.instance.setRollRadians(newRotation)
+        OrientationSingleton.instance.setRollRadians(newRotation)
     }
     
     override func updateRotation() {
-        super.changeRotation(HeadOrientation.instance.getRollRadians())
+        super.changeRotation(OrientationSingleton.instance.getRollRadians())
     }
     
     override func getTexture() -> SKTexture? {
@@ -66,11 +66,11 @@ class FrontHeadNodeHandler: HeadNodeHandler {
 class SideHeadNodeHandler: HeadNodeHandler {
     override func changeRotation(newRotation: CGFloat) {
         super.changeRotation(newRotation)
-        HeadOrientation.instance.setPitchRadians(newRotation)
+        OrientationSingleton.instance.setPitchRadians(newRotation)
     }
     
     override func updateRotation() {
-        super.changeRotation(HeadOrientation.instance.getPitchRadians())
+        super.changeRotation(OrientationSingleton.instance.getPitchRadians())
     }
     
     override func getTexture() -> SKTexture? {

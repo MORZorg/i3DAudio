@@ -4,30 +4,18 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6190.4"/>
     </dependencies>
     <scenes>
-        <!--Main View Controller-->
+        <!--View Controller-->
         <scene sceneID="vsE-CG-coX">
             <objects>
-                <viewController id="Bq5-cX-NpD" customClass="MainViewController" customModule="i3DAudio" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Bq5-cX-NpD" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t0T-gq-jkT"/>
                         <viewControllerLayoutGuide type="bottom" id="s09-6I-7LU"/>
                     </layoutGuides>
-                    <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="oeP-pz-X6y">
+                    <view key="view" contentMode="scaleToFill" id="oeP-pz-X6y">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zcY-R2-Fkx">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
-                                <items>
-                                    <navigationItem title="i3DAudio" id="zAJ-yz-bbj">
-                                        <barButtonItem key="rightBarButtonItem" title="Source" id="LrM-kt-s0C">
-                                            <connections>
-                                                <action selector="chooseSource:" destination="Bq5-cX-NpD" id="6J0-97-R1W"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oZ1-hS-Uhj">
                                 <rect key="frame" x="10" y="337" width="285" height="253"/>
                                 <connections>
@@ -46,6 +34,14 @@
                                     <segue destination="Xgw-HV-p0Y" kind="embed" id="ptM-BG-p39"/>
                                 </connections>
                             </containerView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcY-R2-Fkx">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <items>
+                                    <navigationItem title="Title" id="zAJ-yz-bbj">
+                                        <barButtonItem key="rightBarButtonItem" title="Source" id="LrM-kt-s0C"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E33-Ya-ERe">
                                 <rect key="frame" x="10" y="74" width="285" height="253"/>
                                 <connections>
@@ -54,9 +50,6 @@
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <accessibility key="accessibilityConfiguration">
-                            <accessibilityTraits key="traits" none="YES" playsSound="YES"/>
-                        </accessibility>
                         <constraints>
                             <constraint firstItem="oZ1-hS-Uhj" firstAttribute="height" secondItem="E33-Ya-ERe" secondAttribute="height" id="1zC-EM-zcn"/>
                             <constraint firstItem="zcY-R2-Fkx" firstAttribute="leading" secondItem="oeP-pz-X6y" secondAttribute="leading" id="6aB-tP-vkH"/>

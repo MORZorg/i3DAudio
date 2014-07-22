@@ -32,11 +32,11 @@ class SourceNodeHandler: NSObject {
 class TopSourceNodeHandler: SourceNodeHandler {
     override func changePosition(newPosition: CGPoint) {
         super.changePosition(newPosition)
-        SourcePosition.instance.setCartesianCoordinates(x: -newPosition.y, y: newPosition.x)
+        PositionSingleton.instance.setCartesianCoordinates(x: -newPosition.y, y: newPosition.x)
     }
     
     override func updatePosition() {
-        let sourcePosition = SourcePosition.instance.getCartesianCoordinates()
+        let sourcePosition = PositionSingleton.instance.getCartesianCoordinates()
         super.changePosition(CGPointMake(sourcePosition.y, -sourcePosition.x))
         
     }
@@ -45,11 +45,11 @@ class TopSourceNodeHandler: SourceNodeHandler {
 class FrontSourceNodeHandler: SourceNodeHandler {
     override func changePosition(newPosition: CGPoint) {
         super.changePosition(newPosition)
-        SourcePosition.instance.setCartesianCoordinates(y: newPosition.x, z: newPosition.y)
+        PositionSingleton.instance.setCartesianCoordinates(y: newPosition.x, z: newPosition.y)
     }
     
     override func updatePosition() {
-        let sourcePosition = SourcePosition.instance.getCartesianCoordinates()
+        let sourcePosition = PositionSingleton.instance.getCartesianCoordinates()
         super.changePosition(CGPointMake(sourcePosition.y, sourcePosition.z))
     }
 }
@@ -57,11 +57,11 @@ class FrontSourceNodeHandler: SourceNodeHandler {
 class SideSourceNodeHandler: SourceNodeHandler {
     override func changePosition(newPosition: CGPoint) {
         super.changePosition(newPosition)
-        SourcePosition.instance.setCartesianCoordinates(x: newPosition.x, z: newPosition.y)
+        PositionSingleton.instance.setCartesianCoordinates(x: newPosition.x, z: newPosition.y)
     }
     
     override func updatePosition() {
-        let sourcePosition = SourcePosition.instance.getCartesianCoordinates()
+        let sourcePosition = PositionSingleton.instance.getCartesianCoordinates()
         super.changePosition(CGPointMake(sourcePosition.x, sourcePosition.z))
     }
 }
