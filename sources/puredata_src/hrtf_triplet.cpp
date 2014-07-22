@@ -83,18 +83,25 @@ namespace hrtf
 							<< source_coordinates[ ELEVATION ] << ", "
 							<< source_coordinates[ DISTANCE ] << std::endl;
 #endif
+        
+        // NOTE To calcolate the coefficients, the source's distance is assumed
+        // as the same as the centre's.
+        // This is because of a current limitation of the algorithm. If range
+        // extrapolation will be implemented, this assumption should be removed
+        // (hence, source_coordinates[ DISTANCE ] shall be used in the
+        // expressions below).
 
 		g[ 0 ] = H_inverse[ 0 ][ AZIMUTH ] * source_coordinates[ AZIMUTH ] +
 				 H_inverse[ 0 ][ ELEVATION ] * source_coordinates[ ELEVATION ] +
-				 H_inverse[ 0 ][ DISTANCE ] * source_coordinates[ DISTANCE ];
+				 H_inverse[ 0 ][ DISTANCE ] * center[ DISTANCE ];
 
 		g[ 1 ] = H_inverse[ 1 ][ AZIMUTH ] * source_coordinates[ AZIMUTH ] +
 				 H_inverse[ 1 ][ ELEVATION ] * source_coordinates[ ELEVATION ] +
-				 H_inverse[ 1 ][ DISTANCE ] * source_coordinates[ DISTANCE ];
+				 H_inverse[ 1 ][ DISTANCE ] * center[ DISTANCE ];
 
 		g[ 2 ] = H_inverse[ 2 ][ AZIMUTH ] * source_coordinates[ AZIMUTH ] +
 				 H_inverse[ 2 ][ ELEVATION ] * source_coordinates[ ELEVATION ] +
-				 H_inverse[ 2 ][ DISTANCE ] * source_coordinates[ DISTANCE ];
+				 H_inverse[ 2 ][ DISTANCE ] * center[ DISTANCE ];
 
 #ifdef ORZ_DEBUG
 		debug << "Weights: " << g[ 0 ] << ", " 
