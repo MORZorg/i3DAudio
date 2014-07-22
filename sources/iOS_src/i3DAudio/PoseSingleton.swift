@@ -24,7 +24,7 @@ class PositionSingleton: NSObject {
     }
     
     let radToDeg: CGFloat = 180.0 / CGFloat(M_PI)
-    let distanceScale: CGFloat = 200
+    let distanceScale: CGFloat = 250
     
     var delegate: SimpleObserver?
     

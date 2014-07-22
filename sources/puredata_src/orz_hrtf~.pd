@@ -56,14 +56,14 @@
 -1 -1 2333 0;
 #X msg -43 54 read -resize ../samples/the_lord_has_spoken.wav table
 ;
-#X text 318 -64 The bang starts filtering \, the stop stops it;
-#X text 534 181 Distance control (0.1 to 15 meters);
 #X obj 371 -27 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 490 223 line 1 1;
+#X text 318 -64 The bang starts filtering \, the stop stops it;
+#X text 534 181 Distance control (0.1 to 5 meters);
 #X connect 1 0 8 0;
 #X connect 6 0 20 0;
-#X connect 6 1 32 0;
+#X connect 6 1 30 0;
 #X connect 7 0 20 1;
 #X connect 8 0 7 0;
 #X connect 9 0 11 0;
@@ -79,8 +79,8 @@
 #X connect 20 0 12 0;
 #X connect 20 1 12 1;
 #X connect 26 0 27 0;
-#X connect 27 0 33 0;
+#X connect 27 0 31 0;
 #X connect 28 0 26 0;
 #X connect 29 0 4 0;
-#X connect 32 0 6 0;
-#X connect 33 0 20 3;
+#X connect 30 0 6 0;
+#X connect 31 0 20 3;
