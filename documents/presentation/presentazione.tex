@@ -45,8 +45,9 @@
 	\begin{frame}
 		\frametitle{\insertsection}
 		The project goal is to realize a 3D audio simulator for the iPad, in
-		which an audio source can be moved using a graphical interface [or it follows
-		the user's head orientation automatically].\\
+		which an audio source can be moved using a graphical interface.\\
+		The interface also allows to change the orientation of the user (manipulating yaw
+		and pitch of the head).\\
 	\end{frame}
 
 	\begin{frame}
@@ -95,35 +96,61 @@
 		\frametitle{\insertsection - \insertsubsection}
 		It is an algorithm that, given a set of points in a space, determines a subdivision in triangles
 		having the points as vertices, such that no point is left inside a triangle.\\
-		This subdivision allows us to search for the three points that are closes to the source at any time
-		with less effort, compared to a brute force search.\\
+		This subdivision allows us to search for the three points that determine the triangle enclosing the
+		source with less effort, compared to a brute force search.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
 		The subdivision is performed thanks to a Matlab script.\\
 		The script is called by the Ruby one, which saves the result in the C++ header, alongside
-		the original data.
+		the original data.\\
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
-		// TODO insert Matlab subdivision
+		\begin{figure}
+			\centering
+			  \includegraphics[width=0.6\textwidth]{images/marine.jpg}
+		\end{figure}
 	\end{frame}
 
 	\section{Pure Data patch}
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		//TODO insert patch screen here
+		\begin{figure}
+			\centering
+			  \includegraphics[width=0.5\textwidth]{images/Test_patch.png}
+			  \caption{The patch used to test our external}
+			  \label{fig:test}
+		\end{figure}
 	\end{frame}
-
+	
 	\begin{frame}
 		\frametitle{\insertsection}
 		The input signal, along with the source's actual azimuth and elevation, are provided
 		as inlets to the block orz$\_$hrtf$\sim$, which produces as outlets the
 		left and right channel of the filtered signal.\\
 		The whole filtering is performed by that block, implemented as C++ external.\\
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\insertsection}
+		\begin{figure}
+			\centering
+			  \includegraphics[width=0.5\textwidth]{images/iOS_patch.png}
+			  \caption{The patch used by the app}
+			  \label{fig:ios_pd}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\insertsection}
+		The patch is similar to the one in figure \label{fig:test}, but this time the signals, as
+		well as the parameters, are received from somwhere else (using the r blocks).\\
+		Also, the azimuth and elevation are modified accordingly to the given yaw and pitch of
+		the head.\\
 	\end{frame}
 
 	\section{Processing external}
@@ -139,7 +166,7 @@
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		The perform method receives the signal and azimuth, elevation and range parameters,
+		The perform method receives the signal and azimuth and elevation parameters,
 		then proceeds in three separate steps:
 		\begin{itemize}
 			\item Find the points that form the triangle which encloses the source
@@ -161,8 +188,7 @@
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
 		The interpolation is performed as linear combination of the HRTFs of the points with the coefficients, computed as
-		\\//CMON equation Y DONT U WORK\\
-%		\begin{equation} g = H^{-1} \cdot s \end{equation}
+		\begin{equation} g = H^{-1} \cdot s \end{equation}
 		and normalized to their own summation.\\
 		Where H is a matrix having the points' coordinates as column, and s is a vector containing the source's
 		coordinates.\\
