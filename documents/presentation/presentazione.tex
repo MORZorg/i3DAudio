@@ -57,12 +57,12 @@
 		The app is written in multiple languages:
 		\begin{itemize}
 			\item {\bf Ruby}, {\bf Matlab} A {\em Ruby} and a {\em Matlab} scripts are used to 
-				preprocess the Database
+				pre-process the Database
 			\item {\bf Pure Data} The audio I/O is managed using a {\em Pure Data} patch
 			\item {\bf C++} The functional core of the patch is a PD external written entirely
 				by us
 			\item {\bf Swift} The new Apple's language for iOS devices is used to develop the
-				graphical inferface of the app, which communicates with the PD patch
+				graphical interface of the app, which communicates with the PD patch
 		\end{itemize}
 	\end{frame}
 
@@ -98,7 +98,7 @@
 	\subsection{Delaunay Triangulation}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
 			\item Determines a subdivision of the points' space in triangles
 			\item Each triangle has the points as vertices, such that no point is left inside a triangle
@@ -109,7 +109,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{figure}
 			\centering
 			  \includegraphics[width=0.6\textwidth]{images/marine.jpg}
@@ -161,7 +161,7 @@
 	\subsection{Structure}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
 			\item A Pure Data external must be written in C (or wrapped in C++)
 			\item A {\em setup} method is called when the block is loaded in the patch to initialize inlets,
@@ -172,7 +172,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		The {\em perform} method works this way
 		\begin{itemize}
 			\item Find the points that form the triangle which encloses the source
@@ -184,7 +184,7 @@
 	\subsection{HRTF interpolation}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
 			\item The distance between the triangles and the source is used as a first estimate of the probability of enclosing
 				the source
@@ -193,7 +193,7 @@
 	\end{frame}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		$$ HRTF_{s,l,r} = \sum\limits_{i=0}^2 \dfrac{ g_i } { \left( \sum\limits_{j=0}^2 g_j \right) } \cdot HRTF_{i,l,r} $$
 		$$ g = H^{-1} \cdot s $$
 		$$ H = [ point_0 | point_1 | point_2 ] $$
@@ -202,7 +202,7 @@
 	\subsection{Filtering}
 
 	\begin{frame}
-		\frametitle{\insertsection - \insertsubsection}
+		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
 			\item The filtering is a convolution of the signal with the two computed HRTFs
 			\item Past filters are used to smoothen the transition from one filter to another
@@ -215,12 +215,18 @@
 		\frametitle{\insertsection}
 		\begin{figure}
 			\centering
-			  \includegraphics[width=0.6\textwidth]{images/marine.jpg}
+			\includegraphics[width=0.6\textwidth]{images/iOS_screenshot_0.png}
+			\caption{The app running on an iPad}
+			\label{fig:ios_app}
 		\end{figure}
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{\insertsection}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.6\textwidth]{images/marine.jpg}
+		\end{figure}
 	\end{frame}
 
 	\begin{frame}
