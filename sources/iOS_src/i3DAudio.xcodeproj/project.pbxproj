@@ -22,6 +22,8 @@
 		C29E4300197C0A1600163E4C /* orz_hrtf~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29E42FD197C0A1600163E4C /* orz_hrtf~.cpp */; };
 		C2A05750197E6544007D44E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0574F197E6544007D44E2 /* MainViewController.swift */; };
 		C2A05755197E718F007D44E2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2A05757197E718F007D44E2 /* Localizable.strings */; };
+		C2AF70D9197EA2EF006C9756 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2AF70D8197EA2EF006C9756 /* AssetsLibrary.framework */; };
+		C2AF70DE197EA38A006C9756 /* OpenCVExternalCompatiblity.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2AF70DD197EA38A006C9756 /* OpenCVExternalCompatiblity.mm */; };
 		C2B0D5871977FB1B00C1AA94 /* SourceScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */; };
 		C2B6A24719729ABD00643E96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24619729ABD00643E96 /* AppDelegate.swift */; };
 		C2B6A24B19729ABD00643E96 /* SourceScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A24A19729ABD00643E96 /* SourceScene.swift */; };
@@ -29,6 +31,8 @@
 		C2B6A25019729ABD00643E96 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C2B6A24E19729ABD00643E96 /* Main.storyboard */; };
 		C2B6A25E19729ABE00643E96 /* i3DAudioTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2B6A25D19729ABE00643E96 /* i3DAudioTests.swift */; };
 		C2CD1ED0197E849700863382 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2CD1ECD197E849100863382 /* libpd-ios.a */; };
+		C2E86084197E9CFF00FCDFCB /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2E86083197E9CFF00FCDFCB /* opencv2.framework */; };
+		C2E86086197E9DFE00FCDFCB /* HeadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2E86085197E9DFE00FCDFCB /* HeadViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +69,7 @@
 /* Begin PBXFileReference section */
 		C206350B197D4D8300B54607 /* HeadNodeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadNodeHandler.swift; sourceTree = "<group>"; };
 		C214E84C197BFA500028C773 /* hrtf.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hrtf.pd; path = pd/hrtf.pd; sourceTree = "<group>"; };
-		C214E85F197C00340028C773 /* OrzHrtfTildeCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrzHrtfTildeCompatibility.h; path = pd/OrzHrtfTildeCompatibility.h; sourceTree = "<group>"; };
+		C214E85F197C00340028C773 /* OrzHrtfTildeCompatibility.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = OrzHrtfTildeCompatibility.h; path = pd/OrzHrtfTildeCompatibility.h; sourceTree = "<group>"; };
 		C214E860197C00340028C773 /* OrzHrtfTildeCompatibility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OrzHrtfTildeCompatibility.mm; path = pd/OrzHrtfTildeCompatibility.mm; sourceTree = "<group>"; };
 		C2181ADB19781B7400B87E3E /* PoseSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoseSingleton.swift; sourceTree = "<group>"; };
 		C22008291977F9F700AA31D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 		C2A05752197E6CF3007D44E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C2A05758197E7196007D44E2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C2A0575A197E71AD007D44E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C2AF70D8197EA2EF006C9756 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		C2AF70DD197EA38A006C9756 /* OpenCVExternalCompatiblity.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenCVExternalCompatiblity.mm; path = cv/OpenCVExternalCompatiblity.mm; sourceTree = "<group>"; };
 		C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SourceScene.sks; sourceTree = "<group>"; };
 		C2B6A24119729ABD00643E96 /* i3DAudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = i3DAudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B6A24519729ABD00643E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,7 +102,10 @@
 		C2B6A25719729ABE00643E96 /* i3DAudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = i3DAudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C2B6A25C19729ABE00643E96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C2B6A25D19729ABE00643E96 /* i3DAudioTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = i3DAudioTests.swift; sourceTree = "<group>"; };
+		C2C64B3F197EA49500AF7B99 /* OpenCVExternalCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenCVExternalCompatibility.h; path = cv/OpenCVExternalCompatibility.h; sourceTree = "<group>"; };
 		C2CD1EC7197E849100863382 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = libpd/libpd.xcodeproj; sourceTree = "<group>"; };
+		C2E86083197E9CFF00FCDFCB /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		C2E86085197E9DFE00FCDFCB /* HeadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadViewController.swift; sourceTree = "<group>"; };
 		C2FE5231197E5A3900F7BE4A /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,9 +114,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2AF70D9197EA2EF006C9756 /* AssetsLibrary.framework in Frameworks */,
 				C2CD1ED0197E849700863382 /* libpd-ios.a in Frameworks */,
 				C252B5A919792BA300760AF1 /* AVFoundation.framework in Frameworks */,
 				C252B5A719792B9F00760AF1 /* AudioToolbox.framework in Frameworks */,
+				C2E86084197E9CFF00FCDFCB /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +150,8 @@
 		C2618593197D48190010E9DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2AF70D8197EA2EF006C9756 /* AssetsLibrary.framework */,
+				C2E86083197E9CFF00FCDFCB /* opencv2.framework */,
 				C2CD1EC7197E849100863382 /* libpd.xcodeproj */,
 				C252B5A819792BA300760AF1 /* AVFoundation.framework */,
 				C252B5A619792B9F00760AF1 /* AudioToolbox.framework */,
@@ -169,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				C214E84F197BFACE0028C773 /* PD external */,
+				C2E86087197E9E2400FCDFCB /* OpenCV external */,
 				C2B6A24619729ABD00643E96 /* AppDelegate.swift */,
 				C2B0D5861977FB1B00C1AA94 /* SourceScene.sks */,
 				C2181ADB19781B7400B87E3E /* PoseSingleton.swift */,
@@ -177,6 +191,7 @@
 				C206350B197D4D8300B54607 /* HeadNodeHandler.swift */,
 				C2B6A24A19729ABD00643E96 /* SourceScene.swift */,
 				C252B2A51979206B00A386A4 /* AudioController.swift */,
+				C2E86085197E9DFE00FCDFCB /* HeadViewController.swift */,
 				C2A0574F197E6544007D44E2 /* MainViewController.swift */,
 				C2B6A24C19729ABD00643E96 /* SourceViewController.swift */,
 				C2B6A24E19729ABD00643E96 /* Main.storyboard */,
@@ -222,6 +237,15 @@
 				C2CD1ECF197E849100863382 /* libpd-osx.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		C2E86087197E9E2400FCDFCB /* OpenCV external */ = {
+			isa = PBXGroup;
+			children = (
+				C2C64B3F197EA49500AF7B99 /* OpenCVExternalCompatibility.h */,
+				C2AF70DD197EA38A006C9756 /* OpenCVExternalCompatiblity.mm */,
+			);
+			name = "OpenCV external";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2E86086197E9DFE00FCDFCB /* HeadViewController.swift in Sources */,
 				C29E4300197C0A1600163E4C /* orz_hrtf~.cpp in Sources */,
 				C2A05750197E6544007D44E2 /* MainViewController.swift in Sources */,
 				C29E42FF197C0A1600163E4C /* hrtf_triplet.cpp in Sources */,
@@ -360,6 +385,7 @@
 				C252B1641979053800A386A4 /* SourceNodeHandler.swift in Sources */,
 				C2B6A24D19729ABD00643E96 /* SourceViewController.swift in Sources */,
 				C2181ADC19781B7400B87E3E /* PoseSingleton.swift in Sources */,
+				C2AF70DE197EA38A006C9756 /* OpenCVExternalCompatiblity.mm in Sources */,
 				C252B2A61979206B00A386A4 /* AudioController.swift in Sources */,
 				C2B6A24719729ABD00643E96 /* AppDelegate.swift in Sources */,
 				C206350C197D4D8300B54607 /* HeadNodeHandler.swift in Sources */,
@@ -499,6 +525,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = i3DAudio/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -516,6 +546,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = i3DAudio/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

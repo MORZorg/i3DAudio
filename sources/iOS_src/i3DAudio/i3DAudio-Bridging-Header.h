@@ -5,4 +5,6 @@
 #import "PdBase.h"
 #import "PdFile.h"
 #import "PdAudioController.h"
+
 #import "OrzHrtfTildeCompatibility.h"
+#import "OpenCVExternalCompatibility.h"

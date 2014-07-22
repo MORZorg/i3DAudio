@@ -149,19 +149,14 @@
             </objects>
             <point key="canvasLocation" x="-1183.5" y="-91.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Head View Controller-->
         <scene sceneID="0vR-n7-ldn">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Xgw-HV-p0Y" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jav-nY-7DT"/>
-                        <viewControllerLayoutGuide type="bottom" id="Q92-Rb-tyR"/>
-                    </layoutGuides>
-                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qXA-SV-cqB">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Xgw-HV-p0Y" customClass="HeadViewController" customModule="i3DAudio" customModuleProvider="target" sceneMemberID="viewController">
+                    <imageView key="view" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mCF-00-O7m">
                         <rect key="frame" x="0.0" y="0.0" width="285" height="253"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <toolbarItems/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TCn-Cs-j6n" userLabel="First Responder" sceneMemberID="firstResponder"/>
