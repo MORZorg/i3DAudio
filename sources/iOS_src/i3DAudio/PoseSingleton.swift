@@ -48,7 +48,7 @@ class PositionSingleton: NSObject {
         // Handle here the constraints
         
         let distancePixels = sqrt(x*x + y*y + z*z)
-        distance = distancePixels / distanceScale
+        distance = max(distancePixels / distanceScale, 0.3)
         elevation = max(asin(z / distancePixels) * radToDeg, -40)
         azimuth = atan2(y, x) * radToDeg
     }
