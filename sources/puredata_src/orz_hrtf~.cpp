@@ -24,13 +24,17 @@ extern "C"
 		int blocksize = (int) w[ 5 ];
 	
 		t_float source_position[ 3 ];
+
 		// Symmetry of HRTF between channels
 		int left_channel;
         int right_channel;
-        while( x->azimuth < 0 )
+        
+		while( x->azimuth < 0 )
             x->azimuth += 360;
+
         while( x->azimuth > 360 )
             x->azimuth -= 360;
+
 		if( x->azimuth <= 180 )
 		{
 			left_channel = 0;
@@ -46,15 +50,24 @@ extern "C"
         
         while( x->elevation < -90 )
             x->elevation += 180;
+
         while( x->elevation > 90 )
             x->elevation -= 90;
+
         if( x->elevation > 85 )
             source_position[ ELEVATION ] = 85;
         else if( x->elevation < -39 )
             source_position[ ELEVATION ] = -39;
         else
             source_position[ ELEVATION ] = x->elevation;
-		source_position[ DISTANCE ] = 1;
+
+		source_position[ DISTANCE ] = x->distance < 1 ? 1 : x->distance;
+
+		// Pre-filtering the signal to attenuate it by 1 / distance^2
+		t_float attenuation = 1 / ( x->distance * x->distance );
+
+		for( int i = 0; i < blocksize; i++ )
+			inlet_signal[ i ] = attenuation * inlet_signal[ i ];
 
 		// Ordering the triplets and finding the best coefficients
 		// Taking the 2% of triangles, in which we except to find the best triplet
@@ -132,7 +145,6 @@ extern "C"
 				*outlet_left++ = filtered_temp[ 0 ];
 				*outlet_right++ = filtered_temp[ 1 ];
             }
-
 		}
 
 		// Returns a pointer to the end of the parameter vector
@@ -151,7 +163,7 @@ extern "C"
 
 	// Class constructor
 	// Should receive a sound sample and save it (why?)
-	static void* orz_hrtf_tilde_new( t_floatarg _azimuth, t_floatarg _elevation )
+	static void* orz_hrtf_tilde_new( t_floatarg _azimuth, t_floatarg _elevation, t_floatarg _distance )
 	{
 		t_orz_hrtf_tilde* x = (t_orz_hrtf_tilde*) pd_new( orz_hrtf_tilde_class );
 
@@ -161,10 +173,12 @@ extern "C"
 
 		floatinlet_new( &x->x_obj, &x->azimuth );
 		floatinlet_new( &x->x_obj, &x->elevation );
+		floatinlet_new( &x->x_obj, &x->distance );
 
 		// Assigning the inlets
 		x->azimuth = (t_float) _azimuth;
 		x->elevation = (t_float) _elevation;
+		x->distance = (t_float) _distance;
 
 		// The hrtf database is already loaded in the hrtf_data.hpp header
 		// Creating the triplets
@@ -184,7 +198,6 @@ extern "C"
 		{	
 			x->cross_coef[i] = 1.0 * i / 8192;
 		}
-		
 
 		return (void*) x;
 	}
@@ -198,7 +211,7 @@ extern "C"
 			0, // Destructor method (0 = don't care)
 			sizeof( t_orz_hrtf_tilde ), // Size of the class
 			CLASS_DEFAULT, // Graphical representation of the object
-			A_DEFFLOAT, A_DEFFLOAT, A_NULL ); // Definition of constructor arguments, terminated by A_NULL
+			A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_NULL ); // Definition of constructor arguments, terminated by A_NULL
 
 		// The f variable is a dummy one contained in the data space, used to replace the signal inlet (the first) with a float inlet if the signal is missing
 		CLASS_MAINSIGNALIN( orz_hrtf_tilde_class, t_orz_hrtf_tilde, f );

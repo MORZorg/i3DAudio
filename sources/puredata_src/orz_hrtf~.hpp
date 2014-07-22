@@ -20,6 +20,7 @@ typedef struct _orz_hrtf_tilde
 
 	t_float azimuth;
 	t_float elevation;
+	t_float distance;
 
     t_float cross_coef[ 8192 ]; 
     t_float conv_buffer[ SAMPLES_LENGTH ];
@@ -43,7 +44,7 @@ extern "C"
 	static void orz_hrtf_tilde_dsp( t_orz_hrtf_tilde*, t_signal** );
 
 	// PureData dictated methods
-	static void* orz_hrtf_tilde_new( t_floatarg, t_floatarg );
+	static void* orz_hrtf_tilde_new( t_floatarg, t_floatarg, t_floatarg );
 	void orz_hrtf_tilde_setup();
 }
 

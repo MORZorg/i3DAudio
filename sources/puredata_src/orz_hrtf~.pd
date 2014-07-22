@@ -1,6 +1,6 @@
-#N canvas 332 164 995 705 10;
-#X msg 157 137 \; pd dsp 1;
-#X floatatom 412 276 5 0 0 0 - - -;
+#N canvas 564 161 932 470 10;
+#X msg 26 256 \; pd dsp 1;
+#X floatatom 490 -35 5 0 0 0 - - -;
 #N canvas 0 50 385 256 (subpatch) 0;
 #X floatatom 261 193 0 0 0 0 cpu-meter - -;
 #X obj 260 129 cputime;
@@ -20,42 +20,49 @@
 #X connect 6 0 0 0;
 #X connect 7 0 6 0;
 #X coords 0 1 100 -1 120 20 1;
-#X restore 159 -10 graph;
-#X msg 236 137 \; pd dsp 0;
-#X obj 380 124 soundfiler;
+#X restore 31 120 graph;
+#X msg 105 256 \; pd dsp 0;
+#X obj -74 86 soundfiler;
 #N canvas 0 50 450 300 (subpatch) 0;
 #X array table 8.34571e+06 float 0;
 #X coords 0 1 8.34571e+06 -1 100 60 1;
-#X restore 169 54 graph;
-#X obj 243 323 tabplay~ table;
-#X obj 412 318 line 0 1;
-#X obj 412 295 pack 0 50;
-#X floatatom 412 378 5 0 0 0 - - -;
-#X obj 412 420 line 0 1;
-#X obj 412 397 pack 0 50;
-#X obj 247 473 dac~ 1 2;
-#X msg 243 284 stop;
-#X msg 288 284 bang;
-#X obj 380 26 openpanel;
-#X obj 380 0 bng 15 250 50 0 empty empty empty 17 7 0 10 -204786 -1
--1;
-#X msg 380 47 read -resize \$1 table;
-#X obj 415 256 hsl 128 15 0 360 0 0 empty empty empty -2 -8 0 10 -262130
--1 -1 0 1;
-#X obj 415 360 hsl 128 15 -40 90 0 1 empty empty empty -2 -8 0 10 -262130
--1 -1 3900 0;
-#X obj 389 69 loadbang;
-#X obj 244 437 orz_hrtf~;
-#X text 17 254;
-#X text 401 5;
-#X text 159 173 DSP signal control;
-#X msg 389 92 read -resize ../samples/voice.wav table;
-#X text 404 -2 Open a custom file (shows window);
-#X text 639 92 Open the default sample;
-#X text 267 251;
-#X text 241 246 The bang starts filtering \, the stop stops it;
-#X text 456 378 Elevation control (-40 to 90 degrees);
-#X text 455 273 Azimuth control (0 to 360 degrees);
+#X restore 38 173 graph;
+#X obj 321 12 tabplay~ table;
+#X obj 490 7 line 0 1;
+#X obj 490 -16 pack 0 50;
+#X floatatom 490 67 5 0 0 0 - - -;
+#X obj 490 109 line 0 1;
+#X obj 490 86 pack 0 50;
+#X obj 324 289 dac~ 1 2;
+#X msg 321 -27 stop;
+#X msg 366 -27 bang;
+#X obj -74 -12 openpanel;
+#X obj -74 -38 bng 15 250 50 0 empty empty empty 17 7 0 10 -204786
+-1 -1;
+#X msg -74 9 read -resize \$1 table;
+#X obj 493 -55 hsl 128 15 0 360 0 0 empty empty empty -2 -8 0 10 -262130
+-1 -1 6200 1;
+#X obj 493 49 hsl 128 15 -40 90 0 1 empty empty empty -2 -8 0 10 -262130
+-1 -1 7400 0;
+#X obj -65 31 loadbang;
+#X obj 321 253 orz_hrtf~;
+#X text 28 292 DSP signal control;
+#X text -50 -40 Open a custom file (shows window);
+#X text 137 34 Open the default sample;
+#X text 534 67 Elevation control (-40 to 90 degrees);
+#X text 533 -38 Azimuth control (0 to 360 degrees);
+#X floatatom 490 181 5 0 0 0 - - -;
+#X obj 490 223 line 0 1;
+#X obj 490 200 pack 0 50;
+#X obj 493 152 hsl 300 15 1 10 0 1 empty empty empty -2 -8 0 10 -262130
+-1 -1 4100 0;
+#X text 353 -41;
+#X text 345 -60;
+#X text 318 -64 The bang starts filtering \, the stop stops it;
+#X text -53 -33;
+#X msg -65 54 read -resize ../samples/the_lord_has_spoken.wav table
+;
+#X text 534 181 Distance control (1 to 10 meters);
 #X connect 1 0 8 0;
 #X connect 6 0 21 0;
 #X connect 6 1 14 0;
@@ -71,7 +78,11 @@
 #X connect 17 0 4 0;
 #X connect 18 0 1 0;
 #X connect 19 0 9 0;
-#X connect 20 0 25 0;
+#X connect 20 0 35 0;
 #X connect 21 0 12 0;
 #X connect 21 1 12 1;
-#X connect 25 0 4 0;
+#X connect 27 0 29 0;
+#X connect 28 0 21 3;
+#X connect 29 0 28 0;
+#X connect 30 0 27 0;
+#X connect 35 0 4 0;
