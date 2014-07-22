@@ -30,7 +30,7 @@
 \setbeamertemplate{caption}[numbered]
 
 \title{3D audio source simulation on iOS devices}
-\author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo,\\Rizzini Mattia,\\Zucchelli Maurizio}
+\author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo, Rizzini Mattia, Zucchelli Maurizio}
 \date{xx july 2014}
 \institute[UniBS]{University of Brescia}
 \logo{\includegraphics[width=15mm]{images/logo.png}}
@@ -194,7 +194,7 @@
 
 	\begin{frame}
 		\frametitle{\insertsection - \insertsubsection}
-		$$ HRTF_{s,l,r} = \sum\limits_{i=0}^2 g_i \cdot HRTF_{i,l,r} $$
+		$$ HRTF_{s,l,r} = \sum\limits_{i=0}^2 \dfrac{ g_i } { \left( \sum\limits_{j=0}^2 g_j \right) } \cdot HRTF_{i,l,r} $$
 		$$ g = H^{-1} \cdot s $$
 		$$ H = [ point_0 | point_1 | point_2 ] $$
 	\end{frame}
