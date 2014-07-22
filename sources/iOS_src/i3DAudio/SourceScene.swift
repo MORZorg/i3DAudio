@@ -57,6 +57,9 @@ class SourceScene: SKScene {
                 headTouch = touch
             }
         }
+        if !headTouch {
+            sourceTouch = touches.anyObject()
+        }
     }
     
     override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {

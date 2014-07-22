@@ -23,12 +23,10 @@ class AudioController: NSObject, SimpleObserver {
         
         controller.print()
         
-        // This bang seems useless...
-        PdBase.sendBangToReceiver("open")
-        PdBase.sendBangToReceiver("start")
+        openFile(NSURL(string: "the_lord_has_spoken.wav"))
         
-        SourcePosition.instance.delegate = self
-        HeadOrientation.instance.delegate = self
+        PositionSingleton.instance.delegate = self
+        OrientationSingleton.instance.delegate = self
     }
     
     func receivePrint(message: String) {
@@ -37,5 +35,10 @@ class AudioController: NSObject, SimpleObserver {
     
     func update(object: AnyObject, property: String) {
         PdBase.sendFloat(object.valueForKey(property) as Float, toReceiver: property)
+    }
+    
+    func openFile(filename: NSURL) {
+        PdBase.sendSymbol(filename.absoluteString, toReceiver: "open")
+        PdBase.sendBangToReceiver("start")
     }
 }
