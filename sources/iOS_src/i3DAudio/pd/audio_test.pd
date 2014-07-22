@@ -12,6 +12,8 @@
 #X obj 293 254 print azimuth;
 #X obj 389 257 print elevation;
 #X obj 492 258 print distance;
+#X obj 408 38 cnv 15 100 60 empty empty empty 20 12 0 14 -233017 -66577
+0;
 #X connect 1 0 0 0;
 #X connect 1 1 0 1;
 #X connect 2 0 1 0;

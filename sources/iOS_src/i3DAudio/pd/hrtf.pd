@@ -1,49 +1,49 @@
-#N canvas 1014 148 387 376 10;
+#N canvas 677 143 954 652 10;
 #X obj 31 332 dac~;
 #X msg 97 90 start;
 #X msg 154 90 stop;
 #X obj 60 135 r azimuth;
-#X obj 136 135 r elevation;
-#X obj 228 135 r distance;
+#X obj 288 131 r elevation;
+#X obj 118 258 r distance;
 #X obj 97 57 r start;
 #X obj 31 19 r open;
-#X obj 228 286 pack f f f;
-#X obj 75 160 r yaw;
+#X obj 291 292 pack f f f;
+#X obj 129 130 r yaw;
 #X obj 60 203 -;
-#X obj 151 160 r pitch;
-#X obj 311 135 r roll;
+#X obj 179 129 r pitch;
+#X obj 232 130 r roll;
 #X obj 91 188 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 136 207 -;
-#X obj 167 192 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 280 194 -;
+#X obj 313 179 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
-#X obj 228 249 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 291 270 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 154 57 r stop;
 #X obj 31 286 orz_hrtf~ 0 0 1;
 #X obj 31 107 readsf~;
-#X obj 228 332 print working;
+#X obj 291 338 print working;
 #X msg 31 55 open \$1;
+#X obj 159 173 ypr_to_ae;
 #X connect 1 0 19 0;
 #X connect 2 0 19 0;
 #X connect 3 0 10 0;
 #X connect 4 0 14 0;
+#X connect 5 0 18 3;
 #X connect 5 0 8 2;
 #X connect 5 0 16 0;
-#X connect 5 0 18 3;
 #X connect 6 0 1 0;
 #X connect 7 0 21 0;
 #X connect 8 0 20 0;
-#X connect 9 0 13 0;
-#X connect 9 0 10 1;
-#X connect 10 0 8 0;
+#X connect 9 0 22 0;
 #X connect 10 0 18 1;
-#X connect 11 0 15 0;
-#X connect 11 0 14 1;
+#X connect 10 0 8 0;
+#X connect 11 0 22 1;
+#X connect 12 0 22 2;
 #X connect 13 0 10 0;
+#X connect 14 0 18 2;
 #X connect 14 0 8 1;
 #X connect 14 0 16 0;
-#X connect 14 0 18 2;
 #X connect 15 0 14 0;
 #X connect 16 0 8 0;
 #X connect 17 0 2 0;
@@ -51,3 +51,7 @@
 #X connect 18 1 0 1;
 #X connect 19 0 18 0;
 #X connect 21 0 19 0;
+#X connect 22 0 10 1;
+#X connect 22 0 13 0;
+#X connect 22 1 14 1;
+#X connect 22 1 15 0;

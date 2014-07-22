@@ -11,6 +11,7 @@
 		C214E84D197BFA500028C773 /* hrtf.pd in Resources */ = {isa = PBXBuildFile; fileRef = C214E84C197BFA500028C773 /* hrtf.pd */; };
 		C214E861197C00340028C773 /* OrzHrtfTildeCompatibility.mm in Sources */ = {isa = PBXBuildFile; fileRef = C214E860197C00340028C773 /* OrzHrtfTildeCompatibility.mm */; };
 		C2181ADC19781B7400B87E3E /* PoseSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2181ADB19781B7400B87E3E /* PoseSingleton.swift */; };
+		C21F2893197EB33F001F7D64 /* ypr_to_ae.pd in Resources */ = {isa = PBXBuildFile; fileRef = C21F2892197EB33F001F7D64 /* ypr_to_ae.pd */; };
 		C220082A1977F9F700AA31D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C22008291977F9F700AA31D1 /* Images.xcassets */; };
 		C2260A0A197948D10063E832 /* audio_test.pd in Resources */ = {isa = PBXBuildFile; fileRef = C2260A09197948D10063E832 /* audio_test.pd */; };
 		C252B1641979053800A386A4 /* SourceNodeHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C252B1631979053800A386A4 /* SourceNodeHandler.swift */; };
@@ -72,6 +73,7 @@
 		C214E85F197C00340028C773 /* OrzHrtfTildeCompatibility.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = OrzHrtfTildeCompatibility.h; path = pd/OrzHrtfTildeCompatibility.h; sourceTree = "<group>"; };
 		C214E860197C00340028C773 /* OrzHrtfTildeCompatibility.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OrzHrtfTildeCompatibility.mm; path = pd/OrzHrtfTildeCompatibility.mm; sourceTree = "<group>"; };
 		C2181ADB19781B7400B87E3E /* PoseSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoseSingleton.swift; sourceTree = "<group>"; };
+		C21F2892197EB33F001F7D64 /* ypr_to_ae.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = ypr_to_ae.pd; path = pd/ypr_to_ae.pd; sourceTree = "<group>"; };
 		C22008291977F9F700AA31D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C2260A09197948D10063E832 /* audio_test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = audio_test.pd; path = pd/audio_test.pd; sourceTree = "<group>"; };
 		C252B1631979053800A386A4 /* SourceNodeHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SourceNodeHandler.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				C214E84C197BFA500028C773 /* hrtf.pd */,
+				C21F2892197EB33F001F7D64 /* ypr_to_ae.pd */,
 				C2260A09197948D10063E832 /* audio_test.pd */,
 				C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */,
 				C2B6A24519729ABD00643E96 /* Info.plist */,
@@ -353,6 +356,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C21F2893197EB33F001F7D64 /* ypr_to_ae.pd in Resources */,
 				C2260A0A197948D10063E832 /* audio_test.pd in Resources */,
 				C252B2CD197926C600A386A4 /* the_lord_has_spoken.wav in Resources */,
 				C220082A1977F9F700AA31D1 /* Images.xcassets in Resources */,

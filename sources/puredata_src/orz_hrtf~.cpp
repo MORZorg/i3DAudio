@@ -29,42 +29,47 @@ extern "C"
 		int left_channel;
         int right_channel;
         
-		while( x->azimuth < 0 )
-            x->azimuth += 360;
+		source_position[ AZIMUTH ] = x->azimuth;
+		source_position[ ELEVATION ] = x->elevation;
+		source_position[ DISTANCE ] = x->distance;
 
-        while( x->azimuth > 360 )
-            x->azimuth -= 360;
+        while( source_position[ ELEVATION ] < -180 )
+			source_position[ ELEVATION ] += 360;
 
-		if( x->azimuth <= 180 )
+		while( source_position[ ELEVATION ] > 180 )
+			source_position[ ELEVATION ] -= 360;
+
+		if( source_position[ ELEVATION ] < -90 || source_position[ ELEVATION ] > 90 )
+		{
+			source_position[ ELEVATION ] = 180 - source_position[ ELEVATION ];
+			source_position[ AZIMUTH ] = -source_position[ AZIMUTH ];
+		}
+
+        if( source_position[ ELEVATION ] > 85 )
+            source_position[ ELEVATION ] = 85;
+        else if( source_position[ ELEVATION ] < -39 )
+            source_position[ ELEVATION ] = -39;
+        
+		while( source_position[ AZIMUTH ] < 0 )
+            source_position[ AZIMUTH ] += 360;
+
+        while( source_position[ AZIMUTH ] > 360 )
+            source_position[ AZIMUTH ] -= 360;
+
+		if( source_position[ AZIMUTH ] <= 180 )
 		{
 			left_channel = 0;
 			right_channel = 1;
-			source_position[ AZIMUTH ] = x->azimuth;
 		}
 		else
 		{ 
 			left_channel = 1;
 			right_channel = 0;
-			source_position[ AZIMUTH ] = 360.0 - x->azimuth;
+			source_position[ AZIMUTH ] = 360.0 - source_position[ AZIMUTH ];
 		}
-        
-        while( x->elevation < -90 )
-            x->elevation += 180;
 
-        while( x->elevation > 90 )
-            x->elevation -= 90;
-
-        if( x->elevation > 85 )
-            source_position[ ELEVATION ] = 85;
-        else if( x->elevation < -39 )
-            source_position[ ELEVATION ] = -39;
-        else
-            source_position[ ELEVATION ] = x->elevation;
-
-        if( x->distance < 0.01 )
+        if( source_position[ DISTANCE ] < 0.01 )
           source_position[ DISTANCE ] = 0.01;
-        else
-          source_position[ DISTANCE ] = x->distance;
 
 		// Pre-filtering the signal to attenuate it by 1 / distance^2
 		t_float attenuation = 1 / ( source_position[ DISTANCE ] * source_position[ DISTANCE ] );
