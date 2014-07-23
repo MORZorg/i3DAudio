@@ -79,9 +79,9 @@
 	\begin{frame}
 		\frametitle{\insertsection}
 		\begin{itemize}
-			\item The KEMAR database is a list of HRTF recorded using a manikin with two
+			\item The \textsc{KEMAR} database is a list of \textsc{HRTF} recorded using a manikin with two
 				microphones in place of the ears
-			\item Each HRTF is a couple of 128-samples FIR filters (one per ear), associated to the position
+			\item Each \textsc{HRTF} is a couple of 128-samples FIR filters (one per ear), associated to the position
 				of the source at the moment of recording
 		\end{itemize}
 	\end{frame}
@@ -90,8 +90,8 @@
 		\frametitle{\insertsection}
 		\begin{itemize}
 			\item The database is a textual file containing the data
-			\item The database is processed offline and translated in three vectors containing the
-				points' position, their HRTF and the result of the {\em Delaunay Triangulation}
+			\item It is processed off-line and translated in three vectors containing the
+              points' position, their \textsc{HRTF} and the result of the {\em Delaunay Triangulation}
 		\end{itemize}
 	\end{frame}
 
@@ -131,7 +131,7 @@
 		\frametitle{\insertsection}
 		\begin{figure}
 			\centering
-			  \includegraphics[width=0.7\textwidth]{images/Test_patch.png}
+			  \includegraphics[width=1.0\textwidth]{images/Test_patch.png}
 			  \caption{The patch used to test our external}
 			  \label{fig:test}
 		\end{figure}
@@ -140,7 +140,7 @@
 	\begin{frame}
 		\frametitle{\insertsection}
 		\begin{itemize}
-			\item The block orz$\_$hrtf$\sim$ filters the signal in the given source's position
+          \item The block {\em orz\_hrtf$\sim$} filters the signal in the given source's position
 			\item The position is given in azimuth, elevation and distance from the user
 			\item The resulting outlets are the left and right channel of the filtered signal
 		\end{itemize}
@@ -150,7 +150,7 @@
 		\frametitle{\insertsection}
 		\begin{figure}
 			\centering
-			  \includegraphics[width=0.5\textwidth]{images/iOS_patch.png}
+			  \includegraphics[width=1.0\textwidth]{images/iOS_patch.png}
 			  \caption{The patch used by the app}
 			  \label{fig:ios_pd}
 		\end{figure}
@@ -159,14 +159,32 @@
 	\begin{frame}
 		\frametitle{\insertsection}
 		\begin{itemize}
-			\item Now the parameters are received from outside (r blocks)
-			\item Also, the azimuth and elevation are modified accordingly to the given yaw and pitch of
-				the head
+			\item The parameters are received from outside ({\em receive} blocks)
+			\item The azimuth and elevation are modified accordingly to
+				the given yaw, pitch and roll of the head
+			\item A version with a simulated stereo source of the patch has been made
 		\end{itemize}
 	\end{frame}
 
-	\section{Processing external}
+	\begin{frame}
+		\frametitle{\insertsection}
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.0\textheight]{images/iOS_patch_conversion.png}
+			\caption{The patch used to map yaw, pitch and roll\\into azimuth and elevation}
+		\end{figure}
+	\end{frame}
 
+	\begin{frame}
+		\frametitle{\insertsection}
+		\begin{figure}
+			\centering
+			  \includegraphics[width=1.0\textwidth]{images/iOS_patch_stereo.png}
+			  \caption{The simulated stereo patch used by the app}
+		\end{figure}
+	\end{frame}
+
+	\section{Processing external}
 	\subsection{Structure}
 
 	\begin{frame}
@@ -185,25 +203,25 @@
 		The {\em perform} method works this way
 		\begin{itemize}
 			\item Find the points that form the triangle which encloses the source
-			\item Determine the coefficients for the HRTF interpolation interpolate it
-			\item Filter the signal separately with the left and right HRTFs
+			\item Determine the coefficients for the \textsc{HRTF} interpolation interpolate it
+			\item Filter the signal separately with the left and right \textsc{HRTF}s
 		\end{itemize}
 	\end{frame}
 
-	\subsection{HRTF interpolation}
+	\subsection{\textsc{HRTF} interpolation}
 
 	\begin{frame}
 		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
 			\item The distance between the triangles and the source is used as a first estimate of the probability of enclosing
 				the source
-			\item The correct one will be the one that produces positive coefficients for the source's HRTF interpolation
+			\item The correct one will be the one that produces positive coefficients for the source's \textsc{HRTF} interpolation
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{\insertsection\ - \insertsubsection}
-		$$ HRTF_{s,l,r} = \sum\limits_{i=0}^2 \dfrac{ g_i } { \left( \sum\limits_{j=0}^2 g_j \right) } \cdot HRTF_{i,l,r} $$
+		$$ \textsc{HRTF}_{s,l,r} = \sum\limits_{i=0}^2 \dfrac{ g_i } { \left( \sum\limits_{j=0}^2 g_j \right) } \cdot \textsc{HRTF}_{i,l,r} $$
 		$$ g = H^{-1} \cdot s $$
 		$$ H = [ point_0 | point_1 | point_2 ] $$
 	\end{frame}
@@ -213,7 +231,7 @@
 	\begin{frame}
 		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
-			\item The filtering is a convolution of the signal with the two computed HRTFs
+			\item The filtering is a convolution of the signal with the two computed \textsc{HRTF}s
 			\item Past filters are used to smoothen the transition from one filter to another
 		\end{itemize}
 	\end{frame}
@@ -224,7 +242,7 @@
 		\frametitle{\insertsection}
 		\begin{figure}
 			\centering
-			\includegraphics[width=0.6\textwidth]{images/iOS_screenshot_0.png}
+			\includegraphics[width=1.0\textheight]{images/iOS_screenshot_0.png}
 			\caption{The app running on an iPad}
 			\label{fig:ios_app}
 		\end{figure}
@@ -236,7 +254,7 @@
 			\item Three views of the user's head and the source
 			\item The users' head can be turned and the source moved with a drag and drop
 			\item The sound is automatically adjusted to the given position by communicating the
-				new parameters to the pd patch
+				new parameters to the PD patch
 		\end{itemize}
 	\end{frame}
 
