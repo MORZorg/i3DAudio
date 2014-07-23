@@ -1,10 +1,10 @@
-#N canvas 677 143 954 652 10;
+#N canvas 675 159 471 413 10;
 #X obj 31 332 dac~;
 #X msg 97 90 start;
 #X msg 154 90 stop;
 #X obj 60 135 r azimuth;
 #X obj 288 131 r elevation;
-#X obj 118 258 r distance;
+#X obj 134 211 r distance;
 #X obj 97 57 r start;
 #X obj 31 19 r open;
 #X obj 291 292 pack f f f;
@@ -12,10 +12,10 @@
 #X obj 60 203 -;
 #X obj 179 129 r pitch;
 #X obj 232 130 r roll;
-#X obj 91 188 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 93 168 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 280 194 -;
-#X obj 313 179 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 249 158 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 291 270 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;

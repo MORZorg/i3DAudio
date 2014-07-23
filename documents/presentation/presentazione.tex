@@ -112,8 +112,17 @@
 		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{figure}
 			\centering
-			  \includegraphics[width=0.6\textwidth]{images/marine.jpg}
+			  \includegraphics[width=0.6\textwidth]{images/triangulation.png}
+			  \caption{Triangulation}
 		\end{figure}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\insertsection\ - \insertsubsection}
+		\begin{itemize}
+			\item The triangulation is in 2D, the coordinates are azimuth and elevation
+			\item The distance is assumed to be 1 for every point
+		\end{itemize}
 	\end{frame}
 
 	\section{Pure Data patch}
@@ -223,14 +232,22 @@
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		\begin{figure}
-			\centering
-			\includegraphics[width=0.6\textwidth]{images/marine.jpg}
-		\end{figure}
+		\begin{itemize}
+			\item Three views of the user's head and the source
+			\item The users' head can be turned and the source moved with a drag and drop
+			\item The sound is automatically adjusted to the given position by communicating the
+				new parameters to the pd patch
+		\end{itemize}
 	\end{frame}
+
+	\section{Conclusions}
 
 	\begin{frame}
 		\frametitle{\insertsection}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.6\textwidth]{images/alas.jpg}
+		\end{figure}
 	\end{frame}
 
 \end{document}
