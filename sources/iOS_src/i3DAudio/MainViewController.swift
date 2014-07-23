@@ -16,6 +16,8 @@ class MainViewController: UIViewController, MPMediaPickerControllerDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        audioController.openDefault()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,6 +32,18 @@ class MainViewController: UIViewController, MPMediaPickerControllerDelegate {
         picker.prompt = NSLocalizedString("MainMediaPicker.title", tableName: nil, bundle: NSBundle.mainBundle(), value: "", comment: "")
         
         presentViewController(picker, animated: true, completion: nil)
+    }
+    
+    @IBAction func resetSource(sender: AnyObject) {
+        audioController.openDefault()
+
+        PositionSingleton.instance.distance = 1
+        PositionSingleton.instance.elevation = 0
+        PositionSingleton.instance.azimuth = 0
+
+        OrientationSingleton.instance.yaw = 0
+        OrientationSingleton.instance.pitch = 0
+        OrientationSingleton.instance.roll = 0
     }
     
     func mediaPicker(mediaPicker: MPMediaPickerController!, didPickMediaItems mediaItemCollection: MPMediaItemCollection!) {

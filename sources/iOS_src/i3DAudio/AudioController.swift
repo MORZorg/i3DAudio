@@ -18,12 +18,12 @@ class AudioController: NSObject, SimpleObserver {
         PdBase.setDelegate(self)
         OrzHrtfTildeCompatibility.setup()
         
-        PdBase.openFile("hrtf.pd", path: NSBundle.mainBundle().resourcePath)
+        PdBase.openFile("hrtf_stereo.pd", path: NSBundle.mainBundle().resourcePath)
         controller.active = true
         
-        controller.print()
-        
-        openFile(NSURL(string: "the_lord_has_spoken.wav"))
+        if DEBUG == 1 {
+            controller.print()
+        }
         
         PositionSingleton.instance.delegate = self
         OrientationSingleton.instance.delegate = self
@@ -40,5 +40,9 @@ class AudioController: NSObject, SimpleObserver {
     func openFile(filename: NSURL) {
         PdBase.sendSymbol(filename.absoluteString, toReceiver: "open")
         PdBase.sendBangToReceiver("start")
+    }
+    
+    func openDefault() {
+        openFile(NSURL(string: "the_lord_has_spoken.wav"))
     }
 }

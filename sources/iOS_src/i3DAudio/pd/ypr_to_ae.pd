@@ -1,33 +1,33 @@
 #N canvas 247 426 450 300 10;
-#X obj 29 32 inlet;
-#X obj 180 31 inlet;
-#X obj 388 26 inlet;
-#X obj 28 262 outlet;
-#X obj 238 258 outlet;
-#X text 25 10 Yaw;
+#X obj 25 32 inlet;
+#X obj 180 32 inlet;
+#X obj 388 32 inlet;
+#X obj 25 262 outlet;
+#X obj 238 262 outlet;
+#X text 25 8 Yaw;
 #X text 180 8 Pitch;
-#X text 387 4 Roll;
-#X text 27 282 Azimuth;
-#X text 233 282 Elevation;
-#X obj 279 113 *;
-#X obj 258 158 cos;
-#X obj 302 156 sin;
-#X obj 213 198 *;
-#X obj 317 198 *;
-#X obj 91 133 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X text 388 8 Roll;
+#X text 25 282 Azimuth;
+#X text 238 282 Elevation;
+#X obj 279 95 *;
+#X obj 219 128 cos;
+#X obj 337 128 sin;
+#X obj 180 195 *;
+#X obj 388 195 *;
+#X obj 279 140 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
 #X msg 294 63 0.0174533;
 #X obj 294 39 loadbang;
-#X obj 242 198 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+#X obj 238 212 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
 -1 -1;
 #X obj 238 230 -;
 #X connect 0 0 3 0;
 #X connect 0 0 10 0;
-#X connect 0 0 15 0;
 #X connect 1 0 13 0;
 #X connect 2 0 14 0;
 #X connect 10 0 11 0;
 #X connect 10 0 12 0;
+#X connect 10 0 15 0;
 #X connect 11 0 13 1;
 #X connect 12 0 14 1;
 #X connect 13 0 19 0;

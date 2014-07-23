@@ -19,6 +19,7 @@
 		C252B2CD197926C600A386A4 /* the_lord_has_spoken.wav in Resources */ = {isa = PBXBuildFile; fileRef = C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */; };
 		C252B5A719792B9F00760AF1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B5A619792B9F00760AF1 /* AudioToolbox.framework */; };
 		C252B5A919792BA300760AF1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C252B5A819792BA300760AF1 /* AVFoundation.framework */; };
+		C28418EF197FAE4600701FA9 /* hrtf_stereo.pd in Resources */ = {isa = PBXBuildFile; fileRef = C28418EE197FAE4600701FA9 /* hrtf_stereo.pd */; };
 		C29E42FF197C0A1600163E4C /* hrtf_triplet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29E42FA197C0A1600163E4C /* hrtf_triplet.cpp */; };
 		C29E4300197C0A1600163E4C /* orz_hrtf~.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29E42FD197C0A1600163E4C /* orz_hrtf~.cpp */; };
 		C2A05750197E6544007D44E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2A0574F197E6544007D44E2 /* MainViewController.swift */; };
@@ -82,6 +83,8 @@
 		C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = the_lord_has_spoken.wav; path = ../../samples/the_lord_has_spoken.wav; sourceTree = "<group>"; };
 		C252B5A619792B9F00760AF1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		C252B5A819792BA300760AF1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C28418EE197FAE4600701FA9 /* hrtf_stereo.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = hrtf_stereo.pd; path = pd/hrtf_stereo.pd; sourceTree = "<group>"; };
+		C28418F2197FB18B00701FA9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C29E42F9197C0A1600163E4C /* hrtf_data.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = hrtf_data.hpp; path = ../../puredata_src/hrtf_data.hpp; sourceTree = "<group>"; };
 		C29E42FA197C0A1600163E4C /* hrtf_triplet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hrtf_triplet.cpp; path = ../../puredata_src/hrtf_triplet.cpp; sourceTree = "<group>"; };
 		C29E42FB197C0A1600163E4C /* hrtf_triplet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = hrtf_triplet.hpp; path = ../../puredata_src/hrtf_triplet.hpp; sourceTree = "<group>"; };
@@ -89,7 +92,6 @@
 		C29E42FD197C0A1600163E4C /* orz_hrtf~.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "orz_hrtf~.cpp"; path = "../../puredata_src/orz_hrtf~.cpp"; sourceTree = "<group>"; };
 		C29E42FE197C0A1600163E4C /* orz_hrtf~.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "orz_hrtf~.hpp"; path = "../../puredata_src/orz_hrtf~.hpp"; sourceTree = "<group>"; };
 		C2A0574F197E6544007D44E2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		C2A05752197E6CF3007D44E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C2A05758197E7196007D44E2 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C2A0575A197E71AD007D44E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C2AF70D8197EA2EF006C9756 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				C214E84C197BFA500028C773 /* hrtf.pd */,
+				C28418EE197FAE4600701FA9 /* hrtf_stereo.pd */,
 				C21F2892197EB33F001F7D64 /* ypr_to_ae.pd */,
 				C2260A09197948D10063E832 /* audio_test.pd */,
 				C252B2CC197926C600A386A4 /* the_lord_has_spoken.wav */,
@@ -358,6 +361,7 @@
 			files = (
 				C21F2893197EB33F001F7D64 /* ypr_to_ae.pd in Resources */,
 				C2260A0A197948D10063E832 /* audio_test.pd in Resources */,
+				C28418EF197FAE4600701FA9 /* hrtf_stereo.pd in Resources */,
 				C252B2CD197926C600A386A4 /* the_lord_has_spoken.wav in Resources */,
 				C220082A1977F9F700AA31D1 /* Images.xcassets in Resources */,
 				C2A05755197E718F007D44E2 /* Localizable.strings in Resources */,
@@ -435,7 +439,7 @@
 			children = (
 				C2B6A24F19729ABD00643E96 /* Base */,
 				C2FE5231197E5A3900F7BE4A /* it */,
-				C2A05752197E6CF3007D44E2 /* en */,
+				C28418F2197FB18B00701FA9 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
