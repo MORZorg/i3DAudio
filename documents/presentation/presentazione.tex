@@ -47,23 +47,23 @@
 		The project goal is to realize a 3D audio simulator for the iPad.
 		\begin{itemize}
 			\item The interface allows to move the audio source around
-			\item The interface also allows to change the orientation of the user (manipulating yaw
-				and pitch of the head)
+			\item The interface also allows to change the orientation of the user (manipulating yaw,
+				pitch and roll of the head)
 		\end{itemize}
 	\end{frame}
 
 	\begin{frame}
 		\frametitle{\insertsection}
 		The app is written in multiple languages:
-		\begin{itemize}
-			\item {\bf Ruby}, {\bf Matlab} A {\em Ruby} and a {\em Matlab} scripts are used to 
-				pre-process the Database
-			\item {\bf Pure Data} The audio I/O is managed using a {\em Pure Data} patch
-			\item {\bf C++} The functional core of the patch is a PD external written entirely
+		\begin{description}[leftmargin=1em]
+			\item[Ruby, MATLAB] A {\em Ruby} and a {\em MATLAB} scripts are
+				used to pre-process the Database
+			\item[Pure Data] The audio I/O is managed using a {\em Pure Data} patch
+			\item[C++] The functional core of the patch is a PD external written entirely
 				by us
-			\item {\bf Swift} The new Apple's language for iOS devices is used to develop the
+			\item[Swift] The new Apple's language for iOS devices is used to develop the
 				graphical interface of the app, which communicates with the PD patch
-		\end{itemize}
+		\end{description}
 	\end{frame}
 
 	\AtBeginSection[]
@@ -104,7 +104,7 @@
 			\item Each triangle has the points as vertices, such that no point is left inside a triangle
 			\item This subdivision allows us to search for the three points that determine the triangle enclosing the
 				source with little effort
-			\item The subdivision is performed thanks to a Matlab script called by the Ruby one
+			\item The subdivision is performed thanks to a MATLAB script called by the Ruby one
 		\end{itemize}
 	\end{frame}
 
@@ -171,7 +171,7 @@
 		\begin{figure}
 			\centering
 			\includegraphics[width=1.0\textheight]{images/iOS_patch_conversion.png}
-			\caption{The patch used to map yaw, pitch and roll\\into azimuth and elevation}
+			\caption{The patch used to map yaw, pitch and roll \newline into azimuth and elevation}
 		\end{figure}
 	\end{frame}
 
@@ -213,8 +213,7 @@
 	\begin{frame}
 		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
-			\item The distance between the triangles and the source is used as a first estimate of the probability of enclosing
-				the source
+			\item The distance between the triangles and the source is used as an heuristic to find the triangle enclosing the source
 			\item The correct one will be the one that produces positive coefficients for the source's \textsc{HRTF} interpolation
 		\end{itemize}
 	\end{frame}
@@ -240,22 +239,22 @@
 
 	\begin{frame}
 		\frametitle{\insertsection}
-		\begin{figure}
-			\centering
-			\includegraphics[width=1.0\textheight]{images/iOS_screenshot_0.png}
-			\caption{The app running on an iPad}
-			\label{fig:ios_app}
-		\end{figure}
-	\end{frame}
-
-	\begin{frame}
-		\frametitle{\insertsection}
 		\begin{itemize}
 			\item Three views of the user's head and the source
 			\item The users' head can be turned and the source moved with a drag and drop
 			\item The sound is automatically adjusted to the given position by communicating the
 				new parameters to the PD patch
 		\end{itemize}
+	\end{frame}
+
+	\begin{frame}
+		\frametitle{\insertsection}
+		\begin{figure}
+			\centering
+			\includegraphics[width=1.0\textheight]{images/iOS_screenshot_0.png}
+			\caption{The app running on an iPad}
+			\label{fig:ios_app}
+		\end{figure}
 	\end{frame}
 
 	\section{Conclusions}
