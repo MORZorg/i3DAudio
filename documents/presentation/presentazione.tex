@@ -31,7 +31,7 @@
 
 \title{3D audio source simulation on iOS devices}
 \author[Orizio, Rizzini, Zucchelli]{Orizio Riccardo, Rizzini Mattia, Zucchelli Maurizio}
-\date{xx july 2014}
+\date{1 August, 2014}
 \institute[UniBS]{University of Brescia}
 \logo{\includegraphics[width=15mm]{images/logo.png}}
 
@@ -171,7 +171,7 @@
 		\begin{figure}
 			\centering
 			\includegraphics[width=1.0\textheight]{images/iOS_patch_conversion.png}
-			\caption{The patch used to map yaw, pitch and roll \newline into azimuth and elevation}
+			\caption{The sub-patch used to map yaw, pitch and roll \newline into azimuth and elevation}
 		\end{figure}
 	\end{frame}
 
@@ -190,7 +190,7 @@
 	\begin{frame}
 		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
-			\item A Pure Data external must be written in C (or wrapped in C++)
+			\item A Pure Data external must be written in C or in wrapped C++
 			\item A {\em setup} method is called when the block is loaded in the patch to initialize inlets,
 				outlets and callback methods
 			\item A {\em new} method instantiates the internal data of the class
@@ -203,7 +203,7 @@
 		The {\em perform} method works this way
 		\begin{itemize}
 			\item Find the points that form the triangle which encloses the source
-			\item Determine the coefficients for the \textsc{HRTF} interpolation interpolate it
+			\item Determine the coefficients for the \textsc{HRTF} interpolation
 			\item Filter the signal separately with the left and right \textsc{HRTF}s
 		\end{itemize}
 	\end{frame}
@@ -213,7 +213,7 @@
 	\begin{frame}
 		\frametitle{\insertsection\ - \insertsubsection}
 		\begin{itemize}
-			\item The distance between the triangles and the source is used as an heuristic to find the triangle enclosing the source
+			\item The distance between the centre of each triangle and the source is used as an heuristic to find the triangle enclosing the source
 			\item The correct one will be the one that produces positive coefficients for the source's \textsc{HRTF} interpolation
 		\end{itemize}
 	\end{frame}
@@ -235,13 +235,25 @@
 		\end{itemize}
 	\end{frame}
 
+	\subsection{Distance}
+
+	\begin{frame}
+		\frametitle{\insertsection\ - \insertsubsection}
+        \begin{itemize}
+          \item The \textsc{HRTF} is considered to be distance invariant for distances higher than one meter
+          \item The effect attenuation caused by the distance is simulated using the {\em Inverse Square Law}
+            $$ I(r) = \frac{I_{0}}{r^2} $$
+          \item For lower distances the whole interpolation process becomes much harder
+      \end{itemize}
+	\end{frame}
+
 	\section{The iPad interface}
 
 	\begin{frame}
 		\frametitle{\insertsection}
 		\begin{itemize}
 			\item Three views of the user's head and the source
-			\item The users' head can be turned and the source moved with a drag and drop
+			\item The user's head can be turned and the source moved with a drag and drop
 			\item The sound is automatically adjusted to the given position by communicating the
 				new parameters to the PD patch
 		\end{itemize}
@@ -257,13 +269,14 @@
 		\end{figure}
 	\end{frame}
 
-	\section{Conclusions}
+	\section*{Conclusions}
 
 	\begin{frame}
 		\frametitle{\insertsection}
 		\begin{figure}
 			\centering
 			\includegraphics[width=0.6\textwidth]{images/alas.jpg}
+            \caption{Suggested grade: 30}
 		\end{figure}
 	\end{frame}
 
