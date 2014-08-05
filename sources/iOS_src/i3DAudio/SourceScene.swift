@@ -57,7 +57,7 @@ class SourceScene: SKScene {
                 headTouch = touch
             }
         }
-        if !headTouch {
+        if headTouch == nil {
             sourceTouch = touches.anyObject()
         }
     }

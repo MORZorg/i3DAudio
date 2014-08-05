@@ -11,7 +11,7 @@ import UIKit
 class AudioController: NSObject, SimpleObserver {
     let controller = PdAudioController()
     
-    init() {
+    override init() {
         super.init()
         
         controller.configureAmbientWithSampleRate(44100, numberChannels: 2, mixingEnabled: true)

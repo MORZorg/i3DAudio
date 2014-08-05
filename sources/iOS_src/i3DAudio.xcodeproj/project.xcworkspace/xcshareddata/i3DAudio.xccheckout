@@ -10,31 +10,43 @@
 	<string>i3DAudio</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>A304ACB8-F9A1-44B7-8DC8-C423206F5CB3</key>
+		<key>1A0B07D1631AC7F0F17FCE76695E42D64F01958F</key>
+		<string>https://github.com/libpd/libpd.git</string>
+		<key>85CBC810A2EB86BA4E0D545AB62C56652C0658C2</key>
 		<string>https://github.com/MORZorg/i3DAudio.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>sources/iOS_src/i3DAudio.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>A304ACB8-F9A1-44B7-8DC8-C423206F5CB3</key>
+		<key>1A0B07D1631AC7F0F17FCE76695E42D64F01958F</key>
+		<string>../../../../sources/iOS_src/libpd/</string>
+		<key>85CBC810A2EB86BA4E0D545AB62C56652C0658C2</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/MORZorg/i3DAudio.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>A304ACB8-F9A1-44B7-8DC8-C423206F5CB3</string>
+	<string>85CBC810A2EB86BA4E0D545AB62C56652C0658C2</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>A304ACB8-F9A1-44B7-8DC8-C423206F5CB3</string>
+			<string>85CBC810A2EB86BA4E0D545AB62C56652C0658C2</string>
 			<key>IDESourceControlWCCName</key>
 			<string>i3DAudio</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1A0B07D1631AC7F0F17FCE76695E42D64F01958F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>libpd</string>
 		</dict>
 	</array>
 </dict>
