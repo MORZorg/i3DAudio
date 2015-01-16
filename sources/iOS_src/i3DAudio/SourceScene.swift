@@ -24,8 +24,8 @@ class SourceScene: SKScene {
     var sourceTouch: AnyObject?
     
     override func didMoveToView(view: SKView) {
-        let headNode = self.childNodeWithName("head")
-        let sourceNode = self.childNodeWithName("source")
+        let headNode = self.childNodeWithName("head")!
+        let sourceNode = self.childNodeWithName("source")!
         switch shownPerspective {
         case let perspective where perspective == "top":
             headNodeHandler = TopHeadNodeHandler(node: headNode)
@@ -44,7 +44,7 @@ class SourceScene: SKScene {
             sourceNodeHandler = SourceNodeHandler(node: sourceNode)
         }
         
-        headNode!.runAction(SKAction.setTexture(headNodeHandler?.getTexture()))
+        headNode.runAction(SKAction.setTexture(headNodeHandler!.getTexture()!))
     }
     
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
@@ -62,7 +62,7 @@ class SourceScene: SKScene {
         }
     }
     
-    override func touchesMoved(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch moves */
         if let location = sourceTouch?.locationInNode(self) {
             sourceNodeHandler?.changePosition(location)
@@ -72,7 +72,7 @@ class SourceScene: SKScene {
         }
     }
     
-    override func touchesEnded(touches: NSSet!, withEvent event: UIEvent!) {
+    override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
         /* Called when a touch ends */
         touchesMoved(touches, withEvent: event)
         headTouch = nil

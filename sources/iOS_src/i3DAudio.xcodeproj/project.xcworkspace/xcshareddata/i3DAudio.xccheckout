@@ -16,11 +16,11 @@
 		<string>https://github.com/MORZorg/i3DAudio.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>sources/iOS_src/i3DAudio.xcodeproj/project.xcworkspace</string>
+	<string>sources/iOS_src/i3DAudio.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>1A0B07D1631AC7F0F17FCE76695E42D64F01958F</key>
-		<string>../../../../sources/iOS_src/libpd/</string>
+		<string>../../../..sources/iOS_src/libpd</string>
 		<key>85CBC810A2EB86BA4E0D545AB62C56652C0658C2</key>
 		<string>../../../..</string>
 	</dict>

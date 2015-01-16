@@ -43,6 +43,6 @@ class AudioController: NSObject, SimpleObserver {
     }
     
     func openDefault() {
-        openFile(NSURL(string: "the_lord_has_spoken.wav"))
+        openFile(NSURL(string: "the_lord_has_spoken.wav")!)
     }
 }
